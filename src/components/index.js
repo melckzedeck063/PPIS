@@ -1,15 +1,30 @@
-import React from 'react'
+import React, { useState } from 'react'
 
-import image1 from  '../assets/image2.jpg';
+
+import Modal from 'react-modal';
+import image1 from '../assets/image2.jpg';
+import Login from './Login';
+
+Modal.setAppElement('#root'); // Set the root element for accessibility
 
 export default function Index() {
+  const [modalIsOpen, setModalIsOpen] = useState(false);
+
+  const openModal = () => {
+    setModalIsOpen(true);
+  };
+
+  const closeModal = () => {
+    setModalIsOpen(false);
+  };
+
   return (
     <div>
         <section class="relative  bg-bluee-500">
 <div class="relative pt-16 pb-32 flex content-center items-center justify-center min-h-screen-75">
 
 <div
-  className="absolute top-0 left-0 w-full h-72 bg-center bg-cover"
+  className="absolute top-0 left-0 w-full h-full bg-center bg-cover"
   style={{
     backgroundImage: `url(${image1})`,
     
@@ -86,12 +101,34 @@ export default function Index() {
               </div>
             </div>
           </div>
+
+          <div className="relative container">
+              <button
+                onClick={openModal}
+                className="mx-auto w-28 h-8 py-1 text-center bg-sky-600 text-white rounded-lg hover:cursor-pointer hover:bg-green-600"
+              >
+                Get Started
+              </button>
+            </div>
+            <Modal
+              isOpen={modalIsOpen}
+              onRequestClose={closeModal}
+              contentLabel="Example Modal"
+            >
+              <Login />
+              <div className="absolute top-1 right-4 bg-red-500">
+
+              <button onClick={closeModal}>Close Modal</button>
+              </div>
+            </Modal>
+
+
            <footer class="relative  pt-8 pb-6 mt-1">
   <div class="container mx-auto px-4">
     <div class="flex flex-wrap items-center md:justify-between justify-center">
       <div class="w-full md:w-6/12 px-4 mx-auto text-center">
-        <div class="text-sm text-gray-100 font-semibold py-1">
-          Made with <a href="https://react.dev/" class="text-gray-300 hover:text-gray-300" target="_blank">React JS</a> by <a href="https://melckzedeck-blog.vercel.app/" class="text-gray-200 hover:text-blueGray-800" target="_blank"> Melckzedeck</a>.
+        <div class="text-sm text-sky-600 font-semibold py-1">
+          Made with <a href="https://react.dev/" class="text-sky-600 hover:text-green-600" target="_blank">React JS</a> by <a href="https://melckzedeck-blog.vercel.app/" class="text-sky-600 hover:text-blueGray-800" target="_blank"> Melckzedeck</a>.
         </div>
       </div>
     </div>

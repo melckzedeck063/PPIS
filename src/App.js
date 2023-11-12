@@ -1,6 +1,7 @@
 import { BrowserRouter, Route, Routes } from "react-router-dom";
 import Dashboard from "./components/dashboard";
 import Index from "./components";
+import Login from "./components/Login";
 
 
 function App() {
@@ -8,6 +9,7 @@ function App() {
  <BrowserRouter>
     <Routes>
       <Route path="/" element={<Index  />} />
+      <Route path="/login" element={<Login />} />
     </Routes>
  </BrowserRouter>
   );
