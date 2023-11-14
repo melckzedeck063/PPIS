@@ -4,6 +4,7 @@ import React, { useState } from 'react'
 import Modal from 'react-modal';
 import image1 from '../assets/image2.jpg';
 import Login from './Login';
+import * as MdIcons from 'react-icons/md';
 
 Modal.setAppElement('#root'); // Set the root element for accessibility
 
@@ -118,9 +119,10 @@ export default function Index() {
               contentLabel="Example Modal"
             >
               <Login />
-              <div className="absolute top-1 right-4 bg-red-500">
-
-              <button onClick={closeModal}>Close Modal</button>
+              <div className="absolute top-6 right-6 bg-red-500 rounded-full">
+                <span   onClick={closeModal} className=" text-white text-3xl font-bold cursor-pointer">
+                  <MdIcons.MdOutlineCancel  />
+                </span>
               </div>
             </Modal>
 

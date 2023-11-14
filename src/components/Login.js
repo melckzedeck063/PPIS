@@ -1,14 +1,33 @@
 import React, { useState } from 'react'
 
-import Modal from 'react-modal';
 import SignUp from './SignUp';
+import * as MdIcons from 'react-icons/md';
+import { useForm } from 'react-hook-form';
+import * as Yup from 'yup';
+import { yupResolver } from '@hookform/resolvers/yup'
+// import Loader from '../admin/component/loader/loader';
 
+import Modal from 'react-modal';
 Modal.setAppElement('#root'); // Set the root element for accessibility
+
+
+const schema = Yup.object({
+    username: Yup
+        .string()
+        .required("Please fill out username is required")
+        .email()
+        .trim(),
+    password: Yup
+        .string()
+        .required("Please fill out password is required")
+        .trim()
+
+})
 
 export default function Login() {
 
-    const [modalIsOpen, setModalIsOpen] = useState(false);
     const [signUpModal,setSignupModal] = useState(false);
+    const [modalIsOpen, setModalIsOpen] = useState(false);
 
   const openModal = () => {
     setModalIsOpen(true);
@@ -19,21 +38,25 @@ export default function Login() {
   };
 
   const openSignupModal = () =>{
-    if(modalIsOpen){
-        setModalIsOpen(false);
-
-        setTimeout(() => {
-            setSignupModal(true);
-        }, 1000);
-    }
-
-    setSignupModal(true)
+        setSignupModal(true)
   }
 
   const closeSignupModal =()=>{
     setSignupModal(false);
   }
 
+  const { register, handleSubmit, reset, formState: { errors, isDirty, isValid, isSubmitSuccessful } } = useForm({
+    mode: "all",
+    reValidateMode: "onChange",
+    shouldFocusError: true,
+    resolver: yupResolver(schema)
+})
+
+const onSubmit = data => {
+    // navigate('/dashboard')
+    console.log(data)
+
+}
   return (
     <div>
 
@@ -51,7 +74,7 @@ export default function Login() {
       </div>
     </div>
     <div class="mt-10">
-      <form action="#">
+      <form action="#" onSubmit={handleSubmit(onSubmit)}>
         <div class="flex flex-col mb-6">
           <label for="email" class="mb-1 text-xs sm:text-sm tracking-wide text-gray-600">E-Mail Address:</label>
           <div class="relative">
@@ -61,7 +84,12 @@ export default function Login() {
               </svg>
             </div>
 
-            <input id="email" type="email" name="email" class="text-sm sm:text-base placeholder-gray-500 pl-10 pr-4 rounded-lg border border-gray-400 w-full py-2 focus:outline-none focus:border-blue-400" placeholder="E-Mail Address" />
+            <input id="email" type="email" name="email" class={`text-sm sm:text-base placeholder-gray-500 pl-10 pr-4 rounded-lg border border-gray-400 w-full py-2 focus:outline-none focus:border-blue-400" placeholder="E-Mail Address ${errors.username ? "border-red-500" : "border-sky-500"}`}
+               defaultValue={""}
+               {...register("username")}
+           />
+           <span className="text-sm text-red-500"> {errors.username?.message} </span>
+            
           </div>
         </div>
         <div class="flex flex-col mb-6">
@@ -75,7 +103,11 @@ export default function Login() {
               </span>
             </div>
 
-            <input id="password" type="password" name="password" class="text-sm sm:text-base placeholder-gray-500 pl-10 pr-4 rounded-lg border border-gray-400 w-full py-2 focus:outline-none focus:border-blue-400" placeholder="Password" />
+            <input id="password" type="password" name="password" class={`text-sm sm:text-base placeholder-gray-500 pl-10 pr-4 rounded-lg border border-gray-400 w-full py-2 focus:outline-none focus:border-blue-400" placeholder="Password  ${errors.password ? "border-red-500" : "border-sky-500"}`}
+               defaultValue={""}
+               {...register("password")}
+           />
+           <span className="text-sm text-red-500"> {errors.password?.message} </span>
           </div>
         </div>
 
@@ -86,7 +118,8 @@ export default function Login() {
         </div>
 
         <div class="flex w-full">
-          <button type="submit" class="flex items-center justify-center focus:outline-none text-white text-sm sm:text-base bg-blue-600 hover:bg-blue-700 rounded py-2 w-full transition duration-150 ease-in">
+          <button type="submit" disabled={!isValid || !isDirty} 
+            class="flex items-center justify-center focus:outline-none text-white text-sm sm:text-base bg-blue-600 hover:bg-blue-700 rounded py-2 w-full transition duration-150 ease-in">
             <span class="mr-2 uppercase">Login</span>
             <span>
               <svg class="h-6 w-6" fill="none" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" viewBox="0 0 24 24" stroke="currentColor">
@@ -114,9 +147,12 @@ export default function Login() {
               contentLabel="Example Modal"
             >
               <SignUp />
-              <div className="absolute top-1 right-4 bg-red-500">
+              <div className="absolute top-6 right-6 bg-red-500 rounded-full">
 
-              <button onClick={closeSignupModal}>Close Modal</button>
+              {/* <button onClick={closeSignupModal}>Close Modal</button> */}
+              <span   onClick={closeSignupModal} className=" text-white text-3xl font-bold cursor-pointer">
+                <MdIcons.MdOutlineCancel  />
+              </span>
               </div>
             </Modal>
   </div>
