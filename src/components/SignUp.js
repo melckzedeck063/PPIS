@@ -65,7 +65,7 @@ export default function SignUp() {
       <div class="flex justify-between gap-3">
         <span class="w-1/2">
           <label for="firstname" class="block text-xs font-semibold text-gray-600 uppercase">Firstname</label>
-          <input id="firstname" type="text" name="firstname" placeholder="John" autocomplete="given-name" class={`text-sm sm:text-base placeholder-gray-500 pl-10 pr-4 rounded-lg border border-gray-400 w-full py-2 focus:outline-none focus:border-blue-400 ${errors.firstname ? "border-red-500" : "border-sky-500"}`} 
+          <input id="firstname" type="text" name="firstname" placeholder="John" autocomplete="given-name" class={`text-sm sm:text-base placeholder-gray-500 pl-10 pr-4 rounded-lg border border-gray-400 w-full py-2 focus:outline-none focus:border-blue-400 ${errors.firstname? "border-red-500" : "border-sky-500"}`} 
             defaultValue={""}
             {...register("firstname")}
         />

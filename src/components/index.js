@@ -5,6 +5,7 @@ import Modal from 'react-modal';
 import image1 from '../assets/image2.jpg';
 import Login from './Login';
 import * as MdIcons from 'react-icons/md';
+import { StickyNavbar } from './StickyNavbar';
 
 Modal.setAppElement('#root'); // Set the root element for accessibility
 
@@ -21,6 +22,7 @@ export default function Index() {
 
   return (
     <div>
+      <StickyNavbar  />
         <section class="relative  bg-bluee-500">
 <div class="relative pt-16 pb-32 flex content-center items-center justify-center min-h-screen-75">
 
