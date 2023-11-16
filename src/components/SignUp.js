@@ -59,13 +59,13 @@ export default function SignUp() {
   return (
     <div className='bg-gray-200'>
 <div class="grid min-h-screen place-items-center">
-  <div class="w-11/12 p-12 bg-white rounded-lg sm:w-8/12 md:w-1/2 lg:w-5/12">
+  <div class="w-11/12 p-11 bg-white rounded-lg sm:w-9/12 md:w-1/2 lg:w-5/12">
     <h1 class="text-xl font-semibold">Hello there ?, <span class="font-normal">please fill in your information to continue</span></h1>
     <form class="mt-6" onSubmit={handleSubmit(onSubmit)}>
       <div class="flex justify-between gap-3">
         <span class="w-1/2">
           <label for="firstname" class="block text-xs font-semibold text-gray-600 uppercase">Firstname</label>
-          <input id="firstname" type="text" name="firstname" placeholder="John" autocomplete="given-name" class={`text-sm sm:text-base placeholder-gray-500 pl-10 pr-4 rounded-lg border border-gray-400 w-full py-2 focus:outline-none focus:border-blue-400 ${errors.firstname? "border-red-500" : "border-sky-500"}`} 
+          <input id="firstname" type="text" name="firstname" placeholder="John" autocomplete="given-name" class={`text-sm sm:text-base placeholder-gray-500 pl-4 pr-3 rounded-lg border border-gray-400 w-full py-2 focus:outline-none focus:border-blue-400 ${errors.firstname? "border-red-500" : "border-sky-500"}`} 
             defaultValue={""}
             {...register("firstname")}
         />
@@ -73,7 +73,7 @@ export default function SignUp() {
         </span>
         <span class="w-1/2">
           <label for="lastname" class="block text-xs font-semibold text-gray-600 uppercase">Lastname</label>
-        <input id="lastname" type="text" name="lastname" placeholder="Doe" autocomplete="family-name" class={`text-sm sm:text-base placeholder-gray-500 pl-10 pr-4 rounded-lg border border-gray-400 w-full py-2 focus:outline-none focus:border-blue-400 ${errors.lastname ? "border-red-500" : "border-sky-500"}`}
+        <input id="lastname" type="text" name="lastname" placeholder="Doe" autocomplete="family-name" class={`text-sm sm:text-base placeholder-gray-500 pl-4 pr-3 rounded-lg border border-gray-400 w-full py-2 focus:outline-none focus:border-blue-400 ${errors.lastname ? "border-red-500" : "border-sky-500"}`}
         defaultValue={""}
         {...register("lastname")}
         />
@@ -81,28 +81,28 @@ export default function SignUp() {
         </span>
       </div>
            <label for="email" class="block mt-2 text-xs font-semibold text-gray-600 uppercase">E-mail Address</label>
-           <input id="email" type="email" name="email" placeholder="john.doe@company.com" autocomplete="email" class={`text-sm sm:text-base placeholder-gray-500 pl-10 pr-4 rounded-lg border border-gray-400 w-full py-2 focus:outline-none focus:border-blue-400 ${errors.email?"border-red-500" : "border-sky-500"}`}
+           <input id="email" type="email" name="email" placeholder="john.doe@company.com" autocomplete="email" class={`text-sm sm:text-base placeholder-gray-500 pl-4 pr-3 rounded-lg border border-gray-400 w-full py-2 focus:outline-none focus:border-blue-400 ${errors.email?"border-red-500" : "border-sky-500"}`}
              defaultValue={""}
              {...register("email")}
            />
             <span className="text-red-500 text-sm">{errors.email?.message}</span>
         
          <label for="telephone" class="block mt-2 text-xs font-semibold text-gray-600 uppercase">Telephone</label>
-         <input id="telephone" type="telephone" name="telephone" placeholder="+255710020090" autocomplete="telephone" class={`text-sm sm:text-base placeholder-gray-500 pl-10 pr-4 rounded-lg border border-gray-400 w-full py-2 focus:outline-none focus:border-blue-400 ${errors.phone ? "border-red-500" : "border-sky-500"}`} 
+         <input id="telephone" type="telephone" name="telephone" placeholder="+255710020090" autocomplete="telephone" class={`text-sm sm:text-base placeholder-gray-500 pl-4 pr-3 rounded-lg border border-gray-400 w-full py-2 focus:outline-none focus:border-blue-400 ${errors.phone ? "border-red-500" : "border-sky-500"}`} 
            defaultValue={""}
            {...register("phone")}
          />
           <span className="text-red-500 text-sm">{errors.phone?.message}</span>
         
              <label for="password" class="block mt-2 text-xs font-semibold text-gray-600 uppercase">Password</label>
-            <input id="password" type="password" name="password" placeholder="********" autocomplete="new-password" class={`text-sm sm:text-base placeholder-gray-500 pl-10 pr-4 rounded-lg border border-gray-400 w-full py-2 focus:outline-none focus:border-blue-400 ${errors.password ? "border-red-500" :  "border-sky-500"}`}
+            <input id="password" type="password" name="password" placeholder="********" autocomplete="new-password" class={`text-sm sm:text-base placeholder-gray-500 pl-4 pr-3 rounded-lg border border-gray-400 w-full py-2 focus:outline-none focus:border-blue-400 ${errors.password ? "border-red-500" :  "border-sky-500"}`}
               defaultValue={""}
               {...register("password")}
             />
              <span className="text-red-500 text-sm">{errors.password?.message}</span>
          
             <label for="password-confirm" class="block mt-2 text-xs font-semibold text-gray-600 uppercase">Confirm password</label>
-            <input id="password-confirm" type="password" name="password-confirm" placeholder="********" autocomplete="new-password" class={`text-sm sm:text-base placeholder-gray-500 pl-10 pr-4 rounded-lg border border-gray-400 w-full py-2 focus:outline-none focus:border-blue-400`} 
+            <input id="password-confirm" type="password" name="password-confirm" placeholder="********" autocomplete="new-password" class={`text-sm sm:text-base placeholder-gray-500 pl-4 pr-3 rounded-lg border border-gray-400 w-full py-2 focus:outline-none focus:border-blue-400`} 
               defaultValue={""}
               {...register("confirmPassword")}
             />

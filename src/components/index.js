@@ -1,24 +1,14 @@
 import React, { useState } from 'react'
 
 
-import Modal from 'react-modal';
+
 import image1 from '../assets/image2.jpg';
 import Login from './Login';
-import * as MdIcons from 'react-icons/md';
 import { StickyNavbar } from './StickyNavbar';
 
-Modal.setAppElement('#root'); // Set the root element for accessibility
+
 
 export default function Index() {
-  const [modalIsOpen, setModalIsOpen] = useState(false);
-
-  const openModal = () => {
-    setModalIsOpen(true);
-  };
-
-  const closeModal = () => {
-    setModalIsOpen(false);
-  };
 
   return (
     <div>
@@ -52,11 +42,7 @@ export default function Index() {
             </div>
           </div>
         </div>
-        {/* <div class="top-auto bottom-0 left-0 right-0 w-full absolute pointer-events-none overflow-hidden h-70-px" style="transform: translateZ(0px)">
-          <svg class="absolute bottom-0 overflow-hidden" xmlns="http://www.w3.org/2000/svg" preserveAspectRatio="none" version="1.1" viewBox="0 0 2560 100" x="0" y="0">
-            <polygon class="text-blueGray-200 fill-current" points="2560 0 2560 100 0 100"></polygon>
-          </svg>
-        </div> */}
+      
       </div>
       <section class="pb-10 bg-blueGray-200 -mt-24">
         <div class="container mx-auto px-4">
@@ -107,27 +93,15 @@ export default function Index() {
             </div>
           </div>
 
-          <div className="relative container">
+          {/* <div className="relative container">
               <button
                 onClick={openModal}
                 className="mx-auto w-28 h-8 py-1 text-center bg-sky-600 text-white rounded-lg hover:cursor-pointer hover:bg-green-600"
               >
                 Get Started
               </button>
-            </div>
-            <Modal
-              isOpen={modalIsOpen}
-              onRequestClose={closeModal}
-              contentLabel="Example Modal"
-            >
-              <Login />
-              <div className="absolute top-6 right-6 bg-red-500 rounded-full">
-                <span   onClick={closeModal} className=" text-white text-3xl font-bold cursor-pointer">
-                  <MdIcons.MdOutlineCancel  />
-                </span>
-              </div>
-            </Modal>
-
+            </div> */}
+            
 
            <footer class="relative  pt-8 pb-6 mt-1">
   <div class="container mx-auto px-4">

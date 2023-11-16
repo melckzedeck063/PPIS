@@ -3,6 +3,7 @@ import React, { useState } from 'react'
 import SignUp from './SignUp';
 import * as MdIcons from 'react-icons/md';
 import { useForm } from 'react-hook-form';
+import { useNavigate } from 'react-router-dom';
 import * as Yup from 'yup';
 import { yupResolver } from '@hookform/resolvers/yup'
 // import Loader from '../admin/component/loader/loader';
@@ -28,6 +29,7 @@ export default function Login() {
 
     const [signUpModal,setSignupModal] = useState(false);
     const [modalIsOpen, setModalIsOpen] = useState(false);
+    const navigate = useNavigate();
 
   const openModal = () => {
     setModalIsOpen(true);
@@ -53,8 +55,8 @@ export default function Login() {
 })
 
 const onSubmit = data => {
-    // navigate('/dashboard')
     console.log(data)
+    navigate('/dashboard')
 
 }
   return (
