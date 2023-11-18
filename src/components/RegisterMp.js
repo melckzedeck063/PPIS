@@ -1,14 +1,34 @@
-import React, { useState } from 'react'
+import React from 'react'
 
-import * as MdIcons from 'react-icons/md';
-import * as Yup from 'yup';
-
-import Modal from 'react-modal';
 import { useForm } from 'react-hook-form';
-import { Spinner } from "@material-tailwind/react";
-import OTPform from './OTPform';
 import { yupResolver } from '@hookform/resolvers/yup';
-Modal.setAppElement('#root'); // Set the root element for accessibility
+
+
+// import * as MdIcons from 'react-icons/md';
+// import * as IoIcons from 'react-icons/io'
+// import * as BsIcons from 'react-icons/bs'
+// import * as BiIcons from 'react-icons/bi';
+// import * as SiIcons from 'react-icons/si';
+// import * as AiIcons from 'react-icons/ai'
+// import * as FaIcons from 'react-icons/fa';
+// import * as GiIcons from 'react-icons/gi';
+// import * as FiIcons  from 'react-icons/fi';
+import * as Yup from 'yup';
+import Modal from 'react-modal';
+
+
+
+import {
+    Navbar,
+    MobileNav,
+    Typography,
+    Button,
+    IconButton,
+    Card,
+  } from "@material-tailwind/react";
+  
+    Modal.setAppElement('#root');
+
 
 
 const schema = Yup.object({
@@ -42,34 +62,7 @@ const schema = Yup.object({
         .trim()
 })
 
-
- 
-export function CustomSpinner() {
-  return <Spinner className="h-16 w-16 text-blue-800/50" />;
-}
-
-
-export default function SignUp() {
-
-  const [modalIsOpen, setModalIsOpen] = useState(false);
-  const [showSpinner,setShowSpinner] = useState(false);
-
-const openModal = () => {
-  setModalIsOpen(true);
-};
-
-const closeModal = () => {
-  setModalIsOpen(false);
-};
-
-const  handleSignUp = () => {
-  setShowSpinner(true)
-  setTimeout(() => {
-    setShowSpinner(false)
-    openModal()
-  }, 3000);
-}
-
+export default function RegisterMP() {
 
     const { register, handleSubmit, reset, formState: { errors, isValid, isDirty, isSubmitSuccessful } } = useForm({
         mode: 'all',
@@ -83,9 +76,9 @@ const  handleSignUp = () => {
         // dispatch(signUpUser(data))
     }
 
-
   return (
-    <div className='bg-gray-200'>
+    <div>
+          <div className='bg-gray-200'>
 <div class="grid min-h-screen place-items-center">
   <div class="w-11/12 p-11 bg-white rounded-lg sm:w-9/12 md:w-1/2 lg:w-5/12">
     <h1 class="text-xl font-semibold">Hello there ?, <span class="font-normal">please fill in your information to continue</span></h1>
@@ -122,24 +115,52 @@ const  handleSignUp = () => {
          />
           <span className="text-red-500 text-sm">{errors.phone?.message}</span>
         
-             <label for="password" class="block mt-2 text-xs font-semibold text-gray-600 uppercase">Password</label>
-            <input id="password" type="password" name="password" placeholder="********" autocomplete="new-password" class={`text-sm sm:text-base placeholder-gray-500 pl-4 pr-3 rounded-lg border border-gray-400 w-full py-2 focus:outline-none focus:border-blue-400 ${errors.password ? "border-red-500" :  "border-sky-500"}`}
-              defaultValue={""}
-              {...register("password")}
-            />
-             <span className="text-red-500 text-sm">{errors.password?.message}</span>
+          <label for="password" class="block mt-2 text-xs font-semibold text-gray-600 uppercase">
+                User Role
+              </label>
+              <select
+                id="userRole"
+                name="userRole"
+                class={`text-sm sm:text-base placeholder-gray-500 pl-4 pr-3 rounded-lg border border-gray-400 w-full py-2 focus:outline-none focus:border-blue-400 ${
+                  errors.userRole ? 'border-red-500' : 'border-sky-500'
+                }`}
+                defaultValue={''}
+                {...register('userRole')}
+              >
+                <option value="" disabled>
+                  Select User Role
+                </option>
+                <option value="Minister">Minister</option>
+                <option value="PrimeMinister">Prime Minister</option>
+                <option value="Secretary">Secretary</option>
+              </select>
+              <span className="text-red-500 text-sm">{errors.userRole?.message}</span>
+
+              <label for="region" class="block mt-2 text-xs font-semibold text-gray-600 uppercase">
+                Region
+              </label>
+              <select
+                id="region"
+                name="region"
+                class={`text-sm sm:text-base placeholder-gray-500 pl-4 pr-3 rounded-lg border border-gray-400 w-full py-2 focus:outline-none focus:border-blue-400 ${
+                  errors.region ? 'border-red-500' : 'border-sky-500'
+                }`}
+                defaultValue={''}
+                {...register('region')}
+              >
+                <option value="" disabled>
+                  Select Region
+                </option>
+                <option value="Mpwapwa">Mpwapwa</option>
+                <option value="Kongwa">Kongwa</option>
+                <option value="Bahi">Bahi</option>
+              </select>
+              <span className="text-red-500 text-sm">{errors.region?.message}</span>
+
+              {/* ... (other code) */}
          
-            <label for="password-confirm" class="block mt-2 text-xs font-semibold text-gray-600 uppercase">Confirm password</label>
-            <input id="password-confirm" type="password" name="password-confirm" placeholder="********" autocomplete="new-password" class={`text-sm sm:text-base placeholder-gray-500 pl-4 pr-3 rounded-lg border border-gray-400 w-full py-2 focus:outline-none focus:border-blue-400`} 
-              defaultValue={""}
-              {...register("confirmPassword")}
-            />
-             <span className="text-red-500 text-sm">{errors.confirmPassword?.message}</span>
-           <div className="mx-auto my-2">
-            {showSpinner? <CustomSpinner  /> : ""}
-           </div>
          <div class="flex w-full my-4">
-          <button type="submit" onClick={handleSignUp} class="flex items-center justify-center focus:outline-none text-white text-sm sm:text-base bg-blue-600 hover:bg-blue-700 rounded py-2 w-full transition duration-150 ease-in">
+          <button type="submit" class="flex items-center justify-center focus:outline-none text-white text-sm sm:text-base bg-blue-600 hover:bg-blue-700 rounded py-2 w-full transition duration-150 ease-in">
             <span class="mr-2 uppercase">Sign Up</span>
             <span>
               <svg class="h-6 w-6" fill="none" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" viewBox="0 0 24 24" stroke="currentColor">
@@ -151,23 +172,16 @@ const  handleSignUp = () => {
 
         
        
-       
+       {/* <div className="">
+           <p onClick={closeSignupModal} class="flex justify-between cursor-pointer inline-block mt-4 text-xs text-blue-500 cursor-pointer hover:text-black">Already registered?</p>
+       </div> */}
     </form>
-    <Modal
-              isOpen={modalIsOpen}
-              onRequestClose={closeModal}
-              contentLabel="Example Modal"
-            >
-              <OTPform />
-              {/* <SignUp /> */}
-              <div className="absolute top-6 right-6 bg-red-500 rounded-full">
-                <span   onClick={closeModal} className=" text-white text-3xl font-bold cursor-pointer">
-                  <MdIcons.MdOutlineCancel  />
-                </span>
-              </div>
-            </Modal>
   </div>
 </div>
+    </div>
+  
+
+
     </div>
   )
 }

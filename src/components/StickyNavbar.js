@@ -8,10 +8,10 @@ import {
   Card,
 } from "@material-tailwind/react";
 
-import Modal from 'react-modal';
 import Login from "./Login";
 import * as MdIcons from 'react-icons/md';
 import SignUp from "./SignUp";
+import Modal from 'react-modal';
 Modal.setAppElement('#root');
  
 export function StickyNavbar() {
