@@ -9,6 +9,8 @@ import { yupResolver } from '@hookform/resolvers/yup'
 // import Loader from '../admin/component/loader/loader';
 
 import Modal from 'react-modal';
+import { useDispatch } from 'react-redux';
+import { signInUser } from '../store/actions/users_actions';
 Modal.setAppElement('#root'); // Set the root element for accessibility
 
 
@@ -30,6 +32,7 @@ export default function Login() {
     const [signUpModal,setSignupModal] = useState(false);
     const [modalIsOpen, setModalIsOpen] = useState(false);
     const navigate = useNavigate();
+    const dispatch =  useDispatch();
 
   const openModal = () => {
     setModalIsOpen(true);
@@ -56,7 +59,9 @@ export default function Login() {
 
 const onSubmit = data => {
     console.log(data)
-    navigate('/dashboard')
+
+    dispatch(signInUser(data))
+    // navigate('/dashboard')
 
 }
   return (

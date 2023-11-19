@@ -1,6 +1,7 @@
 
 import axios from "axios";
-import { AUTH_URL, BASE_URL } from '../urls';
+
+import { AUTH_URL,BASE_URL } from "../URL";  
 import { createAsyncThunk } from "@reduxjs/toolkit";
 
 axios.defaults.headers.post['Content-Type'] = 'application/json';
@@ -26,7 +27,7 @@ export const signInUser = createAsyncThunk('/user', async (values) => {
             password: values.password
         });
 
-        // console.log(response.data)
+        console.log(response.data)
         sessionStorage.setItem('token', JSON.stringify(response.data))
     }
     catch (error) {

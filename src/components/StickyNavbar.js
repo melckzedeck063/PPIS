@@ -97,7 +97,7 @@ const closeSignupModal =()=>{
             href="#"
             className="mr-4 cursor-pointer py-1.5 font-medium"
           >
-            Material Tailwind
+            Brand Name
           </Typography>
           <div className="flex items-center gap-4">
             {/* <div className="mr-4 hidden lg:block">{navList}</div> */}
