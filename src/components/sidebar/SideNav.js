@@ -135,7 +135,7 @@ function SideNav() {
                   <span className='text-xl block float-left pr-1'>
                     <AiIcons.AiOutlineOrderedList />
                   </span>
-                  <span className={`text-base flex-1 font-lightt ${!open && "hidden"}`}> Questions </span>
+                  <span className={`text-base flex-1 font-lightt ${!open && "hidden"}`}> Concerns </span>
                   <IoIcons.IoMdArrowDropup className={`text-xl ${!open && "hidden"} ${!subVendors && "rotate-180"}`} onClick={() => setSubVendors(!subVendors)} />
                 </Link>
               </li>
@@ -143,10 +143,10 @@ function SideNav() {
                 subVendors && open && (
                   <ul>
                     <li className="text-gray-800 p-2 px-3 space-x-2 text-sm flex items-center cursor-pointer hover:bg-light-white rounded-md ">
-                      <Link style={{ textDecoration: "none" }} to='/questions' className="no-underline hover:text-white text-gray-100"> All Questions </Link>
+                      <Link style={{ textDecoration: "none" }} to='/questions' className="no-underline hover:text-white text-gray-100"> All Concerns </Link>
                     </li>
                     <li className="text-gray-800 p-2 px-3 space-x-2 text-sm flex items-center cursor-pointer hover:bg-light-white rounded-md ">
-                      <Link style={{ textDecoration: "none" }} to='/pending_requests' className="no-underline hover:text-white text-gray-100">Pending Questions </Link>
+                      <Link style={{ textDecoration: "none" }} to='/pending_requests' className="no-underline hover:text-white text-gray-100">My Concerns </Link>
                     </li>
                     <li className="text-gray-800 p-2 px-3 space-x-2 text-sm flex items-center cursor-pointer hover:bg-light-white rounded-md ">
                       <Link style={{ textDecoration: "none" }} to='/new_Question' className="no-underline hover:text-white text-gray-100"> Answered Questions </Link>

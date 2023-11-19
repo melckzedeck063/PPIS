@@ -25,8 +25,8 @@ export default function DashboardContent() {
                 <div class="bg-white shadow rounded-lg p-4 sm:p-6 xl:p-8 ">
                    <div class="mb-4 flex items-center justify-between">
                       <div>
-                         <h3 class="text-xl font-bold text-gray-900 mb-2">Latest Transactions</h3>
-                         <span class="text-base font-normal text-gray-500">This is a list of latest transactions</span>
+                         <h3 class="text-xl font-bold text-gray-900 mb-2">Latest Concerns</h3>
+                         <span class="text-base font-normal text-gray-500">This is a list of latest concerns</span>
                       </div>
                       <div class="flex-shrink-0">
                          <a href="#" class="text-sm font-medium text-cyan-600 hover:bg-gray-100 rounded-lg p-2">View all</a>
@@ -40,13 +40,13 @@ export default function DashboardContent() {
                                   <thead class="bg-gray-50">
                                      <tr>
                                         <th scope="col" class="p-4 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
-                                           Transaction
+                                           Category
                                         </th>
                                         <th scope="col" class="p-4 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
                                            Date & Time
                                         </th>
                                         <th scope="col" class="p-4 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
-                                           Amount
+                                           Province
                                         </th>
                                      </tr>
                                   </thead>
@@ -59,7 +59,7 @@ export default function DashboardContent() {
                                            Apr 23 ,2021
                                         </td>
                                         <td class="p-4 whitespace-nowrap text-sm font-semibold text-gray-900">
-                                           $2300
+                                           Mpwapwa
                                         </td>
                                      </tr>
                                      <tr class="bg-gray-50">
@@ -70,7 +70,7 @@ export default function DashboardContent() {
                                            Apr 23 ,2021
                                         </td>
                                         <td class="p-4 whitespace-nowrap text-sm font-semibold text-gray-900">
-                                           -$670
+                                           Bahi
                                         </td>
                                      </tr>
                                      <tr>
@@ -81,7 +81,7 @@ export default function DashboardContent() {
                                            Apr 18 ,2021
                                         </td>
                                         <td class="p-4 whitespace-nowrap text-sm font-semibold text-gray-900">
-                                           $234
+                                           Kongwa
                                         </td>
                                      </tr>
                                      <tr class="bg-gray-50">
@@ -92,7 +92,7 @@ export default function DashboardContent() {
                                            Apr 15 ,2021
                                         </td>
                                         <td class="p-4 whitespace-nowrap text-sm font-semibold text-gray-900">
-                                           $5000
+                                           Kondoa
                                         </td>
                                      </tr>
                                      <tr>
@@ -103,7 +103,7 @@ export default function DashboardContent() {
                                            Apr 15 ,2021
                                         </td>
                                         <td class="p-4 whitespace-nowrap text-sm font-semibold text-gray-900">
-                                           $2300
+                                           Dodoma
                                         </td>
                                      </tr>
                                      <tr class="bg-gray-50">
@@ -114,7 +114,7 @@ export default function DashboardContent() {
                                            Apr 11 ,2021
                                         </td>
                                         <td class="p-4 whitespace-nowrap text-sm font-semibold text-gray-900">
-                                           $560
+                                          Dodoma
                                         </td>
                                      </tr>
                                      <tr>
@@ -125,7 +125,7 @@ export default function DashboardContent() {
                                            Apr 6 ,2021
                                         </td>
                                         <td class="p-4 whitespace-nowrap text-sm font-semibold text-gray-900">
-                                           $1437
+                                           Bahi
                                         </td>
                                      </tr>
                                   </tbody>
@@ -183,7 +183,7 @@ export default function DashboardContent() {
              <div class="grid grid-cols-1 2xl:grid-cols-2 xl:gap-4 my-4">
                 <div class="bg-white shadow rounded-lg mb-4 p-4 sm:p-6 h-full">
                    <div class="flex items-center justify-between mb-4">
-                      <h3 class="text-xl font-bold leading-none text-gray-900">Latest Customers</h3>
+                      <h3 class="text-xl font-bold leading-none text-gray-900">Members of Parliament</h3>
                       <a href="#" class="text-sm font-medium text-cyan-600 hover:bg-gray-100 rounded-lg inline-flex items-center p-2">
                       View all
                       </a>
@@ -204,7 +204,7 @@ export default function DashboardContent() {
                                   </p>
                                </div>
                                <div class="inline-flex items-center text-base font-semibold text-gray-900">
-                                  $320
+                                  Dodoma
                                </div>
                             </div>
                          </li>
@@ -222,7 +222,7 @@ export default function DashboardContent() {
                                   </p>
                                </div>
                                <div class="inline-flex items-center text-base font-semibold text-gray-900">
-                                  $3467
+                                 Kondoa
                                </div>
                             </div>
                          </li>
@@ -240,7 +240,7 @@ export default function DashboardContent() {
                                   </p>
                                </div>
                                <div class="inline-flex items-center text-base font-semibold text-gray-900">
-                                  $67
+                                  Bahi
                                </div>
                             </div>
                          </li>
@@ -258,7 +258,7 @@ export default function DashboardContent() {
                                   </p>
                                </div>
                                <div class="inline-flex items-center text-base font-semibold text-gray-900">
-                                  $2367
+                                  Mpwapwa
                                </div>
                             </div>
                          </li>
@@ -276,7 +276,7 @@ export default function DashboardContent() {
                                   </p>
                                </div>
                                <div class="inline-flex items-center text-base font-semibold text-gray-900">
-                                  $367
+                                  Kongwa
                                </div>
                             </div>
                          </li>
@@ -289,14 +289,14 @@ export default function DashboardContent() {
                       <table class="items-center w-full bg-transparent border-collapse">
                          <thead>
                             <tr>
-                               <th class="px-4 bg-gray-50 text-gray-700 align-middle py-3 text-xs font-semibold text-left uppercase border-l-0 border-r-0 whitespace-nowrap">Top Channels</th>
+                               <th class="px-4 bg-gray-50 text-gray-700 align-middle py-3 text-xs font-semibold text-left uppercase border-l-0 border-r-0 whitespace-nowrap">Top Concerns</th>
                                <th class="px-4 bg-gray-50 text-gray-700 align-middle py-3 text-xs font-semibold text-left uppercase border-l-0 border-r-0 whitespace-nowrap">Users</th>
                                <th class="px-4 bg-gray-50 text-gray-700 align-middle py-3 text-xs font-semibold text-left uppercase border-l-0 border-r-0 whitespace-nowrap min-w-140-px"></th>
                             </tr>
                          </thead>
                          <tbody class="divide-y divide-gray-100">
                             <tr class="text-gray-500">
-                               <th class="border-t-0 px-4 align-middle text-sm font-normal whitespace-nowrap p-4 text-left">Organic Search</th>
+                               <th class="border-t-0 px-4 align-middle text-sm font-normal whitespace-nowrap p-4 text-left">Land Conflicts</th>
                                <td class="border-t-0 px-4 align-middle text-xs font-medium text-gray-900 whitespace-nowrap p-4">5,649</td>
                                <td class="border-t-0 px-4 align-middle text-xs whitespace-nowrap p-4">
                                   <div class="flex items-center">

@@ -1,4 +1,4 @@
-import React, { useState } from 'react'
+import React, { useContext, useState } from 'react'
 
 import SignUp from './SignUp';
 import * as MdIcons from 'react-icons/md';
@@ -11,6 +11,7 @@ import { yupResolver } from '@hookform/resolvers/yup'
 import Modal from 'react-modal';
 import { useDispatch } from 'react-redux';
 import { signInUser } from '../store/actions/users_actions';
+import { AuthContext } from '../context';
 Modal.setAppElement('#root'); // Set the root element for accessibility
 
 
@@ -33,6 +34,8 @@ export default function Login() {
     const [modalIsOpen, setModalIsOpen] = useState(false);
     const navigate = useNavigate();
     const dispatch =  useDispatch();
+    const context = useContext(AuthContext);
+
 
   const openModal = () => {
     setModalIsOpen(true);
@@ -58,12 +61,28 @@ export default function Login() {
 })
 
 const onSubmit = data => {
-    console.log(data)
+    // console.log(data)
 
     dispatch(signInUser(data))
     // navigate('/dashboard')
 
+    setTimeout(() => {
+      const storage = sessionStorage.getItem('token');
+      const user = JSON.parse(storage);
+      if (user.data?.token !== null && user.data?.token !== undefined && user.data?.token !== "") {
+          // setMessage(true)
+          navigate('/dashboard')
+      }
+    
+  }, 500);
+  // userLogin()
 }
+
+const userLogin = () => {
+  context.handleLogin()
+}
+
+
   return (
     <div>
 

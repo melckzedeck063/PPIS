@@ -23,11 +23,11 @@ export const signInUser = createAsyncThunk('/user', async (values) => {
     // console.log(values)
     try {
         const response = await axios.post(`${AUTH_URL}/login`, {
-            email: values.username,
+            username: values.username,
             password: values.password
         });
 
-        console.log(response.data)
+        // console.log(response.data)
         sessionStorage.setItem('token', JSON.stringify(response.data))
     }
     catch (error) {
