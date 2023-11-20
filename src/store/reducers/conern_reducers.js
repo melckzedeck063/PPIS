@@ -1,5 +1,5 @@
 import { createSlice } from "@reduxjs/toolkit";
-import { getMyConcerns, sendConcern } from "../actions/concern_actions";
+import { getAllCAtegories, getMyConcerns, sendConcern } from "../actions/concern_actions";
 
 const concernSlice = createSlice({
     name: "concerns",
@@ -7,6 +7,7 @@ const concernSlice = createSlice({
         new_concern: [], // Change this to an array
         all_concern: [],
         my_concerns: null,
+        all_categories :  [],
         error: null,
         message: "",
         status: "",
@@ -22,6 +23,9 @@ const concernSlice = createSlice({
         new_concern: (state, action) => {
             state.new_concern.push(action.payload);
         },
+        all_categories : (state,action) => {
+            state.all_categories.push(action.payload);
+        }
     },
     extraReducers(builder) {
         builder
@@ -51,9 +55,27 @@ const concernSlice = createSlice({
                 state.status = "Failed";
                 state.error = action.error.message;
                 state.message = "Request failed, try again";
-            });
+            })
+
+
+            // CATEGORY SECTION 
+
+            .addCase(getAllCAtegories.pending, (state,action) => {
+                state.status = "Pending";
+            })
+            .addCase(getAllCAtegories.fulfilled, (state,action) => {
+                state.status = "Succesfull";
+                state.all_categories = action.payload;
+                state.message  = "Categories data found succesfully";
+            })
+            .addCase(getAllCAtegories.rejected, (state,action)  => {
+                state.status = "Failed";
+                state.error  = action.error.message
+            })
+
+            
     },
 });
 
-export const { my_concerns, all_concern, new_concern } = concernSlice.actions;
+export const { my_concerns, all_concern, new_concern,all_categories } = concernSlice.actions;
 export default concernSlice.reducer;

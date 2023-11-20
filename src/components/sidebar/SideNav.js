@@ -30,6 +30,8 @@ import Login from '../Login';
 import RegisterMP from '../RegisterMp';
 import Modal from 'react-modal';
 import NewConcern from '../NewConcern';
+import { useDispatch } from 'react-redux';
+import { getAllCAtegories } from '../../store/actions/concern_actions';
   
     Modal.setAppElement('#root');
 
@@ -56,6 +58,16 @@ function SideNav() {
 
   const [modalIsOpen, setModalIsOpen] = useState(false);
   const [conernModal,setConcernModel] = useState(false);
+
+  const dispatch =  useDispatch();
+
+  const  handleNewConcern = () => {
+    dispatch( getAllCAtegories());
+
+    setTimeout(() => {
+         openConcernModal();
+    }, 1000);
+  }
 
 
   const openModal = () => {
@@ -160,7 +172,7 @@ function SideNav() {
                       <Link style={{ textDecoration: "none" }} to='/pending_requests' className="no-underline hover:text-white text-gray-100">My Concerns </Link>
                     </li>
                     <li className="text-gray-800 p-2 px-3 space-x-2 text-sm flex items-center cursor-pointer hover:bg-light-white rounded-md ">
-                      <Link onClick={openConcernModal} style={{ textDecoration: "none" }} to='#' className="no-underline hover:text-white text-gray-100"> New Concern </Link>
+                      <Link onClick={handleNewConcern} style={{ textDecoration: "none" }} to='#' className="no-underline hover:text-white text-gray-100"> New Concern </Link>
                     </li>
                   </ul>
                 )

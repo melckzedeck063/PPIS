@@ -53,3 +53,18 @@ export const getMyConcerns = createAsyncThunk("/my_concerns", async () => {
       return error.message;
     }
   });
+
+
+
+  export  const  getAllCAtegories = createAsyncThunk("/categories", async() =>{
+    try {
+         const response =  await CONCERN_API.get("/category/all");
+
+         console.log(response.data);
+         return response.data;
+
+    } catch (error) {
+         console.log(error);
+         return error.message;
+    }
+  })
