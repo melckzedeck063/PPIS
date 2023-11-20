@@ -1,4 +1,4 @@
-import React, { useContext, useState } from 'react'
+import React, { useContext, useEffect, useState } from 'react'
 
 import SignUp from './SignUp';
 import * as MdIcons from 'react-icons/md';
@@ -76,8 +76,17 @@ const onSubmit = data => {
       }
     
   }, 3000);
-  // userLogin()
+  userLogin()
 }
+
+  useEffect(() => {
+    if(isSubmitSuccessful){
+      reset({
+        username : "",
+        password : ""
+      })
+    }
+  })
 
 const userLogin = () => {
   context.handleLogin()

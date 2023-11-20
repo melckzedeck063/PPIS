@@ -15,6 +15,8 @@ import {
     Avatar
   } from "@material-tailwind/react";
 import QuestionDetail from './QuestionDetail';
+import { useDispatch } from 'react-redux';
+import { getMyConcerns } from '../store/actions/concern_actions';
 
 
   function StarIcon() {
@@ -37,6 +39,7 @@ import QuestionDetail from './QuestionDetail';
 export default function Questions() {
 
     const [open, setOpen] = React.useState(false);
+    const dispatch = useDispatch();
  
     const handleOpen = () => setOpen(!open);
 
@@ -54,7 +57,7 @@ export default function Questions() {
 <div class="overflow-hidden rounded-lg border border-gray-200 shadow-md m-5">
 <div class=" flex items-center justify-between pb-4 pt-1">
       <div class="flex items-center">
-                        <button class="rounded-full focus:outline-none focus:ring-2  focus:bg-sky-500 focus:ring-indigo-800">
+                        <button onClick={ () => dispatch(getMyConcerns())} class="rounded-full focus:outline-none focus:ring-2  focus:bg-sky-500 focus:ring-indigo-800">
                             <div class="py-2 px-8 bg-sky-600 text-indigo-100 rounded-full">
                                 <p>All</p>
                             </div>
@@ -453,7 +456,7 @@ export default function Questions() {
 <div className="w-6/12 mx-auto">
      <Dialog open={open} handler={handleOpen} className='w-7/12 mx-auto bg-white p-4'>
         <QuestionDetail  />
-        
+
         <DialogFooter>
           <Button
             variant="text"

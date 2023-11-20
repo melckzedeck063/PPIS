@@ -8,6 +8,8 @@ import { useForm } from 'react-hook-form';
 import { Spinner } from "@material-tailwind/react";
 import OTPform from './OTPform';
 import { yupResolver } from '@hookform/resolvers/yup';
+import { useDispatch } from 'react-redux';
+import { sendConcern } from '../store/actions/concern_actions';
 Modal.setAppElement('#root'); // Set the root element for accessibility
 
 
@@ -27,11 +29,6 @@ const schema = Yup.object({
         representative : Yup
         .string()
         .required()
-        .trim(),
-        confirmPassword : Yup
-        .string()
-        .required()
-        .oneOf([Yup.ref("password")], "Passwords do not match")
         .trim()
 })
 
@@ -44,6 +41,7 @@ export function CustomSpinner() {
 
 export default function NewConcern() {
 
+    const dispatch =  useDispatch();
 
 
 
@@ -57,6 +55,12 @@ export default function NewConcern() {
     const onSubmit = data => {
         console.log(data)
         // dispatch(signUpUser(data))
+
+        dispatch(sendConcern(data));
+    }
+
+    const handleSubmission = () => {
+        alert("concern submitted");
     }
 
 
@@ -77,10 +81,10 @@ export default function NewConcern() {
         {/* </span> */}
         <span class="w-1/2">
           <label for="description" class="block text-xs font-semibold text-gray-600 uppercase">Description</label>
-        <input id="description" type="text" name="description" placeholder="Water..." autocomplete="family-name" class={`text-sm sm:text-base placeholder-gray-500 pl-4 pr-3 rounded-lg border border-gray-400 w-full py-2 focus:outline-none focus:border-blue-400 ${errors.description ? "border-red-500" : "border-sky-500"}`}
+        <textarea id="description" type="text" name="description" placeholder="Water..." autocomplete="family-name" class={`text-sm sm:text-base placeholder-gray-500 pl-4 pr-3 rounded-lg border border-gray-400 w-full py-2 focus:outline-none focus:border-blue-400 ${errors.description ? "border-red-500" : "border-sky-500"}`}
         defaultValue={""}
         {...register("description")}
-        />
+        ></textarea>
          <span className="text-red-500 text-sm">{errors.description?.message}</span>
         </span>
       {/* </div> */}
@@ -101,9 +105,9 @@ export default function NewConcern() {
                 <option value="" disabled>
                   Select Category
                 </option>
-                <option value="Minister">Land Conflicts</option>
-                <option value="PrimeMinister">Roads</option>
-                <option value="Secretary">Water & Electricity</option>
+                <option value="1">Land Conflicts</option>
+                <option value="2">Roads</option>
+                <option value="3">Water & Electricity</option>
               </select>
               <span className="text-red-500 text-sm">{errors.category?.message}</span>
 
@@ -122,16 +126,16 @@ export default function NewConcern() {
                 <option value="" disabled>
                   Select Representative
                 </option>
-                <option value="Mpwapwa">Mpwapwa</option>
-                <option value="Kongwa">Kongwa</option>
-                <option value="Bahi">Bahi</option>
+                <option value="1">Mpwapwa</option>
+                <option value="2">Kongwa</option>
+                <option value="3">Bahi</option>
               </select>
               <span className="text-red-500 text-sm">{errors.representative?.message}</span>
            <div className="mx-auto my-2">
             {/* {showSpinner? <CustomSpinner  /> : ""} */}
            </div>
          <div class="flex w-full my-4">
-          <button type="submit" class="flex items-center justify-center focus:outline-none text-white text-sm sm:text-base bg-blue-600 hover:bg-blue-700 rounded py-2 w-full transition duration-150 ease-in">
+          <button class="flex items-center justify-center focus:outline-none text-white text-sm sm:text-base bg-blue-600 hover:bg-blue-700 rounded py-2 w-full transition duration-150 ease-in">
             <span class="mr-2 uppercase">Submit</span>
             <span>
               <svg class="h-6 w-6" fill="none" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" viewBox="0 0 24 24" stroke="currentColor">
@@ -140,6 +144,8 @@ export default function NewConcern() {
             </span>
           </button>
         </div>
+
+        
 
         
        

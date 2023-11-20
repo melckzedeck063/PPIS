@@ -5,13 +5,13 @@ import { configureStore } from '@reduxjs/toolkit';
 // import dependant from './reducers/dependant_reducer';
 
 import users from './reducers/user_reducers';
+import concerns from './reducers/conern_reducers';
 
 export default configureStore({
 
     reducer : {
-        users
-        // request,
-        // dependant
+        users,
+        concerns
         
     }
 })
