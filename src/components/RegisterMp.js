@@ -26,6 +26,8 @@ import {
     IconButton,
     Card,
   } from "@material-tailwind/react";
+import { useDispatch, useSelector } from 'react-redux';
+import { signInUser, signUpUser } from '../store/actions/users_actions';
   
     Modal.setAppElement('#root');
 
@@ -70,9 +72,16 @@ export default function RegisterMP() {
         resolver: yupResolver(schema)
     })
 
+    const constituencies  = useSelector(state  => state.users);
+
+    const dispatch = useDispatch();
+
+    // console.log(constituencies.constituencies.dataList)
+
     const onSubmit = data => {
-        console.log(data)
-        // dispatch(signUpUser(data))
+        // console.log(data)
+        dispatch(signUpUser(data));
+        
     }
 
   return (
@@ -129,9 +138,10 @@ export default function RegisterMP() {
                 <option value="" disabled>
                   Select User Role
                 </option>
-                <option value="Minister">Minister</option>
-                <option value="PrimeMinister">Prime Minister</option>
-                <option value="Secretary">Secretary</option>
+                <option value="ADMIN">ADMIN</option>
+                <option value="MINISTER">MINISTER</option>
+                <option value="MP">MP</option>
+                <option value="SECRETARY">SECRETARY</option>
               </select>
               <span className="text-red-500 text-sm">{errors.userRole?.message}</span>
 
@@ -150,9 +160,22 @@ export default function RegisterMP() {
                 <option value="" disabled>
                   Select Province
                 </option>
-                <option value="Mpwapwa">Mpwapwa</option>
-                <option value="Kongwa">Kongwa</option>
-                <option value="Bahi">Bahi</option>
+                {
+                  constituencies && constituencies.constituencies &&  constituencies.constituencies.dataList &&(
+                    constituencies && constituencies.constituencies &&  constituencies.constituencies.error === false?(
+                      constituencies?.constituencies?.dataList.map((item,index) => (
+                        <option key={index} value={item.uuid}> {item.constituentName} </option>
+                      ))
+                    )
+                    : 
+                    <>
+                     <option value="">No data found</option>
+                    </>
+                    
+                    
+                  )
+
+                }
               </select>
               <span className="text-red-500 text-sm">{errors.province?.message}</span>
 

@@ -53,16 +53,17 @@ export const signInUser = createAsyncThunk('/user', async (values) => {
 
 
 export const signUpUser = createAsyncThunk('user/new', async (values) => {
+    console.log(values);
+
     try {
-        const response = await axios.post(`${AUTH_URL}/signup`, {
-            firstName: values.firstName,
-            lastName: values.lastName,
-            email: values.email,
-            gender: values.gender,
-            dob: values.dob,
-            telephone: values.telephone,
-            password: values.password,
-            confirmPassword: values.confirmPassword
+        const response = await CONST_API.post(`/user/create-update`, {
+            username: values.email,
+            firstName: values.firstname,
+            lastName: values.lastname,
+            phoneNumber: values.phone,
+            constituentUid :  values.province,
+            userType : values.userRole
+            
         })
 
         console.log(response.data);
@@ -76,9 +77,9 @@ export const signUpUser = createAsyncThunk('user/new', async (values) => {
 
 export const getAllStaffs = createAsyncThunk('/staffs', async () => {
     try {
-        const response = await AUTH_API.get('/all_staffs');
+        const response = await CONST_API.get('/user/get-officials');
 
-        //    console.log(response.data)
+           console.log(response.data)
         return response.data;
     }
     catch (error) {
@@ -174,7 +175,7 @@ export const getAllConstituency = createAsyncThunk ("/constituency",  async() =>
     try {
            const response =  await CONST_API.get("/constituency/");
 
-           console.log(response.data);
+        //    console.log(response.data);
            return response.data;
            
     } catch (error) {

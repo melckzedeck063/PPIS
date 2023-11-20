@@ -8,7 +8,7 @@ import { useForm } from 'react-hook-form';
 import { Spinner } from "@material-tailwind/react";
 import OTPform from './OTPform';
 import { yupResolver } from '@hookform/resolvers/yup';
-import { useDispatch } from 'react-redux';
+import { useDispatch, useSelector } from 'react-redux';
 import { sendConcern } from '../store/actions/concern_actions';
 Modal.setAppElement('#root'); // Set the root element for accessibility
 
@@ -42,6 +42,13 @@ export function CustomSpinner() {
 export default function NewConcern() {
 
     const dispatch =  useDispatch();
+
+    const categories =  useSelector(state => state.concerns);
+    const  staffs =   useSelector(state => state.users);
+
+
+    // console.log(categories.all_categories);
+    // console.log(staffs.staffs);
 
 
 
@@ -105,9 +112,19 @@ export default function NewConcern() {
                 <option value="" disabled>
                   Select Category
                 </option>
-                <option value="1">Land Conflicts</option>
-                <option value="2">Roads</option>
-                <option value="3">Water & Electricity</option>
+                {
+                  categories && categories.all_categories && (
+                    categories &&  categories.all_categories.error === false ? (
+                      categories.all_categories.dataList.map((item,index) => (
+                        <option key={index} value={item.uuid}> {item.categoryName} </option>
+                      ))
+                    )
+                    :
+                    <>
+                     <option value="">No data found</option>
+                    </>
+                  )
+                }
               </select>
               <span className="text-red-500 text-sm">{errors.category?.message}</span>
 
@@ -126,9 +143,20 @@ export default function NewConcern() {
                 <option value="" disabled>
                   Select Representative
                 </option>
-                <option value="1">Mpwapwa</option>
-                <option value="2">Kongwa</option>
-                <option value="3">Bahi</option>
+                  {
+                    staffs && staffs.staffs &&(
+                      staffs && staffs.staffs && staffs.staffs.empty === false ? (
+                        staffs.staffs.content.map((item,index) => (
+                          <option key={index} value={item.uuid}> {item.fullName} </option>
+                        )
+                      )
+                    )
+                    :
+                    <>
+                    <option value="">No data found</option>
+                    </>
+                    )
+                  }
               </select>
               <span className="text-red-500 text-sm">{errors.representative?.message}</span>
            <div className="mx-auto my-2">

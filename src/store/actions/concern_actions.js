@@ -25,7 +25,7 @@ CONCERN_API.interceptors.request.use((req) => {
 export const sendConcern = createAsyncThunk('/new_concern', async(values) => {
 
     try {
-        console.log(values);
+        // console.log(values);
         const response = await CONCERN_API.post(`/concern/create-update`, {
             title : values.title,
             description : values.description,
@@ -60,7 +60,7 @@ export const getMyConcerns = createAsyncThunk("/my_concerns", async () => {
     try {
          const response =  await CONCERN_API.get("/category/all");
 
-         console.log(response.data);
+        //  console.log(response.data);
          return response.data;
 
     } catch (error) {

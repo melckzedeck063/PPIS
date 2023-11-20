@@ -31,8 +31,8 @@ import RegisterMP from '../RegisterMp';
 import Modal from 'react-modal';
 import NewConcern from '../NewConcern';
 import { useDispatch } from 'react-redux';
-import { getAllCAtegories } from '../../store/actions/concern_actions';
-import { getAllConstituency } from '../../store/actions/users_actions';
+import { getAllCAtegories, getMyConcerns } from '../../store/actions/concern_actions';
+import { getAllConstituency, getAllStaffs } from '../../store/actions/users_actions';
   
     Modal.setAppElement('#root');
 
@@ -64,12 +64,16 @@ function SideNav() {
 
   const  handleNewConcern = () => {
     dispatch( getAllCAtegories());
-
+    
     setTimeout(() => {
-         openConcernModal();
+      openConcernModal();
+      dispatch(getAllStaffs());
     }, 1000);
   }
 
+  const handleConcerns = () => {
+    dispatch(getMyConcerns())
+  }
    const handleConstituency = () => {
      dispatch(getAllConstituency())
 
@@ -174,10 +178,10 @@ function SideNav() {
                 subVendors && open && (
                   <ul>
                     <li className="text-gray-800 p-2 px-3 space-x-2 text-sm flex items-center cursor-pointer hover:bg-light-white rounded-md ">
-                      <Link style={{ textDecoration: "none" }} to='/questions' className="no-underline hover:text-white text-gray-100"> All Concerns </Link>
+                      <Link onClick={handleConcerns} style={{ textDecoration: "none" }} to='/questions' className="no-underline hover:text-white text-gray-100"> All Concerns </Link>
                     </li>
                     <li className="text-gray-800 p-2 px-3 space-x-2 text-sm flex items-center cursor-pointer hover:bg-light-white rounded-md ">
-                      <Link style={{ textDecoration: "none" }} to='/pending_requests' className="no-underline hover:text-white text-gray-100">My Concerns </Link>
+                      <Link  style={{ textDecoration: "none" }} to='#' className="no-underline hover:text-white text-gray-100">My Concerns </Link>
                     </li>
                     <li className="text-gray-800 p-2 px-3 space-x-2 text-sm flex items-center cursor-pointer hover:bg-light-white rounded-md ">
                       <Link onClick={handleNewConcern} style={{ textDecoration: "none" }} to='#' className="no-underline hover:text-white text-gray-100"> New Concern </Link>
