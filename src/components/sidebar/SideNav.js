@@ -32,6 +32,7 @@ import Modal from 'react-modal';
 import NewConcern from '../NewConcern';
 import { useDispatch } from 'react-redux';
 import { getAllCAtegories } from '../../store/actions/concern_actions';
+import { getAllConstituency } from '../../store/actions/users_actions';
   
     Modal.setAppElement('#root');
 
@@ -69,6 +70,13 @@ function SideNav() {
     }, 1000);
   }
 
+   const handleConstituency = () => {
+     dispatch(getAllConstituency())
+
+     setTimeout(() => {
+       openModal();
+     }, 1000);
+   }
 
   const openModal = () => {
     setModalIsOpen(true);
@@ -133,7 +141,7 @@ function SideNav() {
              subMenuOpen && open && (
                   <ul>
                     <li className="text-gray-800 p-2 px-3 space-x-2 text-sm flex items-center cursor-pointer hover:bg-light-white rounded-md ">
-                   <Link onClick={openModal} style={{ textDecoration: "none" }} to='#' className="no-underline hover:text-white text-gray-100"> Create User </Link>
+                   <Link onClick={handleConstituency} style={{ textDecoration: "none" }} to='#' className="no-underline hover:text-white text-gray-100"> Create User </Link>
                     </li>
                     <li className="text-gray-800 p-2 px-3 space-x-2 text-sm flex items-center cursor-pointer hover:bg-light-white rounded-md ">
                       <Link style={{ textDecoration: "none" }} to='/all_mps' className="no-underline hover:text-white text-gray-100"> All Users</Link>

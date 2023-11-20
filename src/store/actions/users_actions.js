@@ -9,10 +9,25 @@ axios.defaults.headers.post['Content-Type'] = 'application/json';
 const AUTH_API = axios.create({ baseURL: AUTH_URL });
 AUTH_API.interceptors.request.use((req) => {
     const storage = sessionStorage.getItem('token');
-    const { token } = JSON.parse(storage);
+    const {data} = JSON.parse(storage);
+    const {token}  = data;
 
     if (token) {
-        req.headers.Authorization = `Bearer bearer ${token}`
+        req.headers.Authorization = `Bearer ${token}`
+    }
+
+    return req
+})
+
+
+const CONST_API = axios.create({ baseURL:BASE_URL });
+CONST_API.interceptors.request.use((req) => {
+    const storage = sessionStorage.getItem('token');
+    const {data} = JSON.parse(storage);
+    const {token}  = data;
+
+    if (token) {
+        req.headers.Authorization = `Bearer ${token}`
     }
 
     return req
@@ -151,3 +166,19 @@ export const myProfile = createAsyncThunk('/profile', async () => {
         return error.message
     }
 });
+
+
+//  CONSTITUENCY SECTION
+
+export const getAllConstituency = createAsyncThunk ("/constituency",  async() => {
+    try {
+           const response =  await CONST_API.get("/constituency/");
+
+           console.log(response.data);
+           return response.data;
+           
+    } catch (error) {
+        console.log(error);
+        return  error.message
+    }
+})

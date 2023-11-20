@@ -1,7 +1,7 @@
 import { createSlice } from "@reduxjs/toolkit";
 
-import { getAllCustomers, signInUser,signUpUser ,getAllStaffs} from "../actions/users_actions";
-// import {  getAllCustomers, getAllStaffs, getUserById, myProfile, signInUser, signUpUser, updateMe, updateUser } from "../actions/user_actions";
+import { getAllConstituency, signInUser,signUpUser ,g, getAllConstituencyetAllStaffs} from "../actions/users_actions";
+// import {  getAllConstituency, getAllStaffs, getUserById, myProfile, signInUser, signUpUser, updateMe, updateUser } from "../actions/user_actions";
 
 
 export const userSlice = createSlice({
@@ -12,6 +12,7 @@ export const userSlice = createSlice({
         user_profile : null,
         users : [],
         staffs : [],
+        constituencies : [],
         status :  '',
         error  :  null,
         message : ""
@@ -26,6 +27,9 @@ export const userSlice = createSlice({
         },
         signIn : (state,action) => {
             state.loged_user.push(action.payload)
+        },
+        constituencies : (state,action) => {
+            state.constituencies.push(action.payload);
         }
     },
     extraReducers (builder){
@@ -56,32 +60,32 @@ export const userSlice = createSlice({
             state.message = "Request  failed please try again";
             state.error = action.error.message
         })
-        .addCase(getAllStaffs.pending,(state,action) => {
-            state.status = "Loading"
-        })
-        .addCase(getAllStaffs.fulfilled, (state,action) => {
-            state.status = "Successfull";
-            state.message = "New account created  succesfully ";
-            state.staffs = action.payload
-        })
-        .addCase(getAllStaffs.rejected, (state,action) => {
-            state.status = "Failed";
-            state.message = "Request  failed please try again";
-            state.error = action.error.message
-        })
-        .addCase(getAllCustomers.pending,(state,action) => {
-            state.status = "Loading"
-        })
-        .addCase(getAllCustomers.fulfilled, (state,action) => {
-            state.status = "Successfull";
-            state.message = "New account created  succesfully ";
-            state.users = action.payload
-        })
-        // .addCase(getAllCustomers.rejected, (state,action) => {
+        // .addCase(getAllStaffs.pending,(state,action) => {
+        //     state.status = "Loading"
+        // })
+        // .addCase(getAllStaffs.fulfilled, (state,action) => {
+        //     state.status = "Successfull";
+        //     state.message = "New account created  succesfully ";
+        //     state.staffs = action.payload
+        // })
+        // .addCase(getAllStaffs.rejected, (state,action) => {
         //     state.status = "Failed";
         //     state.message = "Request  failed please try again";
         //     state.error = action.error.message
         // })
+        .addCase(getAllConstituency.pending,(state,action) => {
+            state.status = "Loading"
+        })
+        .addCase(getAllConstituency.fulfilled, (state,action) => {
+            state.status = "Successfull";
+            state.message = "Constintuecy data found succesfully ";
+            state.constituencies = action.payload;
+        })
+        .addCase(getAllConstituency.rejected, (state,action) => {
+            state.status = "Failed";
+            state.message = "Request  failed please try again";
+            state.error = action.error.message;
+        })
         // .addCase(getUserById.pending,(state,action) => {
         //     state.status = "Loading"
         // })
@@ -138,5 +142,5 @@ export const userSlice = createSlice({
 })
 
 
-export const {signIn, create_user, all_users} =  userSlice.actions;
+export const {signIn, create_user, all_users, constituencies} =  userSlice.actions;
 export default userSlice.reducer;
