@@ -69,12 +69,13 @@ const onSubmit = data => {
     setTimeout(() => {
       const storage = sessionStorage.getItem('token');
       const user = JSON.parse(storage);
+      console.log(user);
       if (user.data?.token !== null && user.data?.token !== undefined && user.data?.token !== "") {
           // setMessage(true)
           navigate('/dashboard')
       }
     
-  }, 500);
+  }, 3000);
   // userLogin()
 }
 

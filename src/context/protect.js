@@ -11,6 +11,8 @@ export default function ProtectedRoute ({children}) {
     const navigate =  useNavigate();
     const {token} = AuthUser();
 
+    // console.log(token)
+
     if (!token) {
         setTimeout(() => {
             // window.location.reload(false);

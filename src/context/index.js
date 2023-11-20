@@ -12,10 +12,13 @@ const AuthProvider = (props) => {
 
     const handleLogin =  useCallback(() => {
         const  storage =  sessionStorage.getItem('token');
+        // console.log(storage)
 
         if(storage){
-        const {token} =  JSON.parse(storage);
-        setAuthinticatedUser(token);
+        const {data} =  JSON.parse(storage);
+
+        console.log(data);
+        setAuthinticatedUser(data);
         const origin =  location.state?.from?.pathname || "/dashboard";
         navigate(origin);
         }

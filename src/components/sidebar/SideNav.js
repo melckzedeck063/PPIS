@@ -29,6 +29,7 @@ import {
 import Login from '../Login';
 import RegisterMP from '../RegisterMp';
 import Modal from 'react-modal';
+import NewConcern from '../NewConcern';
   
     Modal.setAppElement('#root');
 
@@ -54,6 +55,8 @@ function SideNav() {
   const navigate = useNavigate();
 
   const [modalIsOpen, setModalIsOpen] = useState(false);
+  const [conernModal,setConcernModel] = useState(false);
+
 
   const openModal = () => {
     setModalIsOpen(true);
@@ -61,6 +64,14 @@ function SideNav() {
   
   const closeModal = () => {
     setModalIsOpen(false);
+  };
+
+  const openConcernModal = () => {
+    setConcernModel(true);
+  };
+  
+  const closeConcernModal = () => {
+    setConcernModel(false);
   };
 
   
@@ -149,7 +160,7 @@ function SideNav() {
                       <Link style={{ textDecoration: "none" }} to='/pending_requests' className="no-underline hover:text-white text-gray-100">My Concerns </Link>
                     </li>
                     <li className="text-gray-800 p-2 px-3 space-x-2 text-sm flex items-center cursor-pointer hover:bg-light-white rounded-md ">
-                      <Link style={{ textDecoration: "none" }} to='/new_Question' className="no-underline hover:text-white text-gray-100"> Answered Questions </Link>
+                      <Link onClick={openConcernModal} style={{ textDecoration: "none" }} to='#' className="no-underline hover:text-white text-gray-100"> New Concern </Link>
                     </li>
                   </ul>
                 )
@@ -307,6 +318,19 @@ function SideNav() {
               <RegisterMP />
               <div className="absolute top-6 right-6 bg-red-500 rounded-full">
                 <span   onClick={closeModal} className=" text-white text-3xl font-bold cursor-pointer">
+                  <MdIcons.MdOutlineCancel  />
+                </span>
+              </div>
+            </Modal>
+
+            <Modal
+              isOpen={conernModal}
+              onRequestClose={closeConcernModal}
+              contentLabel="Example Modal"
+            >
+              <NewConcern />
+              <div className="absolute top-6 right-6 bg-red-500 rounded-full">
+                <span   onClick={closeConcernModal} className=" text-white text-3xl font-bold cursor-pointer">
                   <MdIcons.MdOutlineCancel  />
                 </span>
               </div>

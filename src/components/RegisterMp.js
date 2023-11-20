@@ -51,14 +51,13 @@ const schema = Yup.object({
         .min(10)
         .max(10)
         .trim(),
-        password : Yup
-        .string()
-        .min(8)
-        .trim(),
-        confirmPassword : Yup
+        userRole : Yup
         .string()
         .required()
-        .oneOf([Yup.ref("password")], "Passwords do not match")
+        .trim(),
+        province : Yup
+        .string()
+        .required()
         .trim()
 })
 
@@ -137,31 +136,31 @@ export default function RegisterMP() {
               <span className="text-red-500 text-sm">{errors.userRole?.message}</span>
 
               <label for="region" class="block mt-2 text-xs font-semibold text-gray-600 uppercase">
-                Region
+                province
               </label>
               <select
-                id="region"
-                name="region"
+                id="province"
+                name="province"
                 class={`text-sm sm:text-base placeholder-gray-500 pl-4 pr-3 rounded-lg border border-gray-400 w-full py-2 focus:outline-none focus:border-blue-400 ${
-                  errors.region ? 'border-red-500' : 'border-sky-500'
+                  errors.province ? 'border-red-500' : 'border-sky-500'
                 }`}
                 defaultValue={''}
-                {...register('region')}
+                {...register('province')}
               >
                 <option value="" disabled>
-                  Select Region
+                  Select Province
                 </option>
                 <option value="Mpwapwa">Mpwapwa</option>
                 <option value="Kongwa">Kongwa</option>
                 <option value="Bahi">Bahi</option>
               </select>
-              <span className="text-red-500 text-sm">{errors.region?.message}</span>
+              <span className="text-red-500 text-sm">{errors.province?.message}</span>
 
               {/* ... (other code) */}
          
          <div class="flex w-full my-4">
           <button type="submit" class="flex items-center justify-center focus:outline-none text-white text-sm sm:text-base bg-blue-600 hover:bg-blue-700 rounded py-2 w-full transition duration-150 ease-in">
-            <span class="mr-2 uppercase">Sign Up</span>
+            <span class="mr-2 uppercase">Register</span>
             <span>
               <svg class="h-6 w-6" fill="none" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" viewBox="0 0 24 24" stroke="currentColor">
                 <path d="M13 9l3 3m0 0l-3 3m3-3H8m13 0a9 9 0 11-18 0 9 9 0 0118 0z" />
