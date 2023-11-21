@@ -99,7 +99,7 @@ export default function Questions() {
     <thead class="bg-gray-50">
       <tr>
         <th scope="col" class="px-6 py-4 font-medium text-gray-900">Name</th>
-        <th scope="col" class="px-6 py-4 font-medium text-gray-900">Telephone</th>
+        <th scope="col" class="px-6 py-4 font-medium text-gray-900">Title</th>
         <th scope="col" class="px-6 py-4 font-medium text-gray-900">Category</th>
         <th scope="col" class="px-6 py-4 font-medium text-gray-900">Pronvince</th>
         <th scope="col" class="px-6 py-4 font-medium text-gray-900">Date</th>
@@ -126,7 +126,7 @@ export default function Questions() {
         <span
           class="inline-flex items-center gap-1 rounded-full bg-green-50 px-2 py-1 text-xs font-semibold text-green-600"
         >
-          +255744899032
+          {item.title}
         </span>
       </td>
       <td class="px-6 py-4"> {item.concernCategory?.categoryName} </td>

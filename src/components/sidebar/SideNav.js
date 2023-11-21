@@ -71,6 +71,10 @@ function SideNav() {
     }, 1000);
   }
 
+  const handleUsers = () => {
+    dispatch(getAllStaffs())
+  }
+
   const handleConcerns = () => {
     dispatch(getMyConcerns())
   }
@@ -133,12 +137,12 @@ function SideNav() {
               </li>
 
               <li className={`text-gray-800 py-2.5 space-x-1 text-sm hover:px-1  cursor-pointer hover:bg-light-white hover:text-gray-800 rounded-md mt-2 ${userRole !== "ADMIN" && "hidden"}`}  onClick={() => setSubMenuOpen(!subMenuOpen)}>
-                <Link style={{ textDecoration: "none" }} to='#' className="flex items-center hover:text-white no-underline text-gray-100 ">
+                <Link onClick={() => setSubMenuOpen(!subMenuOpen)} style={{ textDecoration: "none" }} to='#' className="flex items-center hover:text-white no-underline text-gray-100 ">
                   <span className='text-xl block float-left pr-1'>
                     <FaIcons.FaUserFriends />
                   </span>
                   <span className={`text-base flex-1 font-lightt ${!open && "hidden"}`}> Users </span>
-                  <IoIcons.IoMdArrowDropup className={`text-xl ${!open && "hidden"} ${!subMenuOpen && "rotate-180"}`} onClick={() => setSubMenuOpen(!subMenuOpen)} />
+                  <IoIcons.IoMdArrowDropup className={`text-xl ${!open && "hidden"} ${!subMenuOpen && "rotate-180"}`}  />
                 </Link>
               </li>
               {
@@ -148,7 +152,7 @@ function SideNav() {
                    <Link onClick={handleConstituency} style={{ textDecoration: "none" }} to='#' className="no-underline hover:text-white text-gray-100"> Create User </Link>
                     </li>
                     <li className="text-gray-800 p-2 px-3 space-x-2 text-sm flex items-center cursor-pointer hover:bg-light-white rounded-md ">
-                      <Link style={{ textDecoration: "none" }} to='/all_mps' className="no-underline hover:text-white text-gray-100"> All Users</Link>
+                      <Link onClick={handleUsers} style={{ textDecoration: "none" }} to='/all_mps' className="no-underline hover:text-white text-gray-100"> All Users</Link>
                     </li>
                  {/* <li className="text-gray-800 p-2 px-3 space-x-2 text-sm flex items-center cursor-pointer hover:bg-light-white rounded-md ">
                    <Link style={{ textDecoration: "none" }} to='#' className="no-underline hover:text-white text-gray-100"> My Company Inactive Users </Link>
