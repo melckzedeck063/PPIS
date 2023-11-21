@@ -3,6 +3,8 @@ import SideNav from './sidebar/SideNav'
 import NavBar from './sidebar/NavBar'
 import *  as AiIcons from 'react-icons/ai';
 import * as CiIcons from "react-icons/ci";
+import * as IoIcons from 'react-icons/io';
+import { FaReadme } from "react-icons/fa6";
 
 
 import {
@@ -15,8 +17,9 @@ import {
     Avatar
   } from "@material-tailwind/react";
 import QuestionDetail from './QuestionDetail';
-import { useDispatch } from 'react-redux';
+import { useDispatch, useSelector } from 'react-redux';
 import { getMyConcerns } from '../store/actions/concern_actions';
+import moment from 'moment';
 
 
   function StarIcon() {
@@ -42,6 +45,9 @@ export default function Questions() {
     const dispatch = useDispatch();
  
     const handleOpen = () => setOpen(!open);
+    const concerns =  useSelector(state => state.concerns);
+
+    // console.log(concerns.my_concerns.content);
 
   return (
     <div>
@@ -101,159 +107,94 @@ export default function Questions() {
       </tr>
     </thead>
     <tbody class="divide-y divide-gray-100 border-t border-gray-100">
+
+        {
+          concerns && concerns.my_concerns &&(
+            concerns && concerns.my_concerns && concerns.my_concerns.empty === false ? (
+              concerns.my_concerns.content.map((item,index) => (
+                <>
+               
+    <tr class="hover:bg-gray-50">
+      <th class="flex gap-3 px-6 py-4 font-normal text-gray-900">
+      
+        <div class="text-sm">
+          <div class="font-medium text-gray-700">{item.reportedBy?.fullName}</div>
+          <div class="text-gray-400"> {item.reportedBy?.username} </div>
+        </div>
+      </th>
+      <td class="px-6 py-4">
+        <span
+          class="inline-flex items-center gap-1 rounded-full bg-green-50 px-2 py-1 text-xs font-semibold text-green-600"
+        >
+          +255744899032
+        </span>
+      </td>
+      <td class="px-6 py-4"> {item.concernCategory?.categoryName} </td>
+      <td class="px-6 py-4">
+        <div class="flex gap-2">
+          <span
+            class="inline-flex items-center gap-1 rounded-full bg-blue-50 px-2 py-1 text-xs font-semibold text-blue-600"
+          >
+            {item.submittedTo.fullName}
+          </span>
+          {/* <span
+            class="inline-flex items-center gap-1 rounded-full bg-indigo-50 px-2 py-1 text-xs font-semibold text-indigo-600"
+          >
+            Product
+          </span>
+          <span
+            class="inline-flex items-center gap-1 rounded-full bg-violet-50 px-2 py-1 text-xs font-semibold text-violet-600"
+          >
+            Develop
+          </span> */}
+        </div>
+      </td>
+      <td>
+          {moment(item.createdAt).format("ll")}
+      </td>
+      <td class="px-6 py-4">
+        <div class="flex justify-end gap-4">
+          <a x-data="{ tooltip: 'Delete' }" href="#">
+          <span onClick={handleOpen} className='text-xl block float-left pr-1 text-blue-500'>
+                  <IoIcons.IoMdSend className='text-blue-500 -rotate-45' />
+                </span>
+          </a>
+          <a x-data="{ tooltip: 'Edite' }" href="#">
+             <span onClick={handleOpen} className='text-xl block float-left pr-1 text-blue-500'>
+                  <FaReadme className='text-green-700 font-bold' />
+                </span>
+          </a>
+        </div>
+      </td>
+    </tr>
+                </>
+              ))
+            )
+            :
+            <>
+         
       <tr class="hover:bg-gray-50">
         <th class="flex gap-3 px-6 py-4 font-normal text-gray-900">
         
           <div class="text-sm">
-            <div class="font-medium text-gray-700">Steven Jobs</div>
-            <div class="text-gray-400">jobs@sailboatui.com</div>
+            {/* <div class="font-medium text-gray-700">Steven Jobs</div>
+            <div class="text-gray-400">jobs@sailboatui.com</div> */}
           </div>
         </th>
         <td class="px-6 py-4">
           <span
             class="inline-flex items-center gap-1 rounded-full bg-green-50 px-2 py-1 text-xs font-semibold text-green-600"
           >
-            {/* <span class="h-1.5 w-1.5 rounded-full bg-green-600"></span> */}
-           +255744899032
+            {/* +255744899032 */}
           </span>
         </td>
-        <td class="px-6 py-4">Electricity and Power</td>
+        <td class="px-6 py-4 text-red-400 font-medium text-xl">No data found</td>
         <td class="px-6 py-4">
           <div class="flex gap-2">
             <span
               class="inline-flex items-center gap-1 rounded-full bg-blue-50 px-2 py-1 text-xs font-semibold text-blue-600"
             >
-             Kongwa
-            </span>
-            {/* <span
-              class="inline-flex items-center gap-1 rounded-full bg-indigo-50 px-2 py-1 text-xs font-semibold text-indigo-600"
-            >
-              Product
-            </span>
-            <span
-              class="inline-flex items-center gap-1 rounded-full bg-violet-50 px-2 py-1 text-xs font-semibold text-violet-600"
-            >
-              Develop
-            </span> */}
-          </div>
-        </td>
-        <td>
-            17-11-2023
-        </td>
-        <td class="px-6 py-4">
-          <div class="flex justify-end gap-4">
-            <a x-data="{ tooltip: 'Delete' }" href="#">
-              <svg
-                xmlns="http://www.w3.org/2000/svg"
-                fill="none"
-                viewBox="0 0 24 24"
-                stroke-width="1.5"
-                stroke="currentColor"
-                class="h-6 w-6"
-                x-tooltip="tooltip"
-              >
-                <path
-                  stroke-linecap="round"
-                  stroke-linejoin="round"
-                  d="M14.74 9l-.346 9m-4.788 0L9.26 9m9.968-3.21c.342.052.682.107 1.022.166m-1.022-.165L18.16 19.673a2.25 2.25 0 01-2.244 2.077H8.084a2.25 2.25 0 01-2.244-2.077L4.772 5.79m14.456 0a48.108 48.108 0 00-3.478-.397m-12 .562c.34-.059.68-.114 1.022-.165m0 0a48.11 48.11 0 013.478-.397m7.5 0v-.916c0-1.18-.91-2.164-2.09-2.201a51.964 51.964 0 00-3.32 0c-1.18.037-2.09 1.022-2.09 2.201v.916m7.5 0a48.667 48.667 0 00-7.5 0"
-                />
-              </svg>
-            </a>
-            <a x-data="{ tooltip: 'Edite' }" href="#">
-               <span onClick={handleOpen} className='text-xl block float-left pr-1 text-blue-500'>
-                    <CiIcons.CiRead className='text-blue-500' />
-                  </span>
-            </a>
-          </div>
-        </td>
-      </tr>
-      <tr class="hover:bg-gray-50">
-        <th class="flex gap-3 px-6 py-4 font-normal text-gray-900">
-        
-          <div class="text-sm">
-            <div class="font-medium text-gray-700">Steven Jobs</div>
-            <div class="text-gray-400">jobs@sailboatui.com</div>
-          </div>
-        </th>
-        <td class="px-6 py-4">
-          <span
-            class="inline-flex items-center gap-1 rounded-full bg-green-50 px-2 py-1 text-xs font-semibold text-green-600"
-          >
-            +255744899032
-          </span>
-        </td>
-        <td class="px-6 py-4">Electricity and Power</td>
-        <td class="px-6 py-4">
-          <div class="flex gap-2">
-            <span
-              class="inline-flex items-center gap-1 rounded-full bg-blue-50 px-2 py-1 text-xs font-semibold text-blue-600"
-            >
-              Mpwapwa
-            </span>
-            {/* <span
-              class="inline-flex items-center gap-1 rounded-full bg-indigo-50 px-2 py-1 text-xs font-semibold text-indigo-600"
-            >
-              Product
-            </span>
-            <span
-              class="inline-flex items-center gap-1 rounded-full bg-violet-50 px-2 py-1 text-xs font-semibold text-violet-600"
-            >
-              Develop
-            </span> */}
-          </div>
-        </td>
-        <td>
-            17-11-2023
-        </td>
-        <td class="px-6 py-4">
-          <div class="flex justify-end gap-4">
-            <a x-data="{ tooltip: 'Delete' }" href="#">
-              <svg
-                xmlns="http://www.w3.org/2000/svg"
-                fill="none"
-                viewBox="0 0 24 24"
-                stroke-width="1.5"
-                stroke="currentColor"
-                class="h-6 w-6"
-                x-tooltip="tooltip"
-              >
-                <path
-                  stroke-linecap="round"
-                  stroke-linejoin="round"
-                  d="M14.74 9l-.346 9m-4.788 0L9.26 9m9.968-3.21c.342.052.682.107 1.022.166m-1.022-.165L18.16 19.673a2.25 2.25 0 01-2.244 2.077H8.084a2.25 2.25 0 01-2.244-2.077L4.772 5.79m14.456 0a48.108 48.108 0 00-3.478-.397m-12 .562c.34-.059.68-.114 1.022-.165m0 0a48.11 48.11 0 013.478-.397m7.5 0v-.916c0-1.18-.91-2.164-2.09-2.201a51.964 51.964 0 00-3.32 0c-1.18.037-2.09 1.022-2.09 2.201v.916m7.5 0a48.667 48.667 0 00-7.5 0"
-                />
-              </svg>
-            </a>
-            <a x-data="{ tooltip: 'Edite' }" href="#">
-               <span onClick={handleOpen} className='text-xl block float-left pr-1 text-blue-500'>
-                    <CiIcons.CiRead className='text-blue-500' />
-                  </span>
-            </a>
-          </div>
-        </td>
-      </tr>
-      <tr class="hover:bg-gray-50">
-        <th class="flex gap-3 px-6 py-4 font-normal text-gray-900">
-        
-          <div class="text-sm">
-            <div class="font-medium text-gray-700">Steven Jobs</div>
-            <div class="text-gray-400">jobs@sailboatui.com</div>
-          </div>
-        </th>
-        <td class="px-6 py-4">
-          <span
-            class="inline-flex items-center gap-1 rounded-full bg-green-50 px-2 py-1 text-xs font-semibold text-green-600"
-          >
-            +255744899032
-          </span>
-        </td>
-        <td class="px-6 py-4">Land Conflicts</td>
-        <td class="px-6 py-4">
-          <div class="flex gap-2">
-            <span
-              class="inline-flex items-center gap-1 rounded-full bg-blue-50 px-2 py-1 text-xs font-semibold text-blue-600"
-            >
-              Mpwapwa
+              {/* Mpwapwa */}
             </span>
             {/* <span
               class="inline-flex items-center gap-1 rounded-full bg-indigo-50 px-2 py-1 text-xs font-semibold text-indigo-600"
@@ -269,11 +210,11 @@ export default function Questions() {
         </td>
 
         <td>
-            17-11-2023
+            {/* 17-11-2023 */}
         </td>
         <td class="px-6 py-4">
           <div class="flex justify-end gap-4">
-            <a x-data="{ tooltip: 'Delete' }" href="#">
+            {/* <a x-data="{ tooltip: 'Delete' }" href="#">
               <svg
                 xmlns="http://www.w3.org/2000/svg"
                 fill="none"
@@ -289,147 +230,21 @@ export default function Questions() {
                   d="M14.74 9l-.346 9m-4.788 0L9.26 9m9.968-3.21c.342.052.682.107 1.022.166m-1.022-.165L18.16 19.673a2.25 2.25 0 01-2.244 2.077H8.084a2.25 2.25 0 01-2.244-2.077L4.772 5.79m14.456 0a48.108 48.108 0 00-3.478-.397m-12 .562c.34-.059.68-.114 1.022-.165m0 0a48.11 48.11 0 013.478-.397m7.5 0v-.916c0-1.18-.91-2.164-2.09-2.201a51.964 51.964 0 00-3.32 0c-1.18.037-2.09 1.022-2.09 2.201v.916m7.5 0a48.667 48.667 0 00-7.5 0"
                 />
               </svg>
-            </a>
+            </a> */}
             <a x-data="{ tooltip: 'Edite' }" href="#">
                <span onClick={handleOpen} className='text-xl block float-left pr-1 text-blue-500'>
-                    <CiIcons.CiRead className='text-blue-500' />
+                    {/* <CiIcons.CiRead className='text-blue-500' /> */}
                   </span>
             </a>
           </div>
         </td>
       </tr>
-      <tr class="hover:bg-gray-50">
-        <th class="flex gap-3 px-6 py-4 font-normal text-gray-900">
-        
-          <div class="text-sm">
-            <div class="font-medium text-gray-700">Steven Jobs</div>
-            <div class="text-gray-400">jobs@sailboatui.com</div>
-          </div>
-        </th>
-        <td class="px-6 py-4">
-          <span
-            class="inline-flex items-center gap-1 rounded-full bg-green-50 px-2 py-1 text-xs font-semibold text-green-600"
-          >
-            +255744899032
-          </span>
-        </td>
-        <td class="px-6 py-4">Roads and Social Services</td>
-        <td class="px-6 py-4">
-          <div class="flex gap-2">
-            <span
-              class="inline-flex items-center gap-1 rounded-full bg-blue-50 px-2 py-1 text-xs font-semibold text-blue-600"
-            >
-              Mpwapwa
-            </span>
-            {/* <span
-              class="inline-flex items-center gap-1 rounded-full bg-indigo-50 px-2 py-1 text-xs font-semibold text-indigo-600"
-            >
-              Product
-            </span>
-            <span
-              class="inline-flex items-center gap-1 rounded-full bg-violet-50 px-2 py-1 text-xs font-semibold text-violet-600"
-            >
-              Develop
-            </span> */}
-          </div>
-        </td>
-
-        <td>
-            17-11-2023
-        </td>
-        <td class="px-6 py-4">
-          <div class="flex justify-end gap-4">
-            <a x-data="{ tooltip: 'Delete' }" href="#">
-              <svg
-                xmlns="http://www.w3.org/2000/svg"
-                fill="none"
-                viewBox="0 0 24 24"
-                stroke-width="1.5"
-                stroke="currentColor"
-                class="h-6 w-6"
-                x-tooltip="tooltip"
-              >
-                <path
-                  stroke-linecap="round"
-                  stroke-linejoin="round"
-                  d="M14.74 9l-.346 9m-4.788 0L9.26 9m9.968-3.21c.342.052.682.107 1.022.166m-1.022-.165L18.16 19.673a2.25 2.25 0 01-2.244 2.077H8.084a2.25 2.25 0 01-2.244-2.077L4.772 5.79m14.456 0a48.108 48.108 0 00-3.478-.397m-12 .562c.34-.059.68-.114 1.022-.165m0 0a48.11 48.11 0 013.478-.397m7.5 0v-.916c0-1.18-.91-2.164-2.09-2.201a51.964 51.964 0 00-3.32 0c-1.18.037-2.09 1.022-2.09 2.201v.916m7.5 0a48.667 48.667 0 00-7.5 0"
-                />
-              </svg>
-            </a>
-            <a x-data="{ tooltip: 'Edite' }" href="#">
-               <span onClick={handleOpen} className='text-xl block float-left pr-1 text-blue-500'>
-                    <CiIcons.CiRead className='text-blue-500' />
-                  </span>
-            </a>
-          </div>
-        </td>
-      </tr>
-      <tr class="hover:bg-gray-50">
-        <th class="flex gap-3 px-6 py-4 font-normal text-gray-900">
-        
-          <div class="text-sm">
-            <div class="font-medium text-gray-700">Steven Jobs</div>
-            <div class="text-gray-400">jobs@sailboatui.com</div>
-          </div>
-        </th>
-        <td class="px-6 py-4">
-          <span
-            class="inline-flex items-center gap-1 rounded-full bg-green-50 px-2 py-1 text-xs font-semibold text-green-600"
-          >
-            +255744899032
-          </span>
-        </td>
-        <td class="px-6 py-4">Roads and Social Services</td>
-        <td class="px-6 py-4">
-          <div class="flex gap-2">
-            <span
-              class="inline-flex items-center gap-1 rounded-full bg-blue-50 px-2 py-1 text-xs font-semibold text-blue-600"
-            >
-             Kongwa
-            </span>
-            {/* <span
-              class="inline-flex items-center gap-1 rounded-full bg-indigo-50 px-2 py-1 text-xs font-semibold text-indigo-600"
-            >
-              Product
-            </span>
-            <span
-              class="inline-flex items-center gap-1 rounded-full bg-violet-50 px-2 py-1 text-xs font-semibold text-violet-600"
-            >
-              Develop
-            </span> */}
-          </div>
-        </td>
-
-        <td>
-            17-11-2023
-        </td>
-        <td class="px-6 py-4">
-          <div class="flex justify-end gap-4">
-            <a x-data="{ tooltip: 'Delete' }" href="#">
-              <svg
-                xmlns="http://www.w3.org/2000/svg"
-                fill="none"
-                viewBox="0 0 24 24"
-                stroke-width="1.5"
-                stroke="currentColor"
-                class="h-6 w-6"
-                x-tooltip="tooltip"
-              >
-                <path
-                  stroke-linecap="round"
-                  stroke-linejoin="round"
-                  d="M14.74 9l-.346 9m-4.788 0L9.26 9m9.968-3.21c.342.052.682.107 1.022.166m-1.022-.165L18.16 19.673a2.25 2.25 0 01-2.244 2.077H8.084a2.25 2.25 0 01-2.244-2.077L4.772 5.79m14.456 0a48.108 48.108 0 00-3.478-.397m-12 .562c.34-.059.68-.114 1.022-.165m0 0a48.11 48.11 0 013.478-.397m7.5 0v-.916c0-1.18-.91-2.164-2.09-2.201a51.964 51.964 0 00-3.32 0c-1.18.037-2.09 1.022-2.09 2.201v.916m7.5 0a48.667 48.667 0 00-7.5 0"
-                />
-              </svg>
-            </a>
-            <a x-data="{ tooltip: 'Edite' }" href="#">
-               <span onClick={handleOpen} className='text-xl block float-left pr-1 text-blue-500'>
-                    <CiIcons.CiRead className='text-blue-500' />
-                  </span>
-            </a>
-          </div>
-        </td>
-      </tr>
+            </>
+          )
+        }
+       
+      
+     
     </tbody>
   </table>
 
