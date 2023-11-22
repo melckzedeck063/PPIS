@@ -8,6 +8,8 @@ import { useForm } from 'react-hook-form';
 import { Spinner } from "@material-tailwind/react";
 import OTPform from './OTPform';
 import { yupResolver } from '@hookform/resolvers/yup';
+import { useDispatch, useSelector } from 'react-redux';
+import { registerUser } from '../store/actions/users_actions';
 Modal.setAppElement('#root'); // Set the root element for accessibility
 
 
@@ -31,6 +33,12 @@ const schema = Yup.object({
         .min(10)
         .max(10)
         .trim(),
+        nida : Yup
+        .string()
+        .required()
+        .min(16)
+        .max(16)
+        .trim(),
         password : Yup
         .string()
         .min(8)
@@ -53,6 +61,7 @@ export default function SignUp() {
 
   const [modalIsOpen, setModalIsOpen] = useState(false);
   const [showSpinner,setShowSpinner] = useState(false);
+  const dispatch = useDispatch();
 
 const openModal = () => {
   setModalIsOpen(true);
@@ -81,6 +90,9 @@ const  handleSignUp = () => {
     const onSubmit = data => {
         console.log(data)
         // dispatch(signUpUser(data))
+
+        dispatch(registerUser(data))
+
     }
 
 
@@ -116,11 +128,18 @@ const  handleSignUp = () => {
             <span className="text-red-500 text-sm">{errors.email?.message}</span>
         
          <label for="telephone" class="block mt-2 text-xs font-semibold text-gray-600 uppercase">Telephone</label>
-         <input id="telephone" type="telephone" name="telephone" placeholder="+255710020090" autocomplete="telephone" class={`text-sm sm:text-base placeholder-gray-500 pl-4 pr-3 rounded-lg border border-gray-400 w-full py-2 focus:outline-none focus:border-blue-400 ${errors.phone ? "border-red-500" : "border-sky-500"}`} 
+         <input id="telephone" type="tel" name="telephone" placeholder="+255710020090" autocomplete="tel" class={`text-sm sm:text-base placeholder-gray-500 pl-4 pr-3 rounded-lg border border-gray-400 w-full py-2 focus:outline-none focus:border-blue-400 ${errors.phone ? "border-red-500" : "border-sky-500"}`} 
            defaultValue={""}
            {...register("phone")}
          />
           <span className="text-red-500 text-sm">{errors.phone?.message}</span>
+
+          <label for="nida" class="block mt-2 text-xs font-semibold text-gray-600 uppercase">Nida</label>
+         <input id="nida" type="nida" name="nida" placeholder="19912710-02009-0000-124" autocomplete="nida" class={`text-sm sm:text-base placeholder-gray-500 pl-4 pr-3 rounded-lg border border-gray-400 w-full py-2 focus:outline-none focus:border-blue-400 ${errors.phone ? "border-red-500" : "border-sky-500"}`} 
+           defaultValue={""}
+           {...register("nida")}
+         />
+          <span className="text-red-500 text-sm">{errors.nida?.message}</span>
         
              <label for="password" class="block mt-2 text-xs font-semibold text-gray-600 uppercase">Password</label>
             <input id="password" type="password" name="password" placeholder="********" autocomplete="new-password" class={`text-sm sm:text-base placeholder-gray-500 pl-4 pr-3 rounded-lg border border-gray-400 w-full py-2 focus:outline-none focus:border-blue-400 ${errors.password ? "border-red-500" :  "border-sky-500"}`}

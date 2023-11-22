@@ -20,6 +20,7 @@ import QuestionDetail from './QuestionDetail';
 import { useDispatch, useSelector } from 'react-redux';
 import { getMyConcerns } from '../store/actions/concern_actions';
 import moment from 'moment';
+import { Link } from 'react-router-dom';
 
 
   function StarIcon() {
@@ -281,9 +282,9 @@ export default function Questions() {
           >
             <span>Cancel</span>
           </Button>
-          <Button variant="gradient" color="green" onClick={handleOpen}>
+          <Link to="/forum"  variant="gradient" className='bg-blue-500 rounded-md py-2 px-4 text-white font-medium' color="green" onClick={handleOpen}>
             <span>Answer</span>
-          </Button>
+          </Link >
         </DialogFooter>
       </Dialog>
       </div>

@@ -7,6 +7,7 @@ import Questions from "./components/Questions";
 import { AuthProvider } from "./context";
 import ProtectedRoute from "./context/protect";
 import Dashboard from "./components/dashboard";
+import Forum from "./components/forum";
 
 
 function App() {
@@ -19,6 +20,7 @@ function App() {
       <Route path="/dashboard" element={ <ProtectedRoute> <Dashboard /> </ProtectedRoute> } />
       <Route path="/all_mps" element={ <ProtectedRoute> <AllMp /> </ProtectedRoute>} />
       <Route path="/questions" element={<ProtectedRoute> <Questions /> </ProtectedRoute>}  />
+      <Route path="/forum" element={<ProtectedRoute> <Forum /> </ProtectedRoute>} />
     </Routes>
     </AuthProvider>
  </BrowserRouter>

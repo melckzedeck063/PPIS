@@ -1,6 +1,6 @@
 import { createSlice } from "@reduxjs/toolkit";
 
-import { getAllConstituency, signInUser,signUpUser ,g, getAllConstituencyetAllStaffs, getAllStaffs} from "../actions/users_actions";
+import { getAllConstituency, signInUser,signUpUser ,g, getAllConstituencyetAllStaffs, getAllStaffs, registerUser} from "../actions/users_actions";
 // import {  getAllConstituency, getAllStaffs, getUserById, myProfile, signInUser, signUpUser, updateMe, updateUser } from "../actions/user_actions";
 
 
@@ -56,6 +56,20 @@ export const userSlice = createSlice({
             state.users = action.payload
         })
         .addCase(signUpUser.rejected, (state,action) => {
+            state.status = "Failed";
+            state.message = "Request  failed please try again";
+            state.error = action.error.message
+        })
+
+        .addCase(registerUser.pending,(state,action) => {
+            state.status = "Loading"
+        })
+        .addCase(registerUser.fulfilled, (state,action) => {
+            state.status = "Successfull";
+            state.message = "New account user succesfully ";
+            state.current_user = action.payload
+        })
+        .addCase(registerUser.rejected, (state,action) => {
             state.status = "Failed";
             state.message = "Request  failed please try again";
             state.error = action.error.message

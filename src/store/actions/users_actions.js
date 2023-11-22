@@ -75,6 +75,30 @@ export const signUpUser = createAsyncThunk('user/new', async (values) => {
     }
 })
 
+export  const registerUser = createAsyncThunk('/new_user', async (values) => {
+    console.log(values);
+
+    try {
+        const response = await axios.post(`${AUTH_URL}/register`, {
+            firstName: values.firstname,
+            lastName: values.lastname,
+            username: values.email,
+            phoneNumber: values.phone,
+            nidaNumber :  values.nida,
+            password : values.password
+            
+        })
+
+        console.log(response.data);
+        return response.data;
+    }
+    catch (error) {
+        console.log(error)
+        return error.message
+    }
+})
+
+
 export const getAllStaffs = createAsyncThunk('/staffs', async () => {
     try {
         const response = await CONST_API.get('/user/get-officials');
