@@ -1,5 +1,5 @@
 import { createSlice } from "@reduxjs/toolkit";
-import { getAllCAtegories, getMyConcerns, sendConcern } from "../actions/concern_actions";
+import { getAllCAtegories, getConcernById, getMyConcerns, getSubmittedByMe, sendConcern } from "../actions/concern_actions";
 
 const concernSlice = createSlice({
     name: "concerns",
@@ -8,6 +8,7 @@ const concernSlice = createSlice({
         all_concern: [],
         my_concerns: null,
         all_categories :  [],
+       current_concern : null,
         error: null,
         message: "",
         status: "",
@@ -71,6 +72,33 @@ const concernSlice = createSlice({
             .addCase(getAllCAtegories.rejected, (state,action)  => {
                 state.status = "Failed";
                 state.error  = action.error.message
+            })
+
+            .addCase(getSubmittedByMe.pending, (state,action) => {
+                state.status = "Pending";
+            })
+            .addCase(getSubmittedByMe.fulfilled, (state,action) => {
+                state.status = "Succesfull";
+                state.my_concerns = action.payload;
+                state.message = "Concerns data found succesfully";
+            })
+            .addCase(getSubmittedByMe.rejected,  (state,action) => {
+                state.status = "Failed";
+                state.message =  action.error.message;
+            })
+            
+
+            .addCase(getConcernById.pending, (state,action) => {
+                state.status = "Pending";
+            })
+            .addCase(getConcernById.fulfilled, (state,action) => {
+                state.status = "Succesfull";
+                state.current_concern = action.payload;
+                state.message = "Concern  data  found succesfull";
+            })
+            .addCase(getConcernById.rejected, (state,action) => {
+                state.status= "Failed";
+                state.message = action.error.message;
             })
 
             

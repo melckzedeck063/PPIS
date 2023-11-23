@@ -18,7 +18,7 @@ import {
   } from "@material-tailwind/react";
 import QuestionDetail from './QuestionDetail';
 import { useDispatch, useSelector } from 'react-redux';
-import { getMyConcerns } from '../store/actions/concern_actions';
+import { getConcernById, getMyConcerns } from '../store/actions/concern_actions';
 import moment from 'moment';
 import { Link } from 'react-router-dom';
 
@@ -45,7 +45,11 @@ export default function Questions() {
     const [open, setOpen] = React.useState(false);
     const dispatch = useDispatch();
  
-    const handleOpen = () => setOpen(!open);
+    const handleOpen = (id) =>{
+      setOpen(!open);
+      dispatch(getConcernById(id))
+    } 
+      
     const concerns =  useSelector(state => state.concerns);
 
     // console.log(concerns.my_concerns.content);
@@ -138,16 +142,6 @@ export default function Questions() {
           >
             {item.submittedTo.fullName}
           </span>
-          {/* <span
-            class="inline-flex items-center gap-1 rounded-full bg-indigo-50 px-2 py-1 text-xs font-semibold text-indigo-600"
-          >
-            Product
-          </span>
-          <span
-            class="inline-flex items-center gap-1 rounded-full bg-violet-50 px-2 py-1 text-xs font-semibold text-violet-600"
-          >
-            Develop
-          </span> */}
         </div>
       </td>
       <td>
@@ -156,12 +150,12 @@ export default function Questions() {
       <td class="px-6 py-4">
         <div class="flex justify-end gap-4">
           <a x-data="{ tooltip: 'Delete' }" href="#">
-          <span onClick={handleOpen} className='text-xl block float-left pr-1 text-blue-500'>
+          <span  className='text-xl block float-left pr-1 text-blue-500'>
                   <IoIcons.IoMdSend className='text-blue-500 -rotate-45' />
                 </span>
           </a>
           <a x-data="{ tooltip: 'Edite' }" href="#">
-             <span onClick={handleOpen} className='text-xl block float-left pr-1 text-blue-500'>
+             <span onClick={()  =>  handleOpen(item.uuid)} className='text-xl block float-left pr-1 text-blue-500'>
                   <FaReadme className='text-green-700 font-bold' />
                 </span>
           </a>
