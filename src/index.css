@@ -1,3 +1,51 @@
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
+
+
+:root {
+    --org: orangered;
+    --gry: rgb(232, 232, 232);
+}
+
+.btn_cli {
+    width: 40px;
+    height: 40px;
+    border-radius: 50px;
+    background: none;
+    border: 3px solid black;
+    border-bottom-color: var(--org);
+    border-top-color: var(--gry);
+    /* animation-name: animeme;
+    animation-duration: 1s linear infinite;
+    animation-fill-mode: forwards; */
+    animation: 1s animeme linear infinite;
+}
+
+@keyframes animeme {
+    from {
+        transform: rotate(0deg);
+    }
+
+    to {
+        transform: rotate(360deg);
+    }
+}
+button * {
+    /* width: 100%; */
+    
+}
+
+
+@keyframes loader-rotate {
+    0% {
+        transform: rotate(0);
+    }
+    100% {
+        transform: rotate(360deg);
+    }
+}
+.loader {
+    border-right-color: transparent;
+    animation: loader-rotate 1s linear infinite;
+}

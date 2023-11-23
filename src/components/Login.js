@@ -12,6 +12,7 @@ import Modal from 'react-modal';
 import { useDispatch } from 'react-redux';
 import { signInUser } from '../store/actions/users_actions';
 import { AuthContext } from '../context';
+import { BtnAnime } from './btn';
 Modal.setAppElement('#root'); // Set the root element for accessibility
 
 
@@ -30,8 +31,11 @@ const schema = Yup.object({
 
 export default function Login() {
 
+  
     const [signUpModal,setSignupModal] = useState(false);
     const [modalIsOpen, setModalIsOpen] = useState(false);
+    const [btnClicked, setBtnClicked]  =  useState(false);
+
     const navigate = useNavigate();
     const dispatch =  useDispatch();
     const context = useContext(AuthContext);
@@ -61,25 +65,24 @@ export default function Login() {
 })
 
 const onSubmit = data => {
-    // console.log(data)
+    console.log(data)
 
     dispatch(signInUser(data))
     // navigate('/dashboard')
-
+    
     setTimeout(() => {
       const storage = sessionStorage.getItem('token');
       const user = JSON.parse(storage);
       // console.log(user);
       if (user.data?.token !== null && user.data?.token !== undefined && user.data?.token !== "") {
-          // setMessage(true)
-          // console.log(userType);
-          navigate('/dashboard')
+        navigate('/dashboard')
       }
-    
-  }, 3000);
-  // userLogin()
-}
-
+      
+    }, 3500);
+    // userLogin()
+  }
+  BtnAnime();
+  // const {  } = BtnAnime();
   useEffect(() => {
     if(isSubmitSuccessful){
       reset({
@@ -93,6 +96,13 @@ const userLogin = () => {
   context.handleLogin()
 }
 
+const loginClicked = () => {
+  setBtnClicked(true);
+  setTimeout(() => {
+    setBtnClicked(false);
+
+  }, 3000);
+}
 
   return (
     <div>
@@ -155,16 +165,30 @@ const userLogin = () => {
         </div>
 
         <div class="flex w-full">
-          <button type="submit" disabled={!isValid || !isDirty} 
-            class="flex items-center justify-center focus:outline-none text-white text-sm sm:text-base bg-blue-600 hover:bg-blue-700 rounded py-2 w-full transition duration-150 ease-in">
-            <span class="mr-2 uppercase">Login</span>
-            <span>
-              <svg class="h-6 w-6" fill="none" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" viewBox="0 0 24 24" stroke="currentColor">
-                <path d="M13 9l3 3m0 0l-3 3m3-3H8m13 0a9 9 0 11-18 0 9 9 0 0118 0z" />
-              </svg>
-            </span>
-          </button>
-        </div>
+                <button onClick={loginClicked}  disabled={!isValid || !isDirty}
+                  class="flex items-center justify-center focus:outline-none text-white text-sm sm:text-base bg-blue-600 hover:bg-blue-700 rounded py-2 w-full transition duration-150 ease-in">
+                   
+                   {
+                    btnClicked  &&(
+                      <div class="w-12 h-12 border-4 border-white rounded-full loader"></div>
+                    )
+                   }
+                   {
+                    !btnClicked && (
+                  <div className='bn1' style={{display:'flex'}}>
+                    <span class="mr-2 uppercase">Login</span>
+                    <span>
+                      <svg class="h-6 w-6" fill="none" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" viewBox="0 0 24 24" stroke="currentColor">
+                        <path d="M13 9l3 3m0 0l-3 3m3-3H8m13 0a9 9 0 11-18 0 9 9 0 0118 0z" />
+                      </svg>
+                    </span>
+                  </div>
+
+                    )
+                   }
+                  
+                </button>
+          </div>
       </form>
     </div>
             
