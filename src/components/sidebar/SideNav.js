@@ -31,7 +31,7 @@ import RegisterMP from '../RegisterMp';
 import Modal from 'react-modal';
 import NewConcern from '../NewConcern';
 import { useDispatch } from 'react-redux';
-import { getAllCAtegories, getMyConcerns } from '../../store/actions/concern_actions';
+import { getAllCAtegories, getMyConcerns, getSubmittedByMe } from '../../store/actions/concern_actions';
 import { getAllConstituency, getAllStaffs } from '../../store/actions/users_actions';
 import { AuthContext } from '../../context';
 import AuthUser from '../../context/authUser';
@@ -95,7 +95,12 @@ function SideNav() {
   }
 
   const handleConcerns = () => {
-    dispatch(getMyConcerns())
+    if(userRole === "CITIZEN"){
+      dispatch(getSubmittedByMe());
+    }
+    else {
+      dispatch(getMyConcerns())
+    }
   }
    const handleConstituency = () => {
      dispatch(getAllConstituency())
@@ -139,7 +144,7 @@ function SideNav() {
         transition={{ duration: 1 }}
       >
         <div className='shadow-3xl sticky top-0 z-40'>
-          <div className={`pt-4 p-3 h-screen  bg-blue-900 backdrop-blur-sm ${open ? "w-44 xl:w-52 lg:w-52 duration-300" : "w-14 duration-300"}  text-gray-800 relative`}>
+          <div className={`sidebr pt-4 p-3 h-screen  bg-blue-900 backdrop-blur-sm ${open ? "w-54 xl:w-62 lg:w-71 duration-300" : "w-14 duration-300"}  text-gray-800 relative`}>
             <AiOutlineMenuUnfold onClick={() => setOpen(!open)} className={`bg-white duration-300 text-slate-800 hover:font-bold hover:cursor-pointer rounded-full border border-cool-teal p-1 text-3xl absolute right-0.5 top-1 ${!open && "rotate-180"} `} />
             <div className="inline-flex mb-3 py-2 -ml-1 mt-2 space-x-2">
                <div className="mx-auto">
@@ -207,12 +212,12 @@ function SideNav() {
                 userRole === "MP" || userRole === "MINISTER" || userRole === "CITIZEN" && (
                   <>
               <li className={`text-gray-800 py-2.5 space-x-1 text-sm hover:px-1  cursor-pointer hover:bg-light-white hover:text-gray-800 rounded-md mt-2`}>
-                <Link style={{ textDecoration: "none" }} to='#' className="flex items-center hover:text-white no-underline text-gray-100 ">
+                <Link onClick={() => setSubVendors(!subVendors)} style={{ textDecoration: "none" }} to='#' className="flex items-center hover:text-white no-underline text-gray-100 ">
                   <span className='text-xl block float-left pr-1'>
                     <AiIcons.AiOutlineOrderedList />
                   </span>
                   <span className={`text-base flex-1 font-lightt ${!open && "hidden"}`}> Concerns </span>
-                  <IoIcons.IoMdArrowDropup className={`text-xl ${!open && "hidden"} ${!subVendors && "rotate-180"}`} onClick={() => setSubVendors(!subVendors)} />
+                  <IoIcons.IoMdArrowDropup className={`text-xl ${!open && "hidden"} ${!subVendors && "rotate-180"}`}  />
                 </Link>
               </li>
               {

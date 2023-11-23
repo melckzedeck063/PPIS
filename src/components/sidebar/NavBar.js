@@ -2,7 +2,7 @@ import React from 'react'
 
 export default function NavBar() {
   return (
-    <div className='bg-blue-900 px-4 shadow-lg'>
+    <div className='topbr px-4 shadow-lg'>
         <nav class="block w-full max-w-full bg-transparent text-white shadow-none rounded-xl transition-all px-0 py-1">
       <div class="flex flex-col-reverse justify-between gap-6 md:flex-row md:items-center">
         <div class="capitalize">
@@ -19,7 +19,7 @@ export default function NavBar() {
               </li>
             </ol>
           </nav>
-          <h6 class="block antialiased tracking-normal font-sans text-base font-semibold leading-relaxed text-gray-100">home</h6>
+          {/* <h6 class="block antialiased tracking-normal font-sans text-base font-semibold leading-relaxed text-gray-100">home</h6> */}
         </div>
         <div class="flex items-center">
           {/* <div class="mr-auto md:mr-4 md:w-56">
