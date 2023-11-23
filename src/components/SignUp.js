@@ -1,4 +1,4 @@
-import React, { useState } from 'react'
+import React, { useEffect, useState } from 'react'
 
 import * as MdIcons from 'react-icons/md';
 import * as Yup from 'yup';
@@ -63,6 +63,10 @@ export default function SignUp() {
   const [showSpinner,setShowSpinner] = useState(false);
   const dispatch = useDispatch();
 
+  const new_user =   useSelector(state => state.users);
+  console.log(new_user);
+
+
 const openModal = () => {
   setModalIsOpen(true);
 };
@@ -72,11 +76,14 @@ const closeModal = () => {
 };
 
 const  handleSignUp = () => {
-  setShowSpinner(true)
   setTimeout(() => {
-    setShowSpinner(false)
-    openModal()
-  }, 3000);
+    if(new_user?.new_user === null){
+      
+    }
+    else {
+      openModal()
+    }
+  }, 2000);
 }
 
 
@@ -94,6 +101,20 @@ const  handleSignUp = () => {
         dispatch(registerUser(data))
 
     }
+
+    useEffect(() => {
+      if(isSubmitSuccessful){
+        reset({
+          firstname : "",
+          lastname : "",
+          email : "",
+          phone : "",
+          nida : "",
+          password : "",
+          confirmPassword : ""
+        })
+      }
+    })
 
 
   return (

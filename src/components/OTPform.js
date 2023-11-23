@@ -1,4 +1,4 @@
-import React from 'react'
+import React, { useEffect } from 'react'
 import { useForm } from 'react-hook-form';
 import { useNavigate } from 'react-router-dom';
 import * as Yup from 'yup';
@@ -31,6 +31,16 @@ const onSubmit = data => {
 
     dispatch( activateAccount(data))
 }
+
+useEffect(() =>{
+   if(isSubmitSuccessful){
+    reset({
+      code : ""
+    })
+   }
+})
+
+
   return (
     <div>
         <main id="content" role="main" class="w-full max-w-md mx-auto p-6">

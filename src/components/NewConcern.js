@@ -1,4 +1,4 @@
-import React, { useState } from 'react'
+import React, { useEffect, useState } from 'react'
 
 import * as MdIcons from 'react-icons/md';
 import * as Yup from 'yup';
@@ -66,9 +66,16 @@ export default function NewConcern() {
         dispatch(sendConcern(data));
     }
 
-    const handleSubmission = () => {
-        alert("concern submitted");
-    }
+    useEffect(() => {
+      if(isSubmitSuccessful){
+        reset({
+          title : "",
+          description : "",
+          category : "",
+          representative : ""
+        })
+      }
+    })
 
 
   return (

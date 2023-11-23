@@ -10,6 +10,7 @@ export const userSlice = createSlice({
         loged_user : null,
         current_user :  null,
         user_profile : null,
+        new_user : null,
         users : [],
         staffs : [],
         constituencies : [],
@@ -67,7 +68,7 @@ export const userSlice = createSlice({
         .addCase(registerUser.fulfilled, (state,action) => {
             state.status = "Successfull";
             state.message = "New account user succesfully ";
-            state.current_user = action.payload
+            state.new_user = action.payload
         })
         .addCase(registerUser.rejected, (state,action) => {
             state.status = "Failed";
