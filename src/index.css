@@ -1,11 +1,22 @@
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
+@import url('https://fonts.googleapis.com/css2?family=Raleway:wght@100&display=swap');
+
+body{
+    font-family: 'Raleway', sans-serif;
+    font-weight:  700;
+    color: rgb(30, 29, 29);
+}
 
 
 :root {
     --org: orangered;
+    --org2:rgb(65, 81, 164);
     --gry: rgb(232, 232, 232);
+    --dark2: rgb(60, 58, 58);
+    --dark: black;
+    --grn: rgb(5, 145, 124);
 }
 
 .btn_cli {
@@ -48,4 +59,26 @@ button * {
 .loader {
     border-right-color: transparent;
     animation: loader-rotate 1s linear infinite;
+}
+.topbr{
+    background-color: var(--dark2);
+    border-bottom: 5px solid var(--gry);
+}
+.topbr *  {
+    /* font-weight: 100; */
+}
+.sidebr{
+    position: relative;
+    margin-left: -3px;
+    background-color: var(--dark);
+}
+.sidebr * {
+    
+}
+/* */
+.m_cards > *  {
+    background: linear-gradient(60deg, rgba(0, 255, 42, 0.161) 10%, rgba(0, 0, 255, 0.189) 40%, rgba(0, 255, 42, 0.161)  10%);
+}
+.m_cards > *:nth-child(2)  {
+    background: linear-gradient(60deg, rgba(255, 123, 0, 0.161) 10%, rgba(17, 0, 255, 0.189) 40%, rgba(0, 255, 42, 0.161)  10%);
 }

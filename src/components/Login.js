@@ -81,7 +81,7 @@ const onSubmit = data => {
     }, 3500);
     // userLogin()
   }
-  BtnAnime();
+
   // const {  } = BtnAnime();
   useEffect(() => {
     if(isSubmitSuccessful){

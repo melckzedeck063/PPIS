@@ -1,4 +1,4 @@
-import React, { useEffect } from 'react'
+import React, { useEffect, useState } from 'react'
 
 import { useForm } from 'react-hook-form';
 import { yupResolver } from '@hookform/resolvers/yup';
@@ -75,6 +75,7 @@ export default function RegisterMP() {
     const constituencies  = useSelector(state  => state.users);
 
     const dispatch = useDispatch();
+    const [btnClicked, setBtnClicked]  =  useState(false);
 
     // console.log(constituencies.constituencies.dataList)
 
@@ -96,6 +97,14 @@ export default function RegisterMP() {
         })
       }
     })
+
+    const loginClicked = () => {
+      setBtnClicked(true);
+      setTimeout(() => {
+        setBtnClicked(false);
+    
+      }, 3000);
+    }
 
   return (
     <div>
@@ -192,24 +201,33 @@ export default function RegisterMP() {
               </select>
               <span className="text-red-500 text-sm">{errors.province?.message}</span>
 
-              {/* ... (other code) */}
-         
-         <div class="flex w-full my-4">
-          <button type="submit" class="flex items-center justify-center focus:outline-none text-white text-sm sm:text-base bg-blue-600 hover:bg-blue-700 rounded py-2 w-full transition duration-150 ease-in">
-            <span class="mr-2 uppercase">Register</span>
-            <span>
-              <svg class="h-6 w-6" fill="none" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" viewBox="0 0 24 24" stroke="currentColor">
-                <path d="M13 9l3 3m0 0l-3 3m3-3H8m13 0a9 9 0 11-18 0 9 9 0 0118 0z" />
-              </svg>
-            </span>
-          </button>
-        </div>
+              <div class="flex w-full">
+                <button onClick={loginClicked}  disabled={!isValid || !isDirty}
+                  class="flex items-center justify-center focus:outline-none text-white text-sm sm:text-base bg-blue-600 hover:bg-blue-700 rounded py-2 w-full transition duration-150 ease-in">
+                   
+                   {
+                    btnClicked  &&(
+                      <div class="w-12 h-12 border-4 border-white rounded-full loader"></div>
+                    )
+                   }
+                   {
+                    !btnClicked && (
+                  <div className='bn1' style={{display:'flex'}}>
+                    <span class="mr-2 uppercase">Login</span>
+                    <span>
+                      <svg class="h-6 w-6" fill="none" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" viewBox="0 0 24 24" stroke="currentColor">
+                        <path d="M13 9l3 3m0 0l-3 3m3-3H8m13 0a9 9 0 11-18 0 9 9 0 0118 0z" />
+                      </svg>
+                    </span>
+                  </div>
 
-        
-       
-       {/* <div className="">
-           <p onClick={closeSignupModal} class="flex justify-between cursor-pointer inline-block mt-4 text-xs text-blue-500 cursor-pointer hover:text-black">Already registered?</p>
-       </div> */}
+                    )
+                   }
+                  
+                </button>
+          </div>
+         
+           
     </form>
   </div>
 </div>

@@ -20,7 +20,7 @@ import QuestionDetail from './QuestionDetail';
 import { useDispatch, useSelector } from 'react-redux';
 import { getConcernById, getMyConcerns } from '../store/actions/concern_actions';
 import moment from 'moment';
-import { Link } from 'react-router-dom';
+import { Link, useNavigate } from 'react-router-dom';
 
 
   function StarIcon() {
@@ -44,10 +44,12 @@ export default function Questions() {
 
     const [open, setOpen] = React.useState(false);
     const dispatch = useDispatch();
+    const navigate =  useNavigate();
  
     const handleOpen = (id) =>{
-      setOpen(!open);
+      // setOpen(!open);
       dispatch(getConcernById(id))
+      navigate("/forum");
     } 
       
     const concerns =  useSelector(state => state.concerns);

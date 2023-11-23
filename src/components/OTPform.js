@@ -35,11 +35,10 @@ const onSubmit = data => {
 useEffect(() =>{
    if(isSubmitSuccessful){
     reset({
-      code : ""
+      code : "",
     })
    }
 })
-
 
   return (
     <div>
