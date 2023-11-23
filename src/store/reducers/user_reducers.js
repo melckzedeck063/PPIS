@@ -1,6 +1,6 @@
 import { createSlice } from "@reduxjs/toolkit";
 
-import { getAllConstituency, signInUser,signUpUser ,g, getAllConstituencyetAllStaffs, getAllStaffs, registerUser} from "../actions/users_actions";
+import { getAllConstituency, signInUser,signUpUser ,g, getAllConstituencyetAllStaffs, getAllStaffs, registerUser, activateAccount} from "../actions/users_actions";
 // import {  getAllConstituency, getAllStaffs, getUserById, myProfile, signInUser, signUpUser, updateMe, updateUser } from "../actions/user_actions";
 
 
@@ -100,19 +100,19 @@ export const userSlice = createSlice({
             state.message = "Request  failed please try again";
             state.error = action.error.message;
         })
-        // .addCase(getUserById.pending,(state,action) => {
-        //     state.status = "Loading"
-        // })
-        // .addCase(getUserById.fulfilled, (state,action) => {
-        //     state.status = "Successfull";
-        //     state.message = "New account created  succesfully ";
-        //     state.current_user = action.payload
-        // })
-        // .addCase(getUserById.rejected, (state,action) => {
-        //     state.status = "Failed";
-        //     state.message = "Request  failed please try again";
-        //     state.error = action.error.message
-        // })
+        .addCase(activateAccount.pending,(state,action) => {
+            state.status = "Loading"
+        })
+        .addCase(activateAccount.fulfilled, (state,action) => {
+            state.status = "Successfull";
+            state.message = "Account activated succesfully ";
+            state.current_user = action.payload
+        })
+        .addCase(activateAccount.rejected, (state,action) => {
+            state.status = "Failed";
+            state.message = "Request  failed please try again";
+            state.error = action.error.message
+        })
         // .addCase(updateUser.pending,(state,action) => {
         //     state.status = "Loading"
         // })

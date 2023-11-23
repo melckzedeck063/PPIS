@@ -1,4 +1,4 @@
-import React, { useContext, useState } from 'react'
+import React, { useContext, useEffect, useState } from 'react'
 // import { Menus } from './menus'
 import { Link, useNavigate } from 'react-router-dom'
 import { motion } from 'framer-motion';
@@ -33,6 +33,8 @@ import NewConcern from '../NewConcern';
 import { useDispatch } from 'react-redux';
 import { getAllCAtegories, getMyConcerns } from '../../store/actions/concern_actions';
 import { getAllConstituency, getAllStaffs } from '../../store/actions/users_actions';
+import { AuthContext } from '../../context';
+import AuthUser from '../../context/authUser';
   
     Modal.setAppElement('#root');
 
@@ -54,13 +56,30 @@ function SideNav() {
   
  
 
-  const [userRole, setUserRole] = useState("ADMIN");
+  const { token } = AuthUser();
+  const [userRole, setUserRole] = useState(null);
+  useEffect(() => {
+    const fetchData = async () => {
+      // Use the token from useAuthUser
+      const { userType } = token;
+      setUserRole(userType);
+    };
+
+    fetchData();
+  }, [token]);
+
+  // console.log(userRole);
+  
   const navigate = useNavigate();
+
+  const context  =  useContext(AuthContext);
 
   const [modalIsOpen, setModalIsOpen] = useState(false);
   const [conernModal,setConcernModel] = useState(false);
 
   const dispatch =  useDispatch();
+
+ 
 
   const  handleNewConcern = () => {
     dispatch( getAllCAtegories());
@@ -102,7 +121,9 @@ function SideNav() {
     setConcernModel(false);
   };
 
-  
+    const handleLogout  = ( ) => {
+      context.handleLogout();
+    }
 
   return (
     <>
@@ -136,6 +157,9 @@ function SideNav() {
                 </Link>
               </li>
 
+              {
+                userRole === "ADMIN" && (
+                  <>
               <li className={`text-gray-800 py-2.5 space-x-1 text-sm hover:px-1  cursor-pointer hover:bg-light-white hover:text-gray-800 rounded-md mt-2 ${userRole !== "ADMIN" && "hidden"}`}  onClick={() => setSubMenuOpen(!subMenuOpen)}>
                 <Link onClick={() => setSubMenuOpen(!subMenuOpen)} style={{ textDecoration: "none" }} to='#' className="flex items-center hover:text-white no-underline text-gray-100 ">
                   <span className='text-xl block float-left pr-1'>
@@ -160,6 +184,9 @@ function SideNav() {
                </ul>
              )
               }
+                  </>
+                )
+              }
 
               {/* <li className={`text-gray-800 py-2.5 space-x-1 text-sm hover:px-1  cursor-pointer hover:bg-light-white hover:text-gray-800 rounded-md mt-2`}>
                 <Link style={{ textDecoration: "none" }} to='/new_request' className="flex items-center hover:text-white no-underline text-gray-100 ">
@@ -169,6 +196,10 @@ function SideNav() {
                   <span className={`text-base flex-1 font-lightt ${!open && "hidden"}`}> Requests </span>
                 </Link>
               </li> */}
+
+              {
+                userRole === "MP" || userRole === "MINISTER" || userRole === "CITIZEN" && (
+                  <>
               <li className={`text-gray-800 py-2.5 space-x-1 text-sm hover:px-1  cursor-pointer hover:bg-light-white hover:text-gray-800 rounded-md mt-2`}>
                 <Link style={{ textDecoration: "none" }} to='#' className="flex items-center hover:text-white no-underline text-gray-100 ">
                   <span className='text-xl block float-left pr-1'>
@@ -182,15 +213,18 @@ function SideNav() {
                 subVendors && open && (
                   <ul>
                     <li className="text-gray-800 p-2 px-3 space-x-2 text-sm flex items-center cursor-pointer hover:bg-light-white rounded-md ">
-                      <Link onClick={handleConcerns} style={{ textDecoration: "none" }} to='/questions' className="no-underline hover:text-white text-gray-100"> All Concerns </Link>
+                      <Link onClick={handleConcerns} style={{ textDecoration: "none" }} to='/questions' className="no-underline hover:text-white text-gray-100">My Concerns </Link>
                     </li>
-                    <li className="text-gray-800 p-2 px-3 space-x-2 text-sm flex items-center cursor-pointer hover:bg-light-white rounded-md ">
+                    {/* <li className="text-gray-800 p-2 px-3 space-x-2 text-sm flex items-center cursor-pointer hover:bg-light-white rounded-md ">
                       <Link  style={{ textDecoration: "none" }} to='#' className="no-underline hover:text-white text-gray-100">My Concerns </Link>
-                    </li>
+                    </li> */}
                     <li className="text-gray-800 p-2 px-3 space-x-2 text-sm flex items-center cursor-pointer hover:bg-light-white rounded-md ">
                       <Link onClick={handleNewConcern} style={{ textDecoration: "none" }} to='#' className="no-underline hover:text-white text-gray-100"> New Concern </Link>
                     </li>
                   </ul>
+                )
+              }
+                  </>
                 )
               }
 
@@ -328,14 +362,14 @@ function SideNav() {
                 </Link>
               </li>
 
-              {/* <li   className={`text-gray-800  bg-red-400 py-1.5 ml-2 space-x-3 pl-2 text-sm hover:px-1  cursor-pointer hover:bg-light-white hover:text-gray-800 rounded-md mt-2`}>
-                <Link style={{ textDecoration: "none" }} to='#' className="flex items-center hover:text-white no-underline text-gray-100 ">
+              <li   className={`text-gray-800  bg-red-400 py-1.5 ml-2 space-x-3 pl-2 text-sm hover:px-1  cursor-pointer hover:bg-light-white hover:text-gray-800 rounded-md mt-2`}>
+                <Link onClick={handleLogout} style={{ textDecoration: "none" }} to='#' className="flex items-center hover:text-white no-underline text-gray-100 ">
                   <span className='text-xl block float-left pr-1'>
                     <FiIcons.FiLogOut />
                   </span>
                   <span className={`text-base text-centerr flex-1 font-lightt ${!open && "hidden"}`}> Logout </span>
                 </Link>
-              </li> */}
+              </li>
             </ul>
           </div>
           <Modal

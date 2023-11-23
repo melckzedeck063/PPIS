@@ -1,4 +1,4 @@
-import React from 'react'
+import React, { useEffect } from 'react'
 
 import { useForm } from 'react-hook-form';
 import { yupResolver } from '@hookform/resolvers/yup';
@@ -50,8 +50,8 @@ const schema = Yup.object({
         phone  :  Yup
         .string()
         .required()
-        .min(10)
-        .max(10)
+        .min(12)
+        .max(12)
         .trim(),
         userRole : Yup
         .string()
@@ -83,6 +83,19 @@ export default function RegisterMP() {
         dispatch(signUpUser(data));
         
     }
+
+    useEffect(() => {
+      if(isSubmitSuccessful){
+        reset({
+          firstname : "",
+          lastname : "",
+          email : "",
+          phone : "",
+          province  : "",
+          userRole : ""
+        })
+      }
+    })
 
   return (
     <div>

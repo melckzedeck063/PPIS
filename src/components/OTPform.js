@@ -1,6 +1,36 @@
 import React from 'react'
+import { useForm } from 'react-hook-form';
+import { useNavigate } from 'react-router-dom';
+import * as Yup from 'yup';
+import { yupResolver } from '@hookform/resolvers/yup'
+import { useDispatch } from 'react-redux';
+import { activateAccount } from '../store/actions/users_actions';
+
+const schema = Yup.object({
+  code: Yup
+      .string()
+      .required()
+      .trim(),
+
+})
+
 
 export default function OTPform() {
+
+  const dispatch = useDispatch();
+
+  const { register, handleSubmit, reset, formState: { errors, isDirty, isValid, isSubmitSuccessful } } = useForm({
+    mode: "all",
+    reValidateMode: "onChange",
+    shouldFocusError: true,
+    resolver: yupResolver(schema)
+})
+
+const onSubmit = data => {
+    console.log(data)
+
+    dispatch( activateAccount(data))
+}
   return (
     <div>
         <main id="content" role="main" class="w-full max-w-md mx-auto p-6">
@@ -17,12 +47,16 @@ export default function OTPform() {
         </div>
 
         <div class="mt-5">
-          <form>
+          <form onSubmit={handleSubmit(onSubmit)} >
             <div class="grid gap-y-4">
               <div>
                 <label for="email" class="block text-sm font-bold ml-1 mb-2 text-blue-900">Enter OTP sent to you</label>
                 <div class="relative">
-                  <input type="number" id="number" name="email" class="py-3 px-4 block w-full border-2 border-gray-200 rounded-md text-sm focus:border-blue-500 focus:ring-blue-500 shadow-sm" required aria-describedby="email-error" />
+                  <input type="number" id="number" name="code" class="py-3 px-4 block w-full border-2 border-gray-200 rounded-md text-sm focus:border-blue-500 focus:ring-blue-500 shadow-sm" required aria-describedby="email-error"
+                    defaultValue={""}
+                    {...register("code")}
+                  />
+                  <span className="text-sm text-red-500"> {errors.code?.message} </span>
                 </div>
                 <p class="hidden text-xs text-red-600 mt-2" id="email-error">Please Enter valid OTP please</p>
               </div>

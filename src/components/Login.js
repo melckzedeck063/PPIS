@@ -69,14 +69,15 @@ const onSubmit = data => {
     setTimeout(() => {
       const storage = sessionStorage.getItem('token');
       const user = JSON.parse(storage);
-      console.log(user);
+      // console.log(user);
       if (user.data?.token !== null && user.data?.token !== undefined && user.data?.token !== "") {
           // setMessage(true)
+          // console.log(userType);
           navigate('/dashboard')
       }
     
   }, 3000);
-  userLogin()
+  // userLogin()
 }
 
   useEffect(() => {

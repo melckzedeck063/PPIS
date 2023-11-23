@@ -30,8 +30,8 @@ const schema = Yup.object({
         phone  :  Yup
         .string()
         .required()
-        .min(10)
-        .max(10)
+        .min(12)
+        .max(12)
         .trim(),
         nida : Yup
         .string()
@@ -128,7 +128,7 @@ const  handleSignUp = () => {
             <span className="text-red-500 text-sm">{errors.email?.message}</span>
         
          <label for="telephone" class="block mt-2 text-xs font-semibold text-gray-600 uppercase">Telephone</label>
-         <input id="telephone" type="tel" name="telephone" placeholder="+255710020090" autocomplete="tel" class={`text-sm sm:text-base placeholder-gray-500 pl-4 pr-3 rounded-lg border border-gray-400 w-full py-2 focus:outline-none focus:border-blue-400 ${errors.phone ? "border-red-500" : "border-sky-500"}`} 
+         <input id="telephone" type="tel" name="telephone" placeholder="255710020090" autocomplete="tel" class={`text-sm sm:text-base placeholder-gray-500 pl-4 pr-3 rounded-lg border border-gray-400 w-full py-2 focus:outline-none focus:border-blue-400 ${errors.phone ? "border-red-500" : "border-sky-500"}`} 
            defaultValue={""}
            {...register("phone")}
          />

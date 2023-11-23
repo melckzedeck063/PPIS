@@ -98,6 +98,18 @@ export  const registerUser = createAsyncThunk('/new_user', async (values) => {
     }
 })
 
+export const activateAccount = createAsyncThunk('/activate', async(values) => {
+    try {
+           const response  =  await axios.get(`${AUTH_URL}/activate-account?code=${values.code}`);
+
+           console.log(response.data);
+           return response.data;
+
+    } catch (error) {
+        console.log(error);
+        return error.message
+    }
+})
 
 export const getAllStaffs = createAsyncThunk('/staffs', async () => {
     try {
