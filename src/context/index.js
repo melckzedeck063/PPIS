@@ -25,12 +25,12 @@ const AuthProvider = (props) => {
     },[navigate,location]) ;
 
     const handleLogout = () => {
-        setAuthinticatedUser(null);
-        sessionStorage.removeItem('token')
-
+        navigate("/");
+        
         setTimeout(() => {
-            navigate("/");
-        }, 1000);
+            setAuthinticatedUser(null);
+            sessionStorage.removeItem('token')
+        }, 3000);
     }
 
     const values =  useMemo(() =>({

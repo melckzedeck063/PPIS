@@ -122,7 +122,13 @@ function SideNav() {
   };
 
     const handleLogout  = ( ) => {
-      context.handleLogout();
+      setTimeout(() => {
+        navigate("/");
+        
+        setTimeout(() => {
+          sessionStorage.removeItem('token')
+        }, 2000);
+    }, 1000);
     }
 
   return (
