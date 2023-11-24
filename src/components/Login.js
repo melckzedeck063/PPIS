@@ -74,8 +74,13 @@ const onSubmit = data => {
       const storage = sessionStorage.getItem('token');
       const user = JSON.parse(storage);
       // console.log(user);
-      if (user.data?.token !== null && user.data?.token !== undefined && user.data?.token !== "") {
-        navigate('/dashboard')
+      if(user !=  null){
+        if (user.data?.token !== null && user.data?.token !== undefined && user.data?.token !== "") {
+          navigate('/dashboard')
+        }
+        else {
+          navigate("/login");
+        }
       }
       
     }, 3500);

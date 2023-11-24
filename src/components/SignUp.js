@@ -109,6 +109,7 @@ const loginClicked = () => {
         // dispatch(signUpUser(data))
 
         dispatch(registerUser(data))
+        openModal()
 
     }
 

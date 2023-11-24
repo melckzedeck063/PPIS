@@ -9,6 +9,7 @@ import { StickyNavbar } from './StickyNavbar';
 
 
 export default function Index() {
+  
 
   return (
     <div>
