@@ -93,7 +93,7 @@ export default function NewConcern() {
     <div className='bg-gray-200'>
 <div class="grid min-h-screen place-items-center">
   <div class="w-11/12 p-11 bg-white rounded-lg sm:w-9/12 md:w-1/2 lg:w-5/12">
-    <h1 class="text-xl font-semibold">Hello there ?, <span class="font-normal">Send us your concern</span></h1>
+    <h1 class="text-xl font-semibold">Hello there ?, <span class="font-bold">Send us your concern</span></h1>
     <form class="mt-6" onSubmit={handleSubmit(onSubmit)}>
       {/* <div class="flex justify-between gap-3">
         <span class="w-1/2"> */}
@@ -177,9 +177,23 @@ export default function NewConcern() {
                   }
               </select>
               <span className="text-red-500 text-sm">{errors.representative?.message}</span>
-           <div className="mx-auto my-2">
-            {/* {showSpinner? <CustomSpinner  /> : ""} */}
-           </div>
+
+              <div className="flex items-center my-3 ml-0.5">
+            <input
+              type="checkbox"
+              id="additionalAction"
+              name="additionalAction"
+              className="text-blue-500 h-4 w-4 mr-2 focus:outline-none"
+              // Add any additional props or logic as needed
+            />
+            <label
+              for="additionalAction"
+              className="text-sm text-gray-600 font-bold"
+            >
+              Publish your concern
+            </label>
+          </div>
+           
          
            <div class="flex w-full">
                 <button onClick={loginClicked}  disabled={!isValid || !isDirty}
