@@ -1,13 +1,13 @@
 import React, { useEffect, useState } from 'react'
 
 import * as MdIcons from 'react-icons/md';
-import * as Yup from 'yup';
 
 import Modal from 'react-modal';
+import * as Yup from 'yup';
 import { useForm } from 'react-hook-form';
+import { yupResolver } from '@hookform/resolvers/yup';
 import { Spinner } from "@material-tailwind/react";
 import OTPform from './OTPform';
-import { yupResolver } from '@hookform/resolvers/yup';
 import { useDispatch, useSelector } from 'react-redux';
 import { registerUser } from '../store/actions/users_actions';
 Modal.setAppElement('#root'); // Set the root element for accessibility

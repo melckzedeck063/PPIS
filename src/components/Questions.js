@@ -1,4 +1,4 @@
-import React from 'react'
+import React, { useEffect, useState } from 'react'
 import SideNav from './sidebar/SideNav'
 import NavBar from './sidebar/NavBar'
 import *  as AiIcons from 'react-icons/ai';
@@ -21,6 +21,7 @@ import { useDispatch, useSelector } from 'react-redux';
 import { getConcernById, getMyConcerns } from '../store/actions/concern_actions';
 import moment from 'moment';
 import { Link, useNavigate } from 'react-router-dom';
+import AuthUser from '../context/authUser';
 
 
   function StarIcon() {
@@ -55,6 +56,20 @@ export default function Questions() {
     const concerns =  useSelector(state => state.concerns);
 
     // console.log(concerns.my_concerns.content);
+
+    const { token } = AuthUser();
+  const [userRole, setUserRole] = useState(null);
+  useEffect(() => {
+    const fetchData = async () => {
+      // Use the token from useAuthUser
+      const { userType } = token;
+      setUserRole(userType);
+    };
+
+    fetchData();
+  }, [token]);
+
+  console.log(userRole);
 
   return (
     <div>
@@ -109,11 +124,12 @@ export default function Questions() {
         <th scope="col" class="px-6 py-4 font-medium text-gray-900">Title</th>
         <th scope="col" class="px-6 py-4 font-medium text-gray-900">Category</th>
         <th scope="col" class="px-6 py-4 font-medium text-gray-900">Pronvince</th>
+        <th scope="col" class="px-6 py-4 font-medium text-gray-900">Status</th>
         <th scope="col" class="px-6 py-4 font-medium text-gray-900">Date</th>
         <th scope="col" class="px-6 py-4 font-medium text-gray-900">Actions</th>
       </tr>
     </thead>
-    <tbody class="divide-y divide-gray-100 border-t border-gray-100">
+    <tbody class="divide-y divide-gray-100 border-t border-gray-100 font-bold">
 
         {
           concerns && concerns.my_concerns &&(
@@ -121,7 +137,7 @@ export default function Questions() {
               concerns.my_concerns.content.map((item,index) => (
                 <>
                
-    <tr class="hover:bg-gray-50">
+    <tr class="hover:bg-gray-50 font-bold">
       <th class="flex gap-3 px-6 py-4 font-normal text-gray-900">
       
         <div class="text-sm">
@@ -146,10 +162,22 @@ export default function Questions() {
           </span>
         </div>
       </td>
+      <td className='font-bold'>Pending</td>
       <td>
           {moment(item.createdAt).format("ll")}
       </td>
       <td class="px-6 py-4">
+          {
+            userRole ===  "CITIZEN"?(
+              <>
+              <a x-data="{ tooltip: 'Edite' }" href="#">
+             <span onClick={()  =>  handleOpen(item.uuid)} className='text-xl block float-left pr-1 text-blue-500'>
+                  <FaReadme className='text-green-700 font-bold' />
+                </span>
+          </a></>
+            )
+            :
+            <>
         <div class="flex justify-end gap-4">
           <a x-data="{ tooltip: 'Delete' }" href="#">
           <span  className='text-xl block float-left pr-1 text-blue-500'>
@@ -162,6 +190,8 @@ export default function Questions() {
                 </span>
           </a>
         </div>
+            </>
+          }
       </td>
     </tr>
                 </>

@@ -15,6 +15,8 @@ import * as AiIcons from 'react-icons/ai'
 import * as FaIcons from 'react-icons/fa';
 import * as GiIcons from 'react-icons/gi';
 import * as FiIcons  from 'react-icons/fi';
+import * as CgIcons from 'react-icons/cg';
+
 import { AiOutlineMenuUnfold } from "react-icons/ai";
 
 
@@ -355,17 +357,17 @@ function SideNav() {
               </li> */}
               
               <li className={`text-gray-800 py-2.5 space-x-1 text-sm  cursor-pointer hover:bg-light-white hover:text-gray-800 hover:px-1 rounded-md mt-2`}>
-                <Link style={{ textDecoration: "none" }} to='/reports' className="flex items-center hover:text-white no-underline text-gray-100 ">
+                <Link style={{ textDecoration: "none" }} to='/profile' className="flex items-center hover:text-white no-underline text-gray-100 ">
                   <span className='text-xl block float-left pr-1'>
-                    <SiIcons.SiSimpleanalytics />
+                    <CgIcons.CgProfile />
                   </span>
-                  <span className={`text-base flex-1 ml-0.5 font-lightt ${!open && "hidden"}`}> Verification </span>
+                  <span className={`text-base flex-1 ml-0.5 font-lightt ${!open && "hidden"}`}> Profile </span>
 
                 </Link>
               </li>
 
               <li className={`text-gray-800 py-2.5 space-x-1 text-sm hover:px-1  cursor-pointer hover:bg-light-white hover:text-gray-800 rounded-md mt-2`}>
-                <Link style={{ textDecoration: "none" }} to='/app-settings' className="flex items-center hover:text-white no-underline text-gray-100 ">
+                <Link style={{ textDecoration: "none" }} to='/settings' className="flex items-center hover:text-white no-underline text-gray-100 ">
                   <span className='text-xl block float-left pr-1'>
                     <AiIcons.AiFillSetting />
                   </span>
