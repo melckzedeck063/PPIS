@@ -30,11 +30,12 @@ export const sendConcern = createAsyncThunk('/new_concern', async(values) => {
             title : values.title,
             description : values.description,
             categoryUid : values.category,
-            submittedToUid : values.representative
+            submittedToUid : values.representative,
+            concernType : values.concernType
         })
 
         console.log(response.data);
-        return response.data
+        // return response.data
 
     } catch (error) {
         console.log("error occured");

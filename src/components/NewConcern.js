@@ -29,6 +29,10 @@ const schema = Yup.object({
         representative : Yup
         .string()
         .required()
+        .trim(),
+        concernType : Yup
+        .string()
+        .required()
         .trim()
 })
 
@@ -178,21 +182,25 @@ export default function NewConcern() {
               </select>
               <span className="text-red-500 text-sm">{errors.representative?.message}</span>
 
-              <div className="flex items-center my-3 ml-0.5">
-            <input
-              type="checkbox"
-              id="additionalAction"
-              name="additionalAction"
-              className="text-blue-500 h-4 w-4 mr-2 focus:outline-none"
-              // Add any additional props or logic as needed
-            />
-            <label
-              for="additionalAction"
-              className="text-sm text-gray-600 font-bold"
-            >
-              Publish your concern
-            </label>
-          </div>
+              <label for="region" class="block mt-2 text-xs font-semibold text-gray-600 uppercase">
+                Concern  Type
+              </label>
+              <select
+                id="region"
+                name="region"
+                class={`text-sm sm:text-base placeholder-gray-500 pl-4 pr-3 rounded-lg border border-gray-400 w-full py-2 focus:outline-none focus:border-blue-400 ${
+                  errors.concernType ? 'border-red-500' : 'border-sky-500'
+                }`}
+                defaultValue={''}
+                {...register('concernType')}
+              >
+                <option value="" disabled>
+                  Select Option
+                </option>
+                  <option value="Private">Private</option>
+                  <option value="Public">Public</option>
+              </select>
+              <span className="text-red-500 text-sm">{errors.concernType?.message}</span>
            
          
            <div class="flex w-full">
