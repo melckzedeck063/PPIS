@@ -73,11 +73,11 @@ export default function RegisterMP() {
     })
 
     const constituencies  = useSelector(state  => state.users);
+    // console.log(constituencies.constituencies.dataList)
 
     const dispatch = useDispatch();
     const [btnClicked, setBtnClicked]  =  useState(false);
 
-    // console.log(constituencies.constituencies.dataList)
 
     const onSubmit = data => {
         // console.log(data)

@@ -209,9 +209,9 @@ export const myProfile = createAsyncThunk('/profile', async () => {
 
 export const getAllConstituency = createAsyncThunk ("/constituency",  async() => {
     try {
-           const response =  await CONST_API.get("/constituency/");
+           const response =  await axios.get(`${BASE_URL}/constituency/`);
 
-        //    console.log(response.data);
+           console.log(response.data);
            return response.data;
            
     } catch (error) {

@@ -5,10 +5,14 @@ import React, { useState } from 'react'
 import image1 from '../assets/image2.jpg';
 import Login from './Login';
 import { StickyNavbar } from './StickyNavbar';
+import { useTranslation } from 'react-i18next';
+import Transalate from '../locales/Transalate';
 
 
 
 export default function Index() {
+
+  const   {t}  = useTranslation();
   
 
   return (
@@ -32,10 +36,10 @@ export default function Index() {
             <div class="w-full lg:w-6/12 px-4 ml-auto mr-auto text-center">
               <div class="pr-12">
                 <h1 class="text-white font-semibold text-4xl">
-                  Get connected to  your MP's.
+                  {t('get_connected')}
                 </h1>
                 <p class="mt-4 text-lg text-gray-200">
-                  This is an Information System for enhancing interactivity
+                   {Transalate("hello")} {t('greeting')} This is an Information System for enhancing interactivity
                   between Members of Parliament and Citizens that would enable
                   Citizens to communicate directly with their elected representatives.
                 </p>

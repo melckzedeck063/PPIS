@@ -69,7 +69,9 @@ export default function SignUp() {
   const dispatch = useDispatch();
 
   const new_user =   useSelector(state => state.users);
-  console.log(new_user);
+  // console.log(new_user);
+  const constituencies  = useSelector(state  => state.users);
+    console.log(constituencies.constituencies.dataList)
 
 
 const openModal = () => {
@@ -88,11 +90,12 @@ const  handleSignUp = () => {
     else {
       openModal()
     }
-  }, 2000);
+  }, 3500);
 }
 
 const loginClicked = () => {
   setBtnClicked(true);
+  handleSignUp();
   setTimeout(() => {
     setBtnClicked(false);
 
