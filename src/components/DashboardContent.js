@@ -1,25 +1,35 @@
-import React, { PureComponent } from 'react';
-import { PieChart, Pie, Sector, Cell, ResponsiveContainer } from 'recharts';
+import React from 'react';
+import { Chart as ChartJS, ArcElement, Tooltip, Legend } from 'chart.js';
+import { Pie } from 'react-chartjs-2';
 
-const data01 = [
-   { name: 'Group A', value: 400 },
-   { name: 'Group B', value: 300 },
-   { name: 'Group C', value: 300 },
-   { name: 'Group D', value: 200 },
-];
-const data02 = [
-   { name: 'A1', value: 100 },
-   { name: 'A2', value: 300 },
-   { name: 'B1', value: 100 },
-   { name: 'B2', value: 80 },
-   { name: 'B3', value: 40 },
-   { name: 'B4', value: 30 },
-   { name: 'B5', value: 50 },
-   { name: 'C1', value: 100 },
-   { name: 'C2', value: 200 },
-   { name: 'D1', value: 150 },
-   { name: 'D2', value: 50 },
-];
+ChartJS.register(ArcElement, Tooltip, Legend);
+
+export const data = {
+  labels: ['Red', 'Blue', 'Yellow', 'Green', 'Purple', 'Orange'],
+  datasets: [
+    {
+      label: '# of Votes',
+      data: [12, 19, 3, 5, 2, 3],
+      backgroundColor: [
+        'rgba(255, 99, 132, 0.6)',
+        'rgba(54, 162, 235, 0.6)',
+        'rgba(255, 206, 86, 0.6)',
+        'rgba(75, 192, 192, 0.6)',
+        'rgba(153, 102, 255, 0.6)',
+        'rgba(255, 159, 64, 0.6)',
+      ],
+      borderColor: [
+        'rgba(255, 99, 132, 1)',
+        'rgba(54, 162, 235, 1)',
+        'rgba(255, 206, 86, 1)',
+        'rgba(75, 192, 192, 1)',
+        'rgba(153, 102, 255, 1)',
+        'rgba(255, 159, 64, 1)',
+      ],
+      borderWidth: 1,
+    },
+  ],
+};
 
 
 export default function DashboardContent() {
@@ -42,13 +52,14 @@ export default function DashboardContent() {
                            </svg>
                         </div>
                      </div>
-                     <div id="main-char" style={{ width: '100%', height: '600px' }}>
-                        <ResponsiveContainer width="100%" height="100%">
+                     <div id="main-char" style={{ width: '100%', height: '600px', justifyContent:'center', alignItems:'center', display:'grid' }}>
+                        {/* <ResponsiveContainer width="100%" height="100%">
                            <PieChart width={600} height={600}>
                               <Pie data={data01} dataKey="value" cx="50%" cy="50%" outerRadius={60} fill="#8884d8" />
                               <Pie data={data02} dataKey="value" cx="50%" cy="50%" innerRadius={70} outerRadius={90} fill="#82ca9d" label />
                            </PieChart>
-                        </ResponsiveContainer>
+                        </ResponsiveContainer> */}
+                        <Pie data={data} />
                      </div>
                   </div>
                   <div class="bg-white shadow rounded-lg p-4 sm:p-6 xl:p-8 ">
