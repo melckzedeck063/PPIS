@@ -14,19 +14,21 @@ export default function Index() {
     <div>
       <StickyNavbar  />
         <section class="relative  bg-bluee-500">
-<div class="relative pt-16 pb-32 flex content-center items-center justify-center min-h-screen-75">
+<div class="relative pt-16 pb-32 flex content-center items-center justify-center min-h-screen-75 h-70">
 
 <div
-  className="absolute top-0 left-0 w-full h-full bg-center bg-cover"
+  className="absolute top-8 left-0 w-full h-full bg-center bg-cover"
   style={{
     backgroundImage: `url(${image1})`,
+    borderRadius:'20px',
+    overflow:'hidden'
     
   }}
 ></div>
 
 
 
-        <div class="container relative mx-auto">
+        <div class="relative mx-auto banner_v">
           <div class="items-center flex flex-wrap">
             <div class="w-full lg:w-6/12 px-4 ml-auto mr-auto text-center">
               <div class="pr-12">
