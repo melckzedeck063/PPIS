@@ -71,7 +71,7 @@ export default function SignUp() {
   const new_user =   useSelector(state => state.users);
   // console.log(new_user);
   const constituencies  = useSelector(state  => state.users);
-    console.log(constituencies.constituencies.dataList)
+    // console.log(constituencies.constituencies.dataList)
 
 
 const openModal = () => {
@@ -183,10 +183,19 @@ const loginClicked = () => {
            {...register("province")}
          >
                 <option value="" disabled>Select province</option>
-                <option value="Chamwino">Chamwino</option>
-                <option value="Kondoa">Kondoa</option>
-                <option value="Mpwapwa">Mpwapwa</option>
-                <option value="Ihumwa">Ihumwa</option>
+                {
+                  constituencies && constituencies.constituencies &&  constituencies.constituencies.dataList &&(
+                    constituencies && constituencies.constituencies &&  constituencies.constituencies.error === false?(
+                      constituencies?.constituencies?.dataList.map((item,index) => (
+                        <option key={index} value={item.uuid}> {item.constituentName} </option>
+                      ))
+                    )
+                    : 
+                    <>
+                     <option value="">No data found</option>
+                    </>
+                  )
+                  }
               </select>
           <span className="text-red-500 text-sm">{errors.province?.message}</span>
               </span>
@@ -225,7 +234,7 @@ const loginClicked = () => {
                    {
                     !btnClicked && (
                   <div className='bn1' style={{display:'flex'}}>
-                    <span class="mr-2 uppercase">Login</span>
+                    <span class="mr-2 uppercase">Register</span>
                     <span>
                       <svg class="h-6 w-6" fill="none" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" viewBox="0 0 24 24" stroke="currentColor">
                         <path d="M13 9l3 3m0 0l-3 3m3-3H8m13 0a9 9 0 11-18 0 9 9 0 0118 0z" />

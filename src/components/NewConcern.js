@@ -188,7 +188,7 @@ export default function NewConcern() {
               <select
                 id="region"
                 name="region"
-                class={`text-sm sm:text-base placeholder-gray-500 pl-4 pr-3 rounded-lg border border-gray-400 w-full py-2 focus:outline-none focus:border-blue-400 ${
+                class={`text-sm sm:text-base placeholder-gray-500 pl-4 pr-3 my-2 rounded-lg border border-gray-400 w-full py-2 focus:outline-none focus:border-blue-400 ${
                   errors.concernType ? 'border-red-500' : 'border-sky-500'
                 }`}
                 defaultValue={''}

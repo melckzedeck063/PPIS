@@ -173,7 +173,7 @@ export default function RegisterMP() {
               <select
                 id="province"
                 name="province"
-                class={`text-sm sm:text-base placeholder-gray-500 pl-4 pr-3 rounded-lg border border-gray-400 w-full py-2 focus:outline-none focus:border-blue-400 ${
+                class={`text-sm sm:text-base placeholder-gray-500 pl-4 pr-3 my-2 rounded-lg border border-gray-400 w-full py-2 focus:outline-none focus:border-blue-400 ${
                   errors.province ? 'border-red-500' : 'border-sky-500'
                 }`}
                 defaultValue={''}
@@ -213,7 +213,7 @@ export default function RegisterMP() {
                    {
                     !btnClicked && (
                   <div className='bn1' style={{display:'flex'}}>
-                    <span class="mr-2 uppercase">Login</span>
+                    <span class="mr-2 uppercase">Register</span>
                     <span>
                       <svg class="h-6 w-6" fill="none" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" viewBox="0 0 24 24" stroke="currentColor">
                         <path d="M13 9l3 3m0 0l-3 3m3-3H8m13 0a9 9 0 11-18 0 9 9 0 0118 0z" />

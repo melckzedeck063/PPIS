@@ -85,6 +85,7 @@ export  const registerUser = createAsyncThunk('/new_user', async (values) => {
             username: values.email,
             phoneNumber: values.phone,
             nidaNumber :  values.nida,
+            constituentUid : values.province,
             password : values.password
             
         })
@@ -209,7 +210,7 @@ export const myProfile = createAsyncThunk('/profile', async () => {
 
 export const getAllConstituency = createAsyncThunk ("/constituency",  async() => {
     try {
-           const response =  await axios.get(`${BASE_URL}/constituency/`);
+           const response =  await axios.get(`${AUTH_URL}/constituency-list`);
 
            console.log(response.data);
            return response.data;
