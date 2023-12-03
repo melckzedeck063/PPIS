@@ -5,6 +5,8 @@ import *  as AiIcons from 'react-icons/ai';
 import * as CiIcons from "react-icons/ci";
 import * as IoIcons from 'react-icons/io';
 import { FaReadme } from "react-icons/fa6";
+import Modal from 'react-modal';
+import * as MdIcons from 'react-icons/md'
 
 
 import {
@@ -22,6 +24,7 @@ import { getConcernById, getMyConcerns } from '../store/actions/concern_actions'
 import moment from 'moment';
 import { Link, useNavigate } from 'react-router-dom';
 import AuthUser from '../context/authUser';
+import Intermediate from './Intermediate';
 
 
   function StarIcon() {
@@ -69,7 +72,22 @@ export default function Questions() {
     fetchData();
   }, [token]);
 
-  console.log(userRole);
+  // console.log(userRole);
+
+
+  const [modalIsOpen, setModalIsOpen] = useState(false);
+
+const openModal = (id) => {
+  dispatch(getConcernById(id))
+
+  setTimeout(() => {
+    setModalIsOpen(true);
+  }, 2000);
+};
+
+const closeModal = () => {
+  setModalIsOpen(false);
+};
 
   return (
     <div>
@@ -180,7 +198,7 @@ export default function Questions() {
             <>
         <div class="flex justify-end gap-4">
           <a x-data="{ tooltip: 'Delete' }" href="#">
-          <span  className='text-xl block float-left pr-1 text-blue-500'>
+          <span onClick={() => openModal(item.uuid)}  className='text-xl block float-left pr-1 text-blue-500'>
                   <IoIcons.IoMdSend className='text-blue-500 -rotate-45' />
                 </span>
           </a>
@@ -288,6 +306,23 @@ export default function Questions() {
         </DialogFooter>
       </Dialog>
       </div>
+
+      <div className="">
+      <Modal
+              isOpen={modalIsOpen}
+              onRequestClose={closeModal}
+              contentLabel="Example Modal"
+            >
+              <Intermediate />
+              {/* <SignUp /> */}
+              <div className="absolute top-6 right-6 bg-red-500 rounded-full">
+                <span   onClick={closeModal} className=" text-white text-3xl font-bold cursor-pointer">
+                  <MdIcons.MdOutlineCancel  />
+                </span>
+              </div>
+            </Modal>
+      </div>
+
     </div>
               </div>
           </div>

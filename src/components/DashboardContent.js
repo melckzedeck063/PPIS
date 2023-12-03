@@ -1,25 +1,6 @@
 import React, { PureComponent } from 'react';
-import { PieChart, Pie, Sector, Cell, ResponsiveContainer } from 'recharts';
+import ChartContainer from './Chart';
 
-const data01 = [
-   { name: 'Group A', value: 400 },
-   { name: 'Group B', value: 300 },
-   { name: 'Group C', value: 300 },
-   { name: 'Group D', value: 200 },
-];
-const data02 = [
-   { name: 'A1', value: 100 },
-   { name: 'A2', value: 300 },
-   { name: 'B1', value: 100 },
-   { name: 'B2', value: 80 },
-   { name: 'B3', value: 40 },
-   { name: 'B4', value: 30 },
-   { name: 'B5', value: 50 },
-   { name: 'C1', value: 100 },
-   { name: 'C2', value: 200 },
-   { name: 'D1', value: 150 },
-   { name: 'D2', value: 50 },
-];
 
 
 export default function DashboardContent() {
@@ -42,14 +23,9 @@ export default function DashboardContent() {
                            </svg>
                         </div>
                      </div>
-                     <div id="main-char" style={{ width: '100%', height: '600px' }}>
-                        <ResponsiveContainer width="100%" height="100%">
-                           <PieChart width={600} height={600}>
-                              <Pie data={data01} dataKey="value" cx="50%" cy="50%" outerRadius={60} fill="#8884d8" />
-                              <Pie data={data02} dataKey="value" cx="50%" cy="50%" innerRadius={70} outerRadius={90} fill="#82ca9d" label />
-                           </PieChart>
-                        </ResponsiveContainer>
-                     </div>
+                         <div className="">
+                           <ChartContainer  />
+                         </div>
                   </div>
                   <div class="bg-white shadow rounded-lg p-4 sm:p-6 xl:p-8 ">
                      <div class="mb-4 flex items-center justify-between">
@@ -209,7 +185,10 @@ export default function DashboardContent() {
                      </div>
                   </div>
                </div>
+
                <div class="grid grid-cols-1 2xl:grid-cols-2 xl:gap-4 my-4">
+
+               {/* 
                   <div class="bg-white shadow rounded-lg mb-4 p-4 sm:p-6 h-full">
                      <div class="flex items-center justify-between mb-4">
                         <h3 class="text-xl font-bold leading-none text-gray-900">Members of Parliament</h3>
@@ -312,6 +291,8 @@ export default function DashboardContent() {
                         </ul>
                      </div>
                   </div>
+
+   */}
                   <div class="bg-white shadow rounded-lg p-4 sm:p-6 xl:p-8 ">
                      <h3 class="text-xl leading-none font-bold text-gray-900 mb-10">Acquisition Overview</h3>
                      <div class="block w-full overflow-x-auto">
@@ -413,6 +394,7 @@ export default function DashboardContent() {
                      </div>
                   </div>
                </div>
+
             </div>
          </main>
          <footer class="bg-white md:flex md:items-center md:justify-between shadow rounded-lg p-4 md:p-6 xl:p-8 my-6 mx-4">
