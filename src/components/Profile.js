@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useState } from 'react';
 import SideNav from './sidebar/SideNav';
 import NavBar from './sidebar/NavBar';
 
@@ -6,6 +6,7 @@ import NavBar from './sidebar/NavBar';
 import * as Yup from 'yup';
 import { useForm } from 'react-hook-form';
 import { yupResolver } from '@hookform/resolvers/yup';
+import { Spinner } from "@material-tailwind/react";
 
 const schema = Yup.object({
     firstname: Yup
@@ -41,6 +42,8 @@ const schema = Yup.object({
 
 const UserProfile = () => {
 
+  const [btnClicked, setBtnClicked]  =  useState(false);
+
     const { register, handleSubmit, reset, formState: { errors, isValid, isDirty, isSubmitSuccessful } } = useForm({
         mode: 'all',
         reValidateMode: 'onChange',
@@ -54,8 +57,16 @@ const UserProfile = () => {
 
         // dispatch(registerUser(data))
         // openModal()
-
     }
+
+    const loginClicked = () => {
+      setBtnClicked(true);
+      setTimeout(() => {
+        setBtnClicked(false);
+    
+      }, 3000);
+    }
+    
 
   return (
 
@@ -119,7 +130,6 @@ const UserProfile = () => {
           <span className="text-red-500 text-sm">{errors.province?.message}</span>
 
           <div className="my-2">
-          </div>
           <label for="nida" class="block mt-2 text-xs font-semibold text-gray-600 uppercase">Nida</label>
          <input id="nida" type="nida" name="nida" placeholder="19912710-02009-0000-124" autocomplete="nida" class={`text-sm sm:text-base placeholder-gray-500 pl-4 pr-3 rounded-lg border border-gray-400 w-full py-2 focus:outline-none focus:border-blue-400 ${errors.phone ? "border-red-500" : "border-sky-500"}`} 
            defaultValue={""}
@@ -128,13 +138,32 @@ const UserProfile = () => {
           <span className="text-red-500 text-sm">{errors.nida?.message}</span>
 
         {/* Add/Edit Button (for demonstration) */}
-        <button
-          type="button"
-          className="bg-blue-500 text-white py-2 px-4 rounded-md hover:bg-blue-600 focus:outline-none"
-          // Add an onClick handler to handle the edit functionality
-        >
-          Edit Profile
-        </button>
+          </div>
+          <div class="flex w-full my-1.5">
+                <button onClick={loginClicked}  disabled={!isValid || !isDirty}
+                  class="flex items-center justify-center focus:outline-none text-white text-sm sm:text-base bg-blue-600 hover:bg-blue-700 rounded py-2 w-full transition duration-150 ease-in">
+                   
+                   {
+                    btnClicked  &&(
+                      <div class="w-12 h-12 border-4 border-white rounded-full loader"></div>
+                    )
+                   }
+                   {
+                    !btnClicked && (
+                  <div className='bn1' style={{display:'flex'}}>
+                    <span class="mr-2 uppercase">Submit</span>
+                    <span>
+                      <svg class="h-6 w-6" fill="none" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" viewBox="0 0 24 24" stroke="currentColor">
+                        <path d="M13 9l3 3m0 0l-3 3m3-3H8m13 0a9 9 0 11-18 0 9 9 0 0118 0z" />
+                      </svg>
+                    </span>
+                  </div>
+
+                    )
+                   }
+                  
+                </button>
+          </div>
         </form>
       </div>
     </div>

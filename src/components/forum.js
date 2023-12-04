@@ -179,25 +179,6 @@ const Forum = () => {
                       <span>Comment</span>
                     </button>
 
-                    {
-                      userRole === "MP"? (
-                        <>
-                        </>
-                      )
-                      :  userRole === "MINISTER" ? (
-                        <></>
-                      )
-                      :
-                      <>
-                    <button className="flex items-center space-x-2 text-gray-500 hover:text-blue-500 ml-4">
-                      <span className="">
-                        <FaIcons.FaShareAlt className="text-lg text-green-600" />
-                      </span>
-                      <span>Share</span>
-                    </button>
-                      </>
-                    }
-
                   </div>
                 </>
               )

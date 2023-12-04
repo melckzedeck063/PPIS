@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useState } from 'react';
 import SideNav from './sidebar/SideNav';
 import NavBar from './sidebar/NavBar';
 
@@ -18,11 +18,13 @@ const schema = Yup.object({
         confirmPassword : Yup
         .string()
         .required()
-        .oneOf([Yup.ref("password")], "Passwords do not match")
+        .oneOf([Yup.ref("new_password")], "Passwords do not match")
         .trim()
 })
 
 const ChangePassword = () => {
+
+  const [btnClicked, setBtnClicked]  =  useState(false);
 
     const { register, handleSubmit, reset, formState: { errors, isValid, isDirty, isSubmitSuccessful } } = useForm({
         mode: 'all',
@@ -35,9 +37,14 @@ const ChangePassword = () => {
         console.log(data)
         // dispatch(signUpUser(data))
 
-        // dispatch(registerUser(data))
-        // openModal()
+    }
 
+    const loginClicked = () => {
+      setBtnClicked(true);
+      setTimeout(() => {
+        setBtnClicked(false);
+    
+      }, 3000);
     }
 
   return (
@@ -72,7 +79,7 @@ const ChangePassword = () => {
           <label htmlFor="newPassword" className="block text-gray-600 text-sm font-semibold mb-2">
             New Password
           </label>
-          <input id="password" type="password" name="new_password" placeholder="********" autocomplete="new-password" class={`text-sm sm:text-base placeholder-gray-500 pl-4 pr-3 rounded-lg border border-gray-400 w-full py-2 focus:outline-none focus:border-blue-400 ${errors.new_password ? "border-red-500" :  "border-sky-500"}`}
+          <input id="new_password" type="password" name="new_password" placeholder="********" autocomplete="new-password" class={`text-sm sm:text-base placeholder-gray-500 pl-4 pr-3 rounded-lg border border-gray-400 w-full py-2 focus:outline-none focus:border-blue-400 ${errors.new_password ? "border-red-500" :  "border-sky-500"}`}
               defaultValue={""}
               {...register("new_password")}
             />
@@ -92,13 +99,31 @@ const ChangePassword = () => {
         </div>
 
         {/* Change Password Button */}
-        <button
-          type="button"
-          className="bg-blue-500 text-white py-2 px-4 rounded-md hover:bg-blue-600 focus:outline-none"
-          // Add an onClick handler to handle the change password functionality
-        >
-          Change Password
-        </button>
+        <div class="flex w-full my-1.5">
+                <button onClick={loginClicked}  disabled={!isValid || !isDirty}
+                  class="flex items-center justify-center focus:outline-none text-white text-sm sm:text-base bg-blue-600 hover:bg-blue-700 rounded py-2 w-full transition duration-150 ease-in">
+                   
+                   {
+                    btnClicked  &&(
+                      <div class="w-12 h-12 border-4 border-white rounded-full loader"></div>
+                    )
+                   }
+                   {
+                    !btnClicked && (
+                  <div className='bn1' style={{display:'flex'}}>
+                    <span class="mr-2 uppercase">Update</span>
+                    <span>
+                      <svg class="h-6 w-6" fill="none" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" viewBox="0 0 24 24" stroke="currentColor">
+                        <path d="M13 9l3 3m0 0l-3 3m3-3H8m13 0a9 9 0 11-18 0 9 9 0 0118 0z" />
+                      </svg>
+                    </span>
+                  </div>
+
+                    )
+                   }
+                  
+                </button>
+          </div>
       </div>
     </div>
          </form>

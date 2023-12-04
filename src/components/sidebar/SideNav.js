@@ -233,13 +233,13 @@ function SideNav() {
                       userRole !== "CITIZEN" ?(
                         <>
                          <li className="text-gray-800 p-2 px-3 space-x-2 text-sm flex items-center cursor-pointer hover:bg-light-white rounded-md ">
-                      <Link onClick={handleConcerns} style={{ textDecoration: "none" }} to='/questions' className="no-underline hover:text-white text-gray-100">My Concerns </Link>
+                      <Link onClick={handleConcerns} style={{ textDecoration: "none" }} to='/questions' className="no-underline hover:text-white text-gray-100"> Concerns </Link>
                     </li></>
                       ) 
                       :
                       <>
                      <li className="text-gray-800 p-2 px-3 space-x-2 text-sm flex items-center cursor-pointer hover:bg-light-white rounded-md ">
-                      <Link onClick={handleConcerns} style={{ textDecoration: "none" }} to='/questions' className="no-underline hover:text-white text-gray-100">My Concerns </Link>
+                      <Link onClick={handleConcerns} style={{ textDecoration: "none" }} to='/questions' className="no-underline hover:text-white text-gray-100">Concerns </Link>
                     </li>
                     <li className="text-gray-800 p-2 px-3 space-x-2 text-sm flex items-center cursor-pointer hover:bg-light-white rounded-md ">
                       <Link onClick={handleNewConcern} style={{ textDecoration: "none" }} to='#' className="no-underline hover:text-white text-gray-100"> New Concern </Link>

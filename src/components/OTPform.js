@@ -1,4 +1,4 @@
-import React, { useEffect } from 'react'
+import React, { useEffect, useState } from 'react'
 import { useForm } from 'react-hook-form';
 import { useNavigate } from 'react-router-dom';
 import * as Yup from 'yup';
@@ -18,6 +18,7 @@ const schema = Yup.object({
 export default function OTPform() {
 
   const dispatch = useDispatch();
+  const [btnClicked, setBtnClicked]  =  useState(false);
 
   const { register, handleSubmit, reset, formState: { errors, isDirty, isValid, isSubmitSuccessful } } = useForm({
     mode: "all",
@@ -30,6 +31,14 @@ const onSubmit = data => {
     console.log(data)
 
     dispatch( activateAccount(data))
+}
+
+const loginClicked = () => {
+  setBtnClicked(true);
+  setTimeout(() => {
+    setBtnClicked(false);
+
+  }, 3000);
 }
 
 useEffect(() =>{
@@ -69,7 +78,33 @@ useEffect(() =>{
                 </div>
                 <p class="hidden text-xs text-red-600 mt-2" id="email-error">Please Enter valid OTP please</p>
               </div>
-              <button type="submit" class="py-3 px-4 inline-flex justify-center items-center gap-2 rounded-md border border-transparent font-semibold bg-blue-500 text-white hover:bg-blue-600 focus:outline-none focus:ring-2 focus:ring-blue-500 focus:ring-offset-2 transition-all text-sm dark:focus:ring-offset-gray-800">Submit</button>
+                   
+              <div class="flex w-full my-1.5">
+                <button onClick={loginClicked}  disabled={!isValid || !isDirty}
+                  class="flex items-center justify-center focus:outline-none text-white text-sm sm:text-base bg-blue-600 hover:bg-blue-700 rounded py-2 w-full transition duration-150 ease-in">
+                   
+                   {
+                    btnClicked  &&(
+                      <div class="w-12 h-12 border-4 border-white rounded-full loader"></div>
+                    )
+                   }
+                   {
+                    !btnClicked && (
+                  <div className='bn1' style={{display:'flex'}}>
+                    <span class="mr-2 uppercase">Submit</span>
+                    <span>
+                      <svg class="h-6 w-6" fill="none" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" viewBox="0 0 24 24" stroke="currentColor">
+                        <path d="M13 9l3 3m0 0l-3 3m3-3H8m13 0a9 9 0 11-18 0 9 9 0 0118 0z" />
+                      </svg>
+                    </span>
+                  </div>
+
+                    )
+                   }
+                  
+                </button>
+          </div>
+          
             </div>
           </form>
         </div>
