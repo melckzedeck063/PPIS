@@ -1,6 +1,7 @@
 import axios from "axios";
 import { BASE_URL } from "../URL";
 import { createAsyncThunk } from "@reduxjs/toolkit";
+import { async } from "q";
 
 axios.defaults.headers.post["Content-Type"]="application/json";
 
@@ -78,6 +79,34 @@ export const getMyConcerns = createAsyncThunk("/my_concerns", async () => {
     } catch (error) {
       console.log(error);
       return error.message
+    }
+  })
+
+
+  export const assignConcern = createAsyncThunk ('/assign', async(values) => {
+    try {
+          const response =  await CONCERN_API.put(`/assign/secretary?${values}`);
+
+          console.log(response.data);
+          return response.data;
+          
+    } catch (error) {
+        console.log(error);
+        return error.message
+    }
+  })
+
+
+  export const fowardConcern = createAsyncThunk ('/foward', async(values) => {
+    try {
+          const response =  await CONCERN_API.put(`/assign/minister?${values}`);
+
+          console.log(response.data);
+          return response.data;
+          
+    } catch (error) {
+        console.log(error);
+        return error.message
     }
   })
 

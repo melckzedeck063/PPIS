@@ -1,5 +1,5 @@
 import { createSlice } from "@reduxjs/toolkit";
-import { getAllCAtegories, getConcernById, getMyConcerns, getSubmittedByMe, sendConcern } from "../actions/concern_actions";
+import { assignConcern, fowardConcern, getAllCAtegories, getConcernById, getMyConcerns, getSubmittedByMe, sendConcern } from "../actions/concern_actions";
 
 const concernSlice = createSlice({
     name: "concerns",
@@ -101,7 +101,32 @@ const concernSlice = createSlice({
                 state.message = action.error.message;
             })
 
-            
+            .addCase(assignConcern.pending, (state,action) => {
+                state.status = "Pending";
+            })
+            .addCase(assignConcern.fulfilled, (state,action) => {
+                state.status = "Succesfull";
+                state.current_concern = action.payload;
+                state.message = "Concern  assigned succesfull";
+            })
+            .addCase(assignConcern.rejected, (state,action) => {
+                state.status= "Failed";
+                state.message = action.error.message;
+            })
+
+            .addCase(fowardConcern.pending, (state,action) => {
+                state.status = "Pending";
+            })
+            .addCase(fowardConcern.fulfilled, (state,action) => {
+                state.status = "Succesfull";
+                state.current_concern = action.payload;
+                state.message = "Concern fowarded succesfull";
+            })
+            .addCase(fowardConcern.rejected, (state,action) => {
+                state.status= "Failed";
+                state.message = action.error.message;
+            })
+          
     },
 });
 

@@ -1,7 +1,11 @@
  import React, { useState } from "react";
+import { useSelector } from "react-redux";
 
 export default function AssignForm ({ onSubmit, onCancel }) {
     const [selectedPerson, setSelectedPerson] = useState('');
+
+    const  staffs =   useSelector(state => state.users);
+    console.log(staffs);
   
     const handleSubmit = (e) => {
       e.preventDefault();

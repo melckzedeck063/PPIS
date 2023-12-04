@@ -25,6 +25,7 @@ import moment from 'moment';
 import { Link, useNavigate } from 'react-router-dom';
 import AuthUser from '../context/authUser';
 import Intermediate from './Intermediate';
+import { getAllStaffs } from '../store/actions/users_actions';
 
 
   function StarIcon() {
@@ -79,7 +80,7 @@ export default function Questions() {
 
 const openModal = (id) => {
   dispatch(getConcernById(id))
-
+  dispatch(getAllStaffs())
   setTimeout(() => {
     setModalIsOpen(true);
   }, 2000);
