@@ -10,6 +10,7 @@ import OTPform from './OTPform';
 import { yupResolver } from '@hookform/resolvers/yup';
 import { useDispatch, useSelector } from 'react-redux';
 import { sendConcern } from '../store/actions/concern_actions';
+import axios from 'axios';
 Modal.setAppElement('#root'); // Set the root element for accessibility
 
 
@@ -51,36 +52,72 @@ export default function NewConcern() {
     const  staffs =   useSelector(state => state.users);
     const [btnClicked, setBtnClicked]  =  useState(false);
 
+  const { register, handleSubmit, reset, formState: { errors, isValid, isDirty, isSubmitSuccessful } } = useForm({
+    mode: 'all',
+    reValidateMode: 'onChange',
+    shouldFocusError: true,
+    resolver: yupResolver(schema)
+  });
 
-    // console.log(categories.all_categories);
-    // console.log(staffs.staffs);
+  const checkForAbuse = async (data) => {
+    try {
+      const edenAIOptions = {
+        method: 'POST',
+        url: 'https://api.edenai.run/v2/text/moderation',
+        headers: {
+          Authorization: 'Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VyX2lkIjoiYjA3ZTQ5YWQtMmYyOS00OGIzLWE1ODktYzdhN2ZhNDBjNGY0IiwidHlwZSI6ImFwaV90b2tlbiJ9.h-WZ4vFLlI0_LFytgUW8HsUrIBayqcV4JLdzw-Mmooo',
+          'Content-Type': 'application/json',
+        },
+        data: {
+          providers: 'microsoft, openai',
+          language: 'en',
+          text: `${data.title} ${data.description}`,
+          fallback_providers: '',
+        },
+      };
 
+     const edenAIResponse = await axios.request(edenAIOptions);
 
+    console.log(edenAIResponse.data);
 
-    const { register, handleSubmit, reset, formState: { errors, isValid, isDirty, isSubmitSuccessful } } = useForm({
-        mode: 'all',
-        reValidateMode: 'onChange',
-        shouldFocusError: true,
-        resolver: yupResolver(schema)
-    })
+    // Handle the EdenAI response
+    if (edenAIResponse.data && edenAIResponse.data.is_abusive) {
+      alert('Your content contains abusive language. Please revise and try again.');
+    } else {
+      // Check OpenAI nsfw_likelihood_score
+      const nsfwLikelihoodScore = edenAIResponse.data.openai.nsfw_likelihood_score || 0;
 
-    const onSubmit = data => {
-        console.log(data)
-        // dispatch(signUpUser(data))
-
-        dispatch(sendConcern(data));
-    }
-
-    useEffect(() => {
-      if(isSubmitSuccessful){
-        reset({
-          title : "",
-          description : "",
-          category : "",
-          representative : ""
-        })
+      if (nsfwLikelihoodScore > 0.5) {
+        alert('Your content may not be appropriate. Please revise and try again.');
+      } else {
+        // If content is not abusive, proceed with form submission
+        // dispatch(sendConcern(data));
+        console.log('Content is not abusive');
       }
-    })
+    }
+    } catch (error) {
+      console.error(error.response);
+      // Handle EdenAI API error here
+      alert('An error occurred while checking for abuse. Please try again later.');
+    }
+  };
+
+  const onSubmit = (data) => {
+    // Call the function to check for abuse before submitting
+    checkForAbuse(data);
+  };
+
+
+    // useEffect(() => {
+    //   if(isSubmitSuccessful){
+    //     reset({
+    //       title : "",
+    //       description : "",
+    //       category : "",
+    //       representative : ""
+    //     })
+    //   }
+    // })
 
 
     const loginClicked = () => {

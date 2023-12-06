@@ -54,6 +54,9 @@ export default function Questions() {
     const handleOpen = (id) =>{
       // setOpen(!open);
       dispatch(getConcernById(id))
+      setTimeout(() => {
+        dispatch(getAllStaffs());
+      }, 1000);
       navigate("/forum");
     } 
       

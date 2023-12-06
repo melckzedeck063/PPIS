@@ -85,7 +85,7 @@ export const getMyConcerns = createAsyncThunk("/my_concerns", async () => {
 
   export const assignConcern = createAsyncThunk ('/assign', async(values) => {
     try {
-          const response =  await CONCERN_API.put(`/assign/secretary?${values}`);
+          const response =  await CONCERN_API.put(`/assign/secretary?user_uid=${values}&concern_uid=${values}`);
 
           console.log(response.data);
           return response.data;

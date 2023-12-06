@@ -1,14 +1,17 @@
 import React, { useState } from 'react'
-import { useSelector } from 'react-redux';
+import { useDispatch, useSelector } from 'react-redux';
+import { assignConcern } from '../store/actions/concern_actions';
 
 export default function ForwardForm ({ onSubmit, onCancel }) {
     const [selectedPerson, setSelectedPerson] = useState('');
 
     const  staffs =   useSelector(state => state.users);
-    console.log(staffs);
+    // console.log(staffs.staffs);  
+    const dispatch =  useDispatch();
   
     const handleSubmit = (e) => {
       e.preventDefault();
+      //  dispatch(assignConcern(selectedPerson));
       onSubmit(selectedPerson);
     };
   
@@ -21,9 +24,21 @@ export default function ForwardForm ({ onSubmit, onCancel }) {
           className="w-full px-4 py-2 rounded-md border border-gray-300 focus:outline-none focus:border-blue-400"
         >
           {/* Populate options dynamically based on your data */}
-          <option value="person1">Person 1</option>
-          <option value="person2">Person 2</option>
-          {/* Add more options as needed */}
+          <option value=""  default>Select Minister</option>
+          {
+                    staffs && staffs.staffs &&(
+                      staffs && staffs.staffs && staffs.staffs.empty === false ? (
+                        staffs.staffs.content.map((item,index) => (
+                          <option key={index} value={item.uuid}> {item.fullName} </option>
+                        )
+                      )
+                    )
+                    :
+                    <>
+                    <option value="">No data found</option>
+                    </>
+                    )
+                  }
         </select>
         <div className="mt-4 flex justify-between">
           <button
