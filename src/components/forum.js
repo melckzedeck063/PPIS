@@ -7,9 +7,20 @@ import moment from 'moment';
 import * as FaIcons from 'react-icons/fa';
 import * as MdIcons from 'react-icons/md';
 import AuthUser from '../context/authUser';
+import axios from 'axios';
+import { useForm } from 'react-hook-form';
+import * as Yup from 'yup';
+import { yupResolver } from '@hookform/resolvers/yup';
 
+const schema = Yup.object({
+  comment: Yup
+  .string()
+  .required()
+  .trim()
+});
 
 const Forum = () => {
+  // ... (existing code)
   const currentConcern = useSelector((state) => state.concerns);
   const [commentFormVisible, setCommentFormVisible] = useState(false);
   const [comment, setComment] = useState('');
@@ -17,40 +28,115 @@ const Forum = () => {
   const [replies, setReplies] = useState([
     // { message: 'hello dear', user: 'Cotton zedeck', date: '13-11-2023' },
   ]);
-  
-  const harassmentWords = ['mjinga', 'stupid', 'pumbavu', 'inappropriate']; // Add your list of harassment words
 
-  const handleCommentSubmit = () => {
-    // Handle comment submission logic here
+  const harassmentWords = ['mjinga', 'stupid', 'pumbavu', 'inappropriate'];
 
-    // Check for harassment words
-    const containsHarassment = harassmentWords.some((word) =>
-      comment.toLowerCase().includes(word)
-    );
+  const { register, handleSubmit, reset, formState: { errors, isValid, isDirty, isSubmitSuccessful } } = useForm({
+    mode: 'all',
+    reValidateMode: 'onChange',
+    shouldFocusError: true,
+    resolver: yupResolver(schema)
+  });
 
-    if (containsHarassment) {
-      // Display an error or handle appropriately
-      console.error('Comment contains harassment words. Please revise.');
-      setContainHaras(true);
-      return;
+  const checkForAbuse = async (data) => {
+    try {
+      const edenAIOptions = {
+        method: 'POST',
+        url: 'https://api.edenai.run/v2/text/moderation',
+        headers: {
+          Authorization: 'Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VyX2lkIjoiYjA3ZTQ5YWQtMmYyOS00OGIzLWE1ODktYzdhN2ZhNDBjNGY0IiwidHlwZSI6ImFwaV90b2tlbiJ9.h-WZ4vFLlI0_LFytgUW8HsUrIBayqcV4JLdzw-Mmooo',
+          'Content-Type': 'application/json',
+        },
+        data: {
+          providers: 'microsoft, openai',
+          language: 'en',
+          text: `${data.comment}`,
+          fallback_providers: '',
+        },
+      };
+
+     const edenAIResponse = await axios.request(edenAIOptions);
+
+    console.log(edenAIResponse.data);
+
+    // Handle the EdenAI response
+    if (edenAIResponse.data && edenAIResponse.data.is_abusive) {
+      alert('Your content contains abusive language. Please revise and try again.');
+    } else {
+      // Check OpenAI nsfw_likelihood_score
+      const nsfwLikelihoodScore = edenAIResponse.data.openai.nsfw_likelihood_score || 0;
+
+      if (nsfwLikelihoodScore > 0.5) {
+        alert('Your content may not be appropriate. Please revise and try again.');
+      } else {
+        // If content is not abusive, proceed with form submission
+        const newComment = {
+              message: comment,
+              user: 'Current User', // Replace with the actual user data
+              date: moment().format('DD-MM-YYYY'), // Use the current date
+            };
+        
+            // Update the replies state with the new comment
+            setReplies([...replies, newComment]);
+        
+            // Reset comment state and hide the form
+            setComment('');
+            setCommentFormVisible(false);
+          
+        console.log('Content is not abusive');
+      }
     }
-
-    // Continue with the normal submission logic
-    const newComment = {
-      message: comment,
-      user: 'Current User', // Replace with the actual user data
-      date: moment().format('DD-MM-YYYY'), // Use the current date
-    };
-
-    // Update the replies state with the new comment
-    setReplies([...replies, newComment]);
-
-    // Reset comment state and hide the form
-    setComment('');
-    setCommentFormVisible(false);
+    } catch (error) {
+      console.error(error.response);
+      // Handle EdenAI API error here
+      alert('An error occurred while checking for abuse. Please try again later.');
+    }
   };
+  
+  
 
+  // const handleCommentSubmit = async () => {
+  //   // Check for harassment words
+  //   const containsHarassment = harassmentWords.some((word) =>
+  //     comment.toLowerCase().includes(word)
+  //   );
 
+  //   if (containsHarassment) {
+  //     // Display an error or handle appropriately
+  //     console.error('Comment contains harassment words. Please revise.');
+  //     setContainHaras(true);
+  //     return;
+  //   }
+
+  //   // Check for abuse using the checkForAbuse function
+  //   const isAbusive = await checkForAbuse(comment);
+
+  //   if (!isAbusive) {
+  //     // If content is abusive, stop further processing
+  //     return;
+  //   }
+
+  //   // Continue with the normal submission logic
+  //   const newComment = {
+  //     message: comment,
+  //     user: 'Current User', // Replace with the actual user data
+  //     date: moment().format('DD-MM-YYYY'), // Use the current date
+  //   };
+
+  //   // Update the replies state with the new comment
+  //   setReplies([...replies, newComment]);
+
+  //   // Reset comment state and hide the form
+  //   setComment('');
+  //   setCommentFormVisible(false);
+  // };
+
+  const onSubmit = (data) => {
+    checkForAbuse(data);
+    console.log(data)
+  }
+
+  // ... (existing code)
   const { token } = AuthUser();
   const [userRole, setUserRole] = useState(null);
   useEffect(() => {
@@ -129,18 +215,23 @@ const Forum = () => {
                           <div className="my-2 text-red-500 font-bold">Your comment contain harasment content</div>
                         )
                       }
+                      <form onSubmit={handleSubmit(onSubmit)}>
                       <textarea
-                        className="w-full p-2 border border-gray-300 rounded-md"
+                        class={`text-sm sm:text-base placeholder-gray-500 pl-4 pr-3 rounded-lg border border-gray-400 w-full py-2 focus:outline-none focus:border-blue-400 ${errors.comment ? "border-red-500" : "border-sky-500"}`}
+                        defaultValue={""}
+                        {...register("comment")}
                         placeholder="Type your comment..."
                         value={comment}
                         onChange={(e) => setComment(e.target.value)}
                       />
+                      <span className="text-red-500 text-sm">{errors.comment?.message}</span> <br />
                       <button
                         className="mt-2 px-4 py-2 bg-blue-500 text-white rounded-md"
-                        onClick={handleCommentSubmit}
+                        
                       >
                         Submit Comment
                       </button>
+                      </form>
                     </div>
                   )}
 
@@ -188,6 +279,7 @@ const Forum = () => {
       </div>
     </div>
   );
+
 };
 
 export default Forum;

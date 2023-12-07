@@ -2,12 +2,12 @@ import React, { useEffect, useState } from 'react'
 
 import * as MdIcons from 'react-icons/md';
 import * as Yup from 'yup';
+import { yupResolver } from '@hookform/resolvers/yup';
 
 import Modal from 'react-modal';
 import { useForm } from 'react-hook-form';
 import { Spinner } from "@material-tailwind/react";
 import OTPform from './OTPform';
-import { yupResolver } from '@hookform/resolvers/yup';
 import { useDispatch, useSelector } from 'react-redux';
 import { sendConcern } from '../store/actions/concern_actions';
 import axios from 'axios';

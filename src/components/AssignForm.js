@@ -1,19 +1,24 @@
  import React, { useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
-import { assignConcern } from "../store/actions/concern_actions";
+import { assignConcern, getConcernById } from "../store/actions/concern_actions";
 
-export default function AssignForm ({ onSubmit, onCancel }) {
+export default function AssignForm ({ onSubmit, onCancel, concern_id }) {
     const [selectedPerson, setSelectedPerson] = useState('');
     const  dispatch  = useDispatch();
 
     const  staffs =   useSelector(state => state.users);
     // console.log(staffs.staffs);
+
+    // console.log(concern_id)
   
     const handleSubmit = (e) => {
       e.preventDefault();
       // onSubmit(selectedPerson);
-      console.log(selectedPerson);
-      dispatch(assignConcern(selectedPerson));
+      // console.log(selectedPerson);
+      dispatch(getConcernById(concern_id));
+      setTimeout(() => {
+        dispatch(assignConcern({user_id : selectedPerson, concern : concern_id}));
+      }, 1000);
     };
   
     return (
