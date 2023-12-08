@@ -12,7 +12,7 @@ const Intermediate = () => {
   const dispatch = useDispatch();
 
   const currentConcern = useSelector((state) => state.concerns);
-  // console.log(currentConcern.current_concern.data);
+  // console.log(currentConcern);
 
   const handleAssignClick = () => {
     setShowAssignForm(true);
@@ -79,9 +79,12 @@ const Intermediate = () => {
     <>
     </>
     }
-      {showForwardForm && (
-        <ForwardForm onSubmit={handleForwardFormSubmit} onCancel={() => setShowForwardForm(false)} />
-      )}
+      {showForwardForm && currentConcern.current_concern?.data?  (
+        <ForwardForm  concern_id={currentConcern.current_concern.data.uuid}  onSubmit={handleForwardFormSubmit} onCancel={() => setShowForwardForm(false)} />
+      )
+      :
+      <></>
+    }
 
     </div>
   );

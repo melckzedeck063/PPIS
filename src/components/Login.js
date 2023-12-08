@@ -9,7 +9,7 @@ import { yupResolver } from '@hookform/resolvers/yup'
 // import Loader from '../admin/component/loader/loader';
 
 import Modal from 'react-modal';
-import { useDispatch } from 'react-redux';
+import { useDispatch, useSelector } from 'react-redux';
 import { signInUser } from '../store/actions/users_actions';
 import { AuthContext } from '../context';
 import { BtnAnime } from './btn';
@@ -39,6 +39,9 @@ export default function Login() {
     const navigate = useNavigate();
     const dispatch =  useDispatch();
     const context = useContext(AuthContext);
+
+    const login_message =  useSelector(state => state.users);
+    console.log(login_message.message);
 
 
   const openModal = () => {

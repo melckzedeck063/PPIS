@@ -9,6 +9,7 @@ const concernSlice = createSlice({
         my_concerns: null,
         all_categories :  [],
        current_concern : null,
+       update_concern : null,
         error: null,
         message: "",
         status: "",
@@ -106,7 +107,7 @@ const concernSlice = createSlice({
             })
             .addCase(assignConcern.fulfilled, (state,action) => {
                 state.status = "Succesfull";
-                state.current_concern = action.payload;
+                state.update_concern = action.payload;
                 state.message = "Concern  assigned succesfull";
             })
             .addCase(assignConcern.rejected, (state,action) => {
@@ -119,7 +120,7 @@ const concernSlice = createSlice({
             })
             .addCase(fowardConcern.fulfilled, (state,action) => {
                 state.status = "Succesfull";
-                state.current_concern = action.payload;
+                state.update_concern = action.payload;
                 state.message = "Concern fowarded succesfull";
             })
             .addCase(fowardConcern.rejected, (state,action) => {

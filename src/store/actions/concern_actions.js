@@ -99,8 +99,9 @@ export const getMyConcerns = createAsyncThunk("/my_concerns", async () => {
 
 
   export const fowardConcern = createAsyncThunk ('/foward', async(values) => {
+    console.log(values)
     try {
-          const response =  await CONCERN_API.put(`/concern/assign/minister?${values}&concern_uid=${values}`);
+          const response =  await CONCERN_API.put(`/concern/forward/minister?user_uid=${values.user_id}&concern_uid=${values.concern}`);
 
           console.log(response.data);
           return response.data;

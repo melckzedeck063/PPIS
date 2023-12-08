@@ -1,17 +1,19 @@
 import React, { useState } from 'react'
 import { useDispatch, useSelector } from 'react-redux';
-import { assignConcern } from '../store/actions/concern_actions';
+import { assignConcern, fowardConcern } from '../store/actions/concern_actions';
 
-export default function ForwardForm ({ onSubmit, onCancel }) {
+export default function ForwardForm ({ onSubmit, onCancel, concern_id }) {
     const [selectedPerson, setSelectedPerson] = useState('');
 
     const  staffs =   useSelector(state => state.users);
     // console.log(staffs.staffs);  
+    // console.log(concern_id);
     const dispatch =  useDispatch();
   
     const handleSubmit = (e) => {
       e.preventDefault();
       //  dispatch(assignConcern(selectedPerson));
+      dispatch(fowardConcern({user_id: selectedPerson, concern: concern_id}))
       onSubmit(selectedPerson);
     };
   

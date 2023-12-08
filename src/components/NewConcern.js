@@ -51,6 +51,7 @@ export default function NewConcern() {
     const categories =  useSelector(state => state.concerns);
     const  staffs =   useSelector(state => state.users);
     const [btnClicked, setBtnClicked]  =  useState(false);
+    const [sendConcernResponse, setSendConcernResponse] = useState(null);
 
   const { register, handleSubmit, reset, formState: { errors, isValid, isDirty, isSubmitSuccessful } } = useForm({
     mode: 'all',
@@ -91,8 +92,15 @@ export default function NewConcern() {
         alert('Your content may not be appropriate. Please revise and try again.');
       } else {
         // If content is not abusive, proceed with form submission
-        // dispatch(sendConcern(data));
-        console.log('Content is not abusive');
+        try {
+      // Dispatch the sendConcern action and await the response
+      const response = await dispatch(sendConcern(data));
+      // Set the response in the state for rendering
+      setSendConcernResponse(response.payload);
+    } catch (error) {
+      // Handle errors if needed
+      console.error('Error sending concern:', error);
+    }
       }
     }
     } catch (error) {
