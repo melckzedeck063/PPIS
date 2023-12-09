@@ -13,6 +13,8 @@ import { useDispatch, useSelector } from 'react-redux';
 import { signInUser } from '../store/actions/users_actions';
 import { AuthContext } from '../context';
 import { BtnAnime } from './btn';
+import { ShowToast } from './sidebar/notifications';
+import MainLayout from './sidebar/MainLayout';
 Modal.setAppElement('#root'); // Set the root element for accessibility
 
 
@@ -41,8 +43,6 @@ export default function Login() {
     const context = useContext(AuthContext);
 
     const login_message =  useSelector(state => state.users);
-    console.log(login_message.message);
-
 
   const openModal = () => {
     setModalIsOpen(true);
@@ -108,12 +108,18 @@ const loginClicked = () => {
   setBtnClicked(true);
   setTimeout(() => {
     setBtnClicked(false);
-
   }, 3000);
+  setTimeout(() => {
+    if (login_message?.loged_user?.error === false) {
+      ShowToast("SUCCESS", login_message?.loged_user?.message)
+   } else if (login_message?.loged_user?.error === true) {
+     ShowToast("ERROR", login_message?.loged_user?.message)
+   }
+  }, 1500);
 }
 
   return (
-    <div>
+    <MainLayout>
 
 
 <div class="min-h-screen flex flex-col items-center justify-center bg-gray-100">
@@ -125,7 +131,7 @@ const loginClicked = () => {
     </button> */}
     <div class="relative mt-10 h-px bg-gray-300">
       <div class="absolute left-0 top-0 flex justify-center w-full -mt-2">
-        <span class="bg-white px-4 text-xs text-gray-500 uppercase">Login With Email or Telephone</span>
+        <span class="bg-white px-4 text-xs text-gray-500 uppercase">Login With Email or Telephone</span>  <br />
       </div>
     </div>
     <div class="mt-10">
@@ -226,6 +232,6 @@ const loginClicked = () => {
             </Modal>
   </div>
 </div>
-    </div>
+    </MainLayout>
   )
 }

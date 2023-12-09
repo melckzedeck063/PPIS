@@ -40,12 +40,12 @@ export const userSlice = createSlice({
         })
         .addCase(signInUser.fulfilled, (state,action) => {
             state.status = "Successfull";
-            state.message = "Succesfull loged in";
+            state.message = action.payload;
             state.loged_user = action.payload
         })
         .addCase(signInUser.rejected, (state,action) => {
             state.status = "Failed";
-            state.message = "Request  failed please try again";
+            state.message = "Invalid  login credentials";
             state.error = action.error.message;
         })
         .addCase(signUpUser.pending,(state,action) => {
@@ -54,7 +54,7 @@ export const userSlice = createSlice({
         .addCase(signUpUser.fulfilled, (state,action) => {
             state.status = "Successfull";
             state.message = "New account created  succesfully ";
-            state.users = action.payload
+            state.new_user = action.payload
         })
         .addCase(signUpUser.rejected, (state,action) => {
             state.status = "Failed";
@@ -114,6 +114,14 @@ export const userSlice = createSlice({
             state.message = "Request  failed please try again";
             state.error = action.error.message
         })
+
+        .addMatcher(
+            (action) => action.type.endsWith("/fulfilled"),
+            (state, action) => {
+              // Make sure to check if action.payload is defined before accessing it
+              state.message = action.payload ? action.payload : "";
+            }
+          );
         // .addCase(updateUser.pending,(state,action) => {
         //     state.status = "Loading"
         // })

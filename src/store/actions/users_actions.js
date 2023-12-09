@@ -44,6 +44,7 @@ export const signInUser = createAsyncThunk('/user', async (values) => {
 
         console.log(response.data)
         sessionStorage.setItem('token', JSON.stringify(response.data))
+        return response.data
     }
     catch (error) {
         console.log(error)
@@ -220,3 +221,18 @@ export const getAllConstituency = createAsyncThunk ("/constituency",  async() =>
         return  error.message
     }
 })
+
+export const  success_global = createAsyncThunk('/success', async(msg)  => {
+    return {
+        type: "SUCCESS_MESSAGE",
+        message : msg
+    }
+});
+
+
+export const error_global  =    createAsyncThunk('/error', async(msg) => {
+    return {
+        type : "ERROR_MESSAGE",
+        message  : msg
+    }
+});

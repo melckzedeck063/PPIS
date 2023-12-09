@@ -2,21 +2,8 @@ import React, { useEffect, useState } from 'react'
 
 import { useForm } from 'react-hook-form';
 import { yupResolver } from '@hookform/resolvers/yup';
-
-
-// import * as MdIcons from 'react-icons/md';
-// import * as IoIcons from 'react-icons/io'
-// import * as BsIcons from 'react-icons/bs'
-// import * as BiIcons from 'react-icons/bi';
-// import * as SiIcons from 'react-icons/si';
-// import * as AiIcons from 'react-icons/ai'
-// import * as FaIcons from 'react-icons/fa';
-// import * as GiIcons from 'react-icons/gi';
-// import * as FiIcons  from 'react-icons/fi';
 import * as Yup from 'yup';
 import Modal from 'react-modal';
-
-
 
 import {
     Navbar,
@@ -28,6 +15,8 @@ import {
   } from "@material-tailwind/react";
 import { useDispatch, useSelector } from 'react-redux';
 import { signInUser, signUpUser } from '../store/actions/users_actions';
+import MainLayout from './sidebar/MainLayout';
+import { ShowToast } from './sidebar/notifications';
   
     Modal.setAppElement('#root');
 
@@ -74,6 +63,7 @@ export default function RegisterMP() {
 
     const constituencies  = useSelector(state  => state.users);
     // console.log(constituencies.constituencies.dataList)
+    console.log(constituencies.new_user);
 
     const dispatch = useDispatch();
     const [btnClicked, setBtnClicked]  =  useState(false);
@@ -102,12 +92,23 @@ export default function RegisterMP() {
       setBtnClicked(true);
       setTimeout(() => {
         setBtnClicked(false);
-    
       }, 3000);
+
+      setTimeout(() => {
+        if(constituencies?.new_user?.error === false){
+          ShowToast("SUCCESS", constituencies?.new_user?.message)
+        }
+        else if(constituencies?.new_user?.error === true){
+          ShowToast("ERROR", constituencies?.new_user?.message);
+        }
+        else {
+          ShowToast("ERROR", "Request failed please try again");
+        }
+      }, 1500);
     }
 
   return (
-    <div>
+    <MainLayout>
           <div className='bg-gray-200'>
 <div class="grid min-h-screen place-items-center">
   <div class="w-11/12 p-11 bg-white rounded-lg sm:w-9/12 md:w-1/2 lg:w-5/12">
@@ -235,6 +236,6 @@ export default function RegisterMP() {
   
 
 
-    </div>
+    </MainLayout>
   )
 }
