@@ -40,8 +40,10 @@ const schema = Yup.object({
         nida : Yup
         .string()
         .required()
-        .min(20)
-        .max(20)
+        .matches(
+          /^(\d{8})-(\d{5})-(\d{5})-(\d{2})$/,
+          'Invalid NIDA number. Should be in the format: YYYYMMDD-XXXXX-XXXXX-XX'
+        )
         .trim(),
         password : Yup
         .string()
