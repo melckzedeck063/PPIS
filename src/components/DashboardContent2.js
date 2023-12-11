@@ -108,7 +108,7 @@ export default function DashboardContent2() {
                 <div id="stats" class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-4">
                     {
                         categories &&  categories.all_categories?(
-                            categories?.all_categories?.dataList.map((item,index) =>(
+                            categories?.all_categories?.dataList?.map((item,index) =>(
                                 <>
                                                  <div class="container mx-auto mt-8">
   <div class="bg-gradient-to-r from-blue-500 to-green-500 p-8 rounded-lg shadow-lg">
