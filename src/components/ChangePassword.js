@@ -5,6 +5,7 @@ import NavBar from './sidebar/NavBar';
 import * as Yup from 'yup';
 import { useForm } from 'react-hook-form';
 import { yupResolver } from '@hookform/resolvers/yup';
+import Footer from './sidebar/Footer';
 
 const schema = Yup.object({
         password : Yup
@@ -128,6 +129,7 @@ const ChangePassword = () => {
     </div>
          </form>
               </div>
+              <Footer />
           </div>
             </div>
           </div> 

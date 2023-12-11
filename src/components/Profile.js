@@ -7,6 +7,7 @@ import * as Yup from 'yup';
 import { useForm } from 'react-hook-form';
 import { yupResolver } from '@hookform/resolvers/yup';
 import { Spinner } from "@material-tailwind/react";
+import Footer from './sidebar/Footer';
 
 const schema = Yup.object({
     firstname: Yup
@@ -168,6 +169,7 @@ const UserProfile = () => {
       </div>
     </div>
               </div>
+              <Footer />
           </div>
             </div>
           </div> 

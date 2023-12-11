@@ -11,6 +11,7 @@ import axios from 'axios';
 import { useForm } from 'react-hook-form';
 import * as Yup from 'yup';
 import { yupResolver } from '@hookform/resolvers/yup';
+import Footer from './sidebar/Footer';
 
 const schema = Yup.object({
   comment: Yup
@@ -149,7 +150,15 @@ const Forum = () => {
     fetchData();
   }, [token]);
 
-  console.log(userRole);
+  useEffect(()  => {
+    if(isSubmitSuccessful){
+      reset({
+        comment : ""
+      })
+    }
+  })
+
+  // console.log(userRole);
 
   return (
     <div className="flex w-full">
@@ -276,6 +285,7 @@ const Forum = () => {
             )}
           </div>
         </div>
+        <Footer />
       </div>
     </div>
   );

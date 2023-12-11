@@ -2,13 +2,15 @@ import React from 'react'
 import SideNav from './sidebar/SideNav'
 import NavBar from './sidebar/NavBar'
 import { useDispatch, useSelector } from 'react-redux'
+import Footer from './sidebar/Footer';
 
 export default function AllMp() {
 
   const  dispatch = useDispatch();
 
   const staffs  =  useSelector(state => state.users);
-  console.log(staffs.staffs.content);
+  // console.log(staffs.staffs.content);
+  // console.log(staffs.staffs.content[0].constituent.constituentName);
 
   return (
     <div>
@@ -29,7 +31,7 @@ export default function AllMp() {
                                 <p>All</p>
                             </div>
                         </button>
-                        <button class="rounded-full focus:outline-none focus:ring-2 focus:bg-sky-500 focus:ring-indigo-800 ml-4 sm:ml-8">
+                        {/* <button class="rounded-full focus:outline-none focus:ring-2 focus:bg-sky-500 focus:ring-indigo-800 ml-4 sm:ml-8">
                             <div class="py-2 px-8 text-gray-600 hover:text-indigo-100 hover:bg-sky-600 rounded-full ">
                                 <p>Ministers</p>
                             </div>
@@ -38,7 +40,7 @@ export default function AllMp() {
                             <div class="py-2 px-8 text-gray-600 hover:text-indigo-100 hover:bg-sky-600 rounded-full ">
                                 <p>Prime Ministers</p>
                             </div>
-                        </button>
+                        </button> */}
                     </div>
 		<div class="flex items-center justify-between">
 			<div class="flex bg-gray-50 items-center p-2 rounded-md">
@@ -61,7 +63,7 @@ export default function AllMp() {
       <tr>
         <th scope="col" class="px-6 py-4 font-medium text-gray-900">Name</th>
         <th scope="col" class="px-6 py-4 font-medium text-gray-900">Telephone</th>
-        <th scope="col" class="px-6 py-4 font-medium text-gray-900">Role</th>
+        {/* <th scope="col" class="px-6 py-4 font-medium text-gray-900">Role</th> */}
         <th scope="col" class="px-6 py-4 font-medium text-gray-900">Pronvince</th>
         <th scope="col" class="px-6 py-4 font-medium text-gray-900">Actions</th>
       </tr>
@@ -72,8 +74,8 @@ export default function AllMp() {
         staffs && staffs.staffs && (
           staffs &&  staffs.staffs && staffs.staffs.empty  === false ?  (
              staffs.staffs.content.map((item,index) => (
-              <>
-                        <tr class="hover:bg-gray-50">
+              
+                        <tr  key={index} class="hover:bg-gray-50">
         <th class="flex gap-3 px-6 py-4 font-normal text-gray-900">
           
           <div class="text-sm">
@@ -89,13 +91,13 @@ export default function AllMp() {
           {item.phone}
           </span>
         </td>
-        <td class="px-6 py-4"> {item.userType} </td>
+        {/* <td class="px-6 py-4"> {item.userType} </td> */}
         <td class="px-6 py-4">
           <div class="flex gap-2">
             <span
               class="inline-flex items-center gap-1 rounded-full bg-blue-50 px-2 py-1 text-xs font-semibold text-blue-600"
             >
-              Mpwapwa
+              {item.constituent?.constituentName}
             </span>
             {/* <span
               class="inline-flex items-center gap-1 rounded-full bg-indigo-50 px-2 py-1 text-xs font-semibold text-indigo-600"
@@ -148,7 +150,7 @@ export default function AllMp() {
           </div>
         </td>
       </tr>
-              </>
+              
              ))
           )
           :
@@ -256,6 +258,7 @@ export default function AllMp() {
 
 </div>
     </div>
+            <Footer  />
               </div>
           </div>
             </div>

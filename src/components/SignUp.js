@@ -40,8 +40,8 @@ const schema = Yup.object({
         nida : Yup
         .string()
         .required()
-        .min(16)
-        .max(16)
+        .min(20)
+        .max(20)
         .trim(),
         password : Yup
         .string()

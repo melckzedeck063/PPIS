@@ -101,9 +101,6 @@ export default function RegisterMP() {
         else if(constituencies?.new_user?.error === true){
           ShowToast("ERROR", constituencies?.new_user?.message);
         }
-        else {
-          ShowToast("ERROR", "Request failed please try again");
-        }
       }, 1500);
     }
 

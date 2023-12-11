@@ -26,6 +26,7 @@ import { Link, useNavigate } from 'react-router-dom';
 import AuthUser from '../context/authUser';
 import Intermediate from './Intermediate';
 import { getAllStaffs } from '../store/actions/users_actions';
+import Footer from './sidebar/Footer';
 
 
   function StarIcon() {
@@ -62,7 +63,7 @@ export default function Questions() {
       
     const concerns =  useSelector(state => state.concerns);
 
-    // console.log(concerns.my_concerns.content);
+    console.log(concerns.my_concerns.content);
 
     const { token } = AuthUser();
   const [userRole, setUserRole] = useState(null);
@@ -145,7 +146,7 @@ const closeModal = () => {
         <th scope="col" class="px-6 py-4 font-medium text-gray-900">Name</th>
         <th scope="col" class="px-6 py-4 font-medium text-gray-900">Title</th>
         <th scope="col" class="px-6 py-4 font-medium text-gray-900">Category</th>
-        <th scope="col" class="px-6 py-4 font-medium text-gray-900">Pronvince</th>
+        <th scope="col" class="px-6 py-4 font-medium text-gray-900">Sent To</th>
         <th scope="col" class="px-6 py-4 font-medium text-gray-900">Status</th>
         <th scope="col" class="px-6 py-4 font-medium text-gray-900">Date</th>
         <th scope="col" class="px-6 py-4 font-medium text-gray-900">Actions</th>
@@ -338,6 +339,7 @@ const closeModal = () => {
       </div>
 
     </div>
+         <Footer  />
               </div>
           </div>
             </div>
