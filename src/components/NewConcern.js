@@ -6,7 +6,7 @@ import { yupResolver } from '@hookform/resolvers/yup';
 
 import Modal from 'react-modal';
 import { useForm } from 'react-hook-form';
-import { Spinner } from "@material-tailwind/react";
+import { Alert, Spinner } from "@material-tailwind/react";
 import OTPform from './OTPform';
 import { useDispatch, useSelector } from 'react-redux';
 import { sendConcern } from '../store/actions/concern_actions';
@@ -15,10 +15,10 @@ Modal.setAppElement('#root'); // Set the root element for accessibility
 
 
 const schema = Yup.object({
-    // title: Yup
-    // .string()
-    // .required()
-    // .trim(),
+    title: Yup
+    .string()
+    .required()
+    .trim(),
     description : Yup
         .string()
         .required()
@@ -51,7 +51,14 @@ export default function NewConcern() {
     const categories =  useSelector(state => state.concerns);
     const  staffs =   useSelector(state => state.users);
     const [btnClicked, setBtnClicked]  =  useState(false);
-    const [sendConcernResponse, setSendConcernResponse] = useState(null);
+
+    const [successMessage, setSuccessMessage]  = useState({message :"", error : false});
+    const [failureMessage, setFailureMessage] = useState({message :"", error : false});
+    const [open, setOpen] = React.useState(false);
+    const [opened, setOpened] = React.useState(false);
+
+    const concern_message =  useSelector(state => state.concerns);
+    console.log(concern_message.new_concern)
 
   const { register, handleSubmit, reset, formState: { errors, isValid, isDirty, isSubmitSuccessful } } = useForm({
     mode: 'all',
@@ -96,7 +103,7 @@ export default function NewConcern() {
       // Dispatch the sendConcern action and await the response
       const response = await dispatch(sendConcern(data));
       // Set the response in the state for rendering
-      setSendConcernResponse(response.payload);
+      // setSendConcernResponse(response.payload);
     } catch (error) {
       // Handle errors if needed
       console.error('Error sending concern:', error);
@@ -134,6 +141,28 @@ export default function NewConcern() {
     
       }, 3000);
     }
+
+    useEffect(() => {
+      if (concern_message?.new_concern?.error !== undefined && concern_message?.new_concern?.error !== null) {
+        if (concern_message?.new_concern?.error === false) {
+          // ShowToast("SUCCESS", concern_message?.new_concern?.message);
+          setSuccessMessage({ message :concern_message?.new_concern?.message , error : true})
+          setOpen(true)
+          setTimeout(() => {
+            setSuccessMessage(null)
+            setOpen(false)
+          }, 4000);
+        } else if (concern_message?.new_concern?.error === true) {
+          // ShowToast("ERROR", concern_message?.new_concern?.message);
+          setFailureMessage({ message : concern_message?.new_concern?.message , error: true});
+          setOpened(true)
+          setTimeout(() => {
+            setFailureMessage(null)
+            setOpened(false)
+          }, 4000);
+        }
+      }
+    }, [concern_message]);
     
 
 
@@ -142,15 +171,25 @@ export default function NewConcern() {
 <div class="grid min-h-screen place-items-center">
   <div class="w-11/12 p-11 bg-white rounded-lg sm:w-9/12 md:w-1/2 lg:w-5/12">
     <h1 class="text-xl font-semibold">Hello there ?, <span class="font-bold">Send us your concern</span></h1>
+
+    <div className="my1">
+    <Alert open={open} color="green" onClose={() => setOpen(false)}>
+              Concern submitted succesfully
+          </Alert>
+          <Alert open={opened} color="red" onClose={() => setOpened(false)}>
+              Request failed please try again
+          </Alert>
+
+    </div>
     <form class="mt-6" onSubmit={handleSubmit(onSubmit)}>
       {/* <div class="flex justify-between gap-3">
         <span class="w-1/2"> */}
-          {/* <label for="title" class="block text-xs font-semibold text-gray-600 uppercase">Title</label>
+          <label for="title" class="block text-xs font-semibold text-gray-600 uppercase">Title</label>
           <input id="title" type="text" name="title" placeholder="Concern title" autocomplete="given-name" class={`text-sm sm:text-base placeholder-gray-500 pl-4 pr-3 rounded-lg border border-gray-400 w-full py-2 focus:outline-none focus:border-blue-400 ${errors.title? "border-red-500" : "border-sky-500"}`} 
             defaultValue={""}
             {...register("title")}
         />
-        <span className="text-red-500 text-sm">{errors.title?.message}</span> */}
+        <span className="text-red-500 text-sm">{errors.title?.message}</span>
         {/* </span> */}
         <span class="w-1/2">
           <label for="description" class="block text-xs font-semibold text-gray-600 uppercase">Your  Concern</label>

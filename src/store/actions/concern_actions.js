@@ -35,8 +35,8 @@ export const sendConcern = createAsyncThunk('/new_concern', async(values) => {
             concernType : values.concernType
         })
 
-        console.log(response.data);
-        // return response.data
+        // console.log(response.data);
+        return response.data
 
     } catch (error) {
         console.log("error occured");

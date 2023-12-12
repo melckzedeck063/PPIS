@@ -63,7 +63,7 @@ export default function RegisterMP() {
 
     const constituencies  = useSelector(state  => state.users);
     // console.log(constituencies.constituencies.dataList)
-    console.log(constituencies.new_user);
+    // console.log(constituencies.new_user);
 
     const dispatch = useDispatch();
     const [btnClicked, setBtnClicked]  =  useState(false);
@@ -93,16 +93,18 @@ export default function RegisterMP() {
       setTimeout(() => {
         setBtnClicked(false);
       }, 3000);
-
-      setTimeout(() => {
-        if(constituencies?.new_user?.error === false){
-          ShowToast("SUCCESS", constituencies?.new_user?.message)
-        }
-        else if(constituencies?.new_user?.error === true){
-          ShowToast("ERROR", constituencies?.new_user?.message);
-        }
-      }, 1500);
     }
+
+    useEffect(() => {
+      if (constituencies?.new_user?.error !== undefined && constituencies?.new_user?.error !== null) {
+        if (constituencies?.new_user?.error === false) {
+          ShowToast("SUCCESS", constituencies?.new_user?.message);
+          
+        } else if (constituencies?.new_user?.error === true) {
+          ShowToast("ERROR", constituencies.new_user?.message);
+        }
+      }
+    }, [constituencies]);
 
   return (
     <MainLayout>

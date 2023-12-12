@@ -29,9 +29,6 @@ export default function OTPform() {
   const login_message =  useSelector(state => state.users);
   // console.log(login_message.activate_account);
 
-  console.log(successMessage);
-  console.log(failureMessage);
-
   const { register, handleSubmit, reset, formState: { errors, isDirty, isValid, isSubmitSuccessful } } = useForm({
     mode: "all",
     reValidateMode: "onChange",

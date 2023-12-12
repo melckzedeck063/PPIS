@@ -4,7 +4,7 @@ import { assignConcern, fowardConcern, getAllCAtegories, getConcernById, getMyCo
 const concernSlice = createSlice({
     name: "concerns",
     initialState: {
-        new_concern: [], // Change this to an array
+        new_concern: null, // Change this to an array
         all_concern: [],
         my_concerns: null,
         all_categories :  [],
