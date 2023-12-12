@@ -26,7 +26,7 @@ export default function DashboardContent2() {
            <div id="content" class="bg-white/10 col-span-9 rounded-lg p-6">
             <div id="24h">
                 <h1 class="font-bold py-4 uppercase">Last 24h Statistics</h1>
-                <div id="stats" class="grid gird-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+                <div id="stats" class="grid gird-cols-1 md:grid-cols-2 lg:grid-cols-2 gap-6">
                 <div class="container mx-auto mt-8">
   <div class="bg-gradient-to-r from-blue-500 to-green-500 p-8 rounded-lg shadow-lg">
                         <div class="flex flex-row space-x-4 items-center">
@@ -38,7 +38,7 @@ export default function DashboardContent2() {
                             <div>
                                 <p class="text-white text-lg font-bold uppercase leading-4">Concerns</p>
                                 <p class="text-white font-bold text-2xl inline-flex items-center space-x-2">
-                                    <span>+28</span>
+                                    <span>+ ....</span>
                                     <span>
                                         <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="w-6 h-6">
                                             <path stroke-linecap="round" stroke-linejoin="round" d="M2.25 18L9 11.25l4.306 4.307a11.95 11.95 0 015.814-5.519l2.74-1.22m0 0l-5.94-2.28m5.94 2.28l-2.28 5.941" />
@@ -62,8 +62,18 @@ export default function DashboardContent2() {
                             </div>
                             <div>
                                 <p class="text-white text-lg font-bold uppercase leading-4">Categories</p>
-                                <p class="text-white font-bold text-2xl inline-flex items-center space-x-2">
-                                    <span>23.00</span>
+                                <p class="text-white font-bold text-3xl inline-flex items-center space-x-2">
+                                    {
+                                        categories &&  categories.all_categories?(
+                                            <span>
+                                                { categories?.all_categories?.dataList?.length } items
+                                            </span>
+                                    )
+                                :
+                                <>
+                                    <span> --- </span>
+                                </>
+                                }
                                     <span>
                                         <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="w-6 h-6">
                                             <path stroke-linecap="round" stroke-linejoin="round" d="M2.25 18L9 11.25l4.306 4.307a11.95 11.95 0 015.814-5.519l2.74-1.22m0 0l-5.94-2.28m5.94 2.28l-2.28 5.941" />
@@ -76,7 +86,7 @@ export default function DashboardContent2() {
                         </div>
                     </div>
 
-                    <div class="container mx-auto mt-8">
+                    {/* <div class="container mx-auto mt-8">
   <div class="bg-gradient-to-r from-blue-500 to-green-500 p-8 rounded-lg shadow-lg">
                         <div class="flex flex-row space-x-4 items-center">
                             <div id="stats-1">
@@ -86,9 +96,9 @@ export default function DashboardContent2() {
                                   
                             </div>
                             <div>
-                                <p class="text-white text-lg font-bold uppercase leading-4">Invoices</p>
+                                <p class="text-white text-lg font-bold uppercase leading-4">Reports</p>
                                 <p class="text-white font-bold text-2xl inline-flex items-center space-x-2">
-                                    <span>+79</span>
+                                    <span>+ ....</span>
                                     <span>
                                         <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="w-6 h-6">
                                             <path stroke-linecap="round" stroke-linejoin="round" d="M2.25 18L9 11.25l4.306 4.307a11.95 11.95 0 015.814-5.519l2.74-1.22m0 0l-5.94-2.28m5.94 2.28l-2.28 5.941" />
@@ -99,7 +109,7 @@ export default function DashboardContent2() {
                             </div>
                         </div>
                     </div>
-                </div>
+                </div> */}
                 </div>
             </div>
 
@@ -121,7 +131,7 @@ export default function DashboardContent2() {
                                 <div class="p-2">
                                     {/* <p class="text-xl font-bold text-blue-600 shadow-lg"></p> */}
                                     <p class="text-xl text-white font-bold mb-4 ">{item.categoryName}</p>
-                                    <p class="text-white font-bold text-sm">24 Concerns</p>
+                                    <p class="text-white font-bold text-sm"> -- Concerns</p>
                                 </div>
                             </div>
                             <div class="border-t border-white/5 p-4">

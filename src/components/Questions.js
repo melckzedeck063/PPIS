@@ -63,7 +63,7 @@ export default function Questions() {
       
     const concerns =  useSelector(state => state.concerns);
 
-    console.log(concerns.my_concerns.content);
+    // console.log(concerns.my_concerns.content);
 
     const { token } = AuthUser();
   const [userRole, setUserRole] = useState(null);
@@ -144,11 +144,11 @@ const closeModal = () => {
     <thead class="bg-gray-50">
       <tr>
         <th scope="col" class="px-6 py-4 font-medium text-gray-900">Name</th>
-        <th scope="col" class="px-6 py-4 font-medium text-gray-900">Title</th>
         <th scope="col" class="px-6 py-4 font-medium text-gray-900">Category</th>
         <th scope="col" class="px-6 py-4 font-medium text-gray-900">Sent To</th>
         <th scope="col" class="px-6 py-4 font-medium text-gray-900">Status</th>
-        <th scope="col" class="px-6 py-4 font-medium text-gray-900">Date</th>
+        <th scope="col" class="px-6 py-4 font-medium text-gray-900">Submitted</th>
+        {/* <th scope="col" class="px-6 py-4 font-medium text-gray-900">Expected</th> */}
         <th scope="col" class="px-6 py-4 font-medium text-gray-900">Actions</th>
       </tr>
     </thead>
@@ -167,14 +167,14 @@ const closeModal = () => {
           <div class="text-gray-400"> {item.reportedBy?.username} </div>
         </div>
       </th>
+     
       <td class="px-6 py-4">
-        <span
+      <span
           class="inline-flex items-center gap-1 rounded-full bg-green-50 px-2 py-1 text-xs font-semibold text-green-600"
         >
-          {item.title}
+         {item.concernCategory?.categoryName}
         </span>
-      </td>
-      <td class="px-6 py-4"> {item.concernCategory?.categoryName} </td>
+          </td>
       <td class="px-6 py-4">
         <div class="flex gap-2">
           <span

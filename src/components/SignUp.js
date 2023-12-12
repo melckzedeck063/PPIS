@@ -10,6 +10,8 @@ import { Spinner } from "@material-tailwind/react";
 import OTPform from './OTPform';
 import { useDispatch, useSelector } from 'react-redux';
 import { registerUser } from '../store/actions/users_actions';
+import MainLayout from './sidebar/MainLayout';
+import { ShowToast } from './sidebar/notifications';
 Modal.setAppElement('#root'); // Set the root element for accessibility
 
 
@@ -42,7 +44,7 @@ const schema = Yup.object({
         .required()
         .matches(
           /^(\d{8})-(\d{5})-(\d{5})-(\d{2})$/,
-          'Invalid NIDA number. Should be in the format: YYYYMMDD-XXXXX-XXXXX-XX'
+          'Invalid NIDA number Should be in the format: YYYYMMDD-XXXXX-XXXXX-XX'
         )
         .trim(),
         password : Yup
@@ -66,14 +68,16 @@ export function CustomSpinner() {
 export default function SignUp() {
 
   const [modalIsOpen, setModalIsOpen] = useState(false);
-  const [showSpinner,setShowSpinner] = useState(false);
   const [btnClicked, setBtnClicked]  =  useState(false);
+  
   const dispatch = useDispatch();
 
   const new_user =   useSelector(state => state.users);
   // console.log(new_user);
   const constituencies  = useSelector(state  => state.users);
     // console.log(constituencies.constituencies.dataList)
+  const login_message =  useSelector(state => state.users);
+  // console.log(login_message.new_user);
 
 
 const openModal = () => {
@@ -84,26 +88,14 @@ const closeModal = () => {
   setModalIsOpen(false);
 };
 
-const  handleSignUp = () => {
-  setTimeout(() => {
-    if(new_user?.new_user === null){
-
-    }
-    else {
-      openModal()
-    }
-  }, 3500);
-}
 
 const loginClicked = () => {
   setBtnClicked(true);
-  handleSignUp();
   setTimeout(() => {
     setBtnClicked(false);
 
   }, 3000);
 }
-
 
 
     const { register, handleSubmit, reset, formState: { errors, isValid, isDirty, isSubmitSuccessful } } = useForm({
@@ -116,11 +108,21 @@ const loginClicked = () => {
     const onSubmit = data => {
         console.log(data)
         // dispatch(signUpUser(data))
-
         dispatch(registerUser(data))
-        openModal()
-
     }
+
+    useEffect(() => {
+      if (login_message?.new_user?.error !== undefined && login_message?.new_user?.error !== null) {
+        if (login_message?.new_user?.error === false) {
+          ShowToast("SUCCESS", login_message?.new_user?.message);
+          setTimeout(() => {
+            openModal()
+          }, 5000);
+        } else if (login_message?.new_user?.error === true) {
+          ShowToast("ERROR", login_message?.new_user?.message);
+        }
+      }
+    }, [login_message]);
 
     useEffect(() => {
       if(isSubmitSuccessful){
@@ -138,6 +140,7 @@ const loginClicked = () => {
 
 
   return (
+    <MainLayout>
     <div className='bg-gray-200'>
 <div class="grid min-h-screen place-items-center">
   <div class="w-11/12 p-11 bg-white rounded-lg sm:w-9/12 md:w-1/2 lg:w-5/12">
@@ -270,5 +273,6 @@ const loginClicked = () => {
   </div>
 </div>
     </div>
+    </MainLayout>
   )
 }

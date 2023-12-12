@@ -15,6 +15,7 @@ import { AuthContext } from '../context';
 import { BtnAnime } from './btn';
 import { ShowToast } from './sidebar/notifications';
 import MainLayout from './sidebar/MainLayout';
+import { clearMessages, requestFailure, requestSuccess } from '../store/actions/notifications_actions';
 Modal.setAppElement('#root'); // Set the root element for accessibility
 
 
@@ -109,14 +110,26 @@ const loginClicked = () => {
   setTimeout(() => {
     setBtnClicked(false);
   }, 3000);
-  setTimeout(() => {
-    if (login_message?.loged_user?.error === false) {
-      ShowToast("SUCCESS", login_message?.loged_user?.message)
-   } else if (login_message?.loged_user?.error === true) {
-     ShowToast("ERROR", login_message?.loged_user?.message)
-   }
-  }, 1500);
+  // setTimeout(() => {
+  //   if (login_message?.loged_user?.error === false) {
+  //     ShowToast("SUCCESS", login_message?.loged_user?.message)
+  //  } else if (login_message?.loged_user?.error === true) {
+  //    ShowToast("ERROR", login_message?.loged_user?.message)
+  //  }
+  // }, 1500);
+
 }
+
+useEffect(() => {
+  if (login_message?.loged_user?.error !== undefined && login_message?.loged_user?.error !== null) {
+    if (login_message?.loged_user?.error === false) {
+      ShowToast("SUCCESS", login_message?.loged_user?.message);
+    } else if (login_message?.loged_user?.error === true) {
+      ShowToast("ERROR", login_message?.loged_user?.message);
+    }
+  }
+}, [login_message]);
+
 
   return (
     <MainLayout>
@@ -129,6 +142,7 @@ const loginClicked = () => {
       <span class="absolute left-0 top-0 flex items-center justify-center h-full w-10 text-blue-500"><i class="fab fa-facebook-f"></i></span>
       <span>Login with Facebook</span>
     </button> */}
+
     <div class="relative mt-10 h-px bg-gray-300">
       <div class="absolute left-0 top-0 flex justify-center w-full -mt-2">
         <span class="bg-white px-4 text-xs text-gray-500 uppercase">Login With Email or Telephone</span>  <br />

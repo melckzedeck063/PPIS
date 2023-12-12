@@ -3,8 +3,10 @@ import { useForm } from 'react-hook-form';
 import { useNavigate } from 'react-router-dom';
 import * as Yup from 'yup';
 import { yupResolver } from '@hookform/resolvers/yup'
-import { useDispatch } from 'react-redux';
+import { useDispatch, useSelector } from 'react-redux';
 import { activateAccount } from '../store/actions/users_actions';
+import { ShowToast } from './sidebar/notifications';
+import { Alert } from '@material-tailwind/react';
 
 const schema = Yup.object({
   code: Yup
@@ -19,6 +21,16 @@ export default function OTPform() {
 
   const dispatch = useDispatch();
   const [btnClicked, setBtnClicked]  =  useState(false);
+  const [successMessage, setSuccessMessage]  = useState({message :"", error : false});
+  const [failureMessage, setFailureMessage] = useState({message :"", error : false});
+  const [open, setOpen] = React.useState(false);
+  const [opened, setOpened] = React.useState(false);
+
+  const login_message =  useSelector(state => state.users);
+  // console.log(login_message.activate_account);
+
+  console.log(successMessage);
+  console.log(failureMessage);
 
   const { register, handleSubmit, reset, formState: { errors, isDirty, isValid, isSubmitSuccessful } } = useForm({
     mode: "all",
@@ -28,8 +40,6 @@ export default function OTPform() {
 })
 
 const onSubmit = data => {
-    console.log(data)
-
     dispatch( activateAccount(data))
 }
 
@@ -40,6 +50,29 @@ const loginClicked = () => {
 
   }, 3000);
 }
+
+useEffect(() => {
+  if (login_message?.activate_account?.error !== undefined && login_message?.activate_account?.error !== null) {
+    if (login_message?.activate_account?.error === false) {
+      // ShowToast("SUCCESS", login_message?.activate_account?.message);
+      setSuccessMessage({ message :login_message?.activate_account?.message , error : true})
+      setOpen(true)
+      setTimeout(() => {
+        setSuccessMessage(null)
+        setOpen(false)
+      }, 4000);
+    } else if (login_message?.activate_account?.error === true) {
+      // ShowToast("ERROR", login_message?.activate_account?.message);
+      setFailureMessage({ message : login_message?.activate_account?.message , error: true});
+      setOpened(true)
+      setTimeout(() => {
+        setFailureMessage(null)
+        setOpened(false)
+      }, 4000);
+    }
+  }
+}, [login_message]);
+
 
 useEffect(() =>{
    if(isSubmitSuccessful){
@@ -56,6 +89,14 @@ useEffect(() =>{
       <div class="p-4 sm:p-7">
         <div class="text-center">
           <h1 class="block text-2xl font-bold text-blue-900">Activate Your Acoount</h1>
+
+          <Alert open={open} color="green" onClose={() => setOpen(false)}>
+              Account activated succesfully
+          </Alert>
+          <Alert open={opened} color="red" onClose={() => setOpened(false)}>
+              Invalid OTP Code please try again
+          </Alert>
+
           <p class="mt-2 text-sm text-gray-600 dark:text-gray-400">
         
             <a class="text-blue-700 decoration-2 hover:underline font-medium" href="#">
@@ -76,7 +117,7 @@ useEffect(() =>{
                   />
                   <span className="text-sm text-red-500"> {errors.code?.message} </span>
                 </div>
-                <p class="hidden text-xs text-red-600 mt-2" id="email-error">Please Enter valid OTP please</p>
+                
               </div>
                    
               <div class="flex w-full my-1.5">

@@ -6,12 +6,14 @@ import { configureStore } from '@reduxjs/toolkit';
 
 import users from './reducers/user_reducers';
 import concerns from './reducers/conern_reducers';
+import notifications from './reducers/notifications_reducer';
 
 export default configureStore({
 
     reducer : {
         users,
-        concerns
+        concerns,
+        notifications
         
     }
 })
