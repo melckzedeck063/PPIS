@@ -142,7 +142,7 @@ export default function DashboardContent() {
                      </div>
                   </div>
                </div>
-               <div class="m_cards mt-4 w-full grid grid-cols-1 md:grid-cols-2 xl:grid-cols-3 gap-4">
+               {/* <div class="m_cards mt-4 w-full grid grid-cols-1 md:grid-cols-2 xl:grid-cols-3 gap-4">
                   <div class="bg-white shadow rounded-lg p-4 sm:p-6 xl:p-8 ">
                      <div class="flex items-center">
                         <div class="flex-shrink-0">
@@ -171,7 +171,8 @@ export default function DashboardContent() {
                         </div>
                      </div>
                   </div>
-                  <div class="bg-white shadow rounded-lg p-4 sm:p-6 xl:p-8 ">
+
+                  <div class="bg-gradient-to-r from-blue-500 to-green-500 rounded-lg shadow-lg p-4 sm:p-6 xl:p-8 ">
                      <div class="flex items-center">
                         <div class="flex-shrink-0">
                            <span class="text-2xl sm:text-3xl leading-none font-bold text-gray-900">385</span>
@@ -185,7 +186,76 @@ export default function DashboardContent() {
                         </div>
                      </div>
                   </div>
-               </div>
+               </div> */}
+
+               <div id="stats" class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-3 gap-4">
+                  <div class="container mx-auto mt-8">
+                   <div class="bg-gradient-to-r from-blue-500 to-green-500 px-4 py-2 rounded-lg shadow-lg">
+                            <div class="flex flex-row items-center">
+                            {/* <div class="flex items-center"> */}
+                        <div class="flex-shrink-0">
+                           <span class="text-2xl sm:text-3xl leading-none font-bold text-white">0.00 </span>
+                           <h3 class="font-bold text-xl text-white">Concerns Received</h3>
+                        </div>
+                        <div class="ml-5 w-0 flex items-center justify-end flex-1 text-white text-lg font-bold">
+                           0.00%
+                           <svg class="w-5 h-5" fill="white" viewBox="0 0 20 20" xmlns="http://www.w3.org/2000/svg">
+                              <path fill-rule="evenodd" d="M5.293 7.707a1 1 0 010-1.414l4-4a1 1 0 011.414 0l4 4a1 1 0 01-1.414 1.414L11 5.414V17a1 1 0 11-2 0V5.414L6.707 7.707a1 1 0 01-1.414 0z" clip-rule="evenodd"></path>
+                           </svg>
+                        {/* </div> */}
+                     </div>
+                            </div>
+                            <div class="border-t border-white/5 p-4">
+                                <button className='bg-white py-0.5 font-bold rounded-md px-3 text-blue-600 shadow-lg'>View All</button>
+                            </div>
+                            </div>
+                    </div>
+
+                    <div class="container mx-auto mt-8">
+                   <div class="bg-gradient-to-r from-blue-500 to-green-500 px-4 py-2 rounded-lg shadow-lg">
+                            <div class="flex flex-row items-center">
+                            {/* <div class="flex items-center"> */}
+                        <div class="flex-shrink-0">
+                           <span class="text-2xl sm:text-3xl leading-none font-bold text-white">0.00 </span>
+                           <h3 class="font-bold text-xl text-white">Visitors This Week</h3>
+                        </div>
+                        <div class="ml-5 w-0 flex items-center justify-end flex-1 text-white text-lg font-bold">
+                           0.00%
+                           <svg class="w-5 h-5" fill="white" viewBox="0 0 20 20" xmlns="http://www.w3.org/2000/svg">
+                              <path fill-rule="evenodd" d="M5.293 7.707a1 1 0 010-1.414l4-4a1 1 0 011.414 0l4 4a1 1 0 01-1.414 1.414L11 5.414V17a1 1 0 11-2 0V5.414L6.707 7.707a1 1 0 01-1.414 0z" clip-rule="evenodd"></path>
+                           </svg>
+                        {/* </div> */}
+                     </div>
+                            </div>
+                            <div class="border-t border-white/5 p-4">
+                                <button className='bg-white py-0.5 font-bold rounded-md px-3 text-blue-600 shadow-lg'>View All</button>
+                            </div>
+                            </div>
+                    </div>
+
+                    <div class="container mx-auto mt-8">
+                   <div class="bg-gradient-to-r from-blue-500 to-green-500 px-4 py-2 rounded-lg shadow-lg">
+                            <div class="flex flex-row items-center">
+                            {/* <div class="flex items-center"> */}
+                        <div class="flex-shrink-0">
+                           <span class="text-2xl sm:text-3xl leading-none font-bold text-white">0.00 </span>
+                           <h3 class="text-xl font-bold text-white">Popular categories</h3>
+                        </div>
+                        <div class="ml-5 w-0 flex items-center justify-end flex-1 text-white text-lg font-bold">
+                           0.00%
+                           <svg class="w-5 h-5" fill="white" viewBox="0 0 20 20" xmlns="http://www.w3.org/2000/svg">
+                              <path fill-rule="evenodd" d="M5.293 7.707a1 1 0 010-1.414l4-4a1 1 0 011.414 0l4 4a1 1 0 01-1.414 1.414L11 5.414V17a1 1 0 11-2 0V5.414L6.707 7.707a1 1 0 01-1.414 0z" clip-rule="evenodd"></path>
+                           </svg>
+                        {/* </div> */}
+                     </div>
+                            </div>
+                            <div class="border-t border-white/5 p-4">
+                                <button className='bg-white py-0.5 font-bold rounded-md px-3 text-blue-600 shadow-lg'>View All</button>
+                            </div>
+                            </div>
+                    </div>
+
+                  </div>
 
                <div class="grid grid-cols-1 2xl:grid-cols-2 xl:gap-4 my-4">
 
@@ -294,7 +364,7 @@ export default function DashboardContent() {
                   </div>
 
    */}
-                  <div class="bg-white shadow rounded-lg p-4 sm:p-6 xl:p-8 ">
+                  {/* <div class="bg-white shadow rounded-lg p-4 sm:p-6 xl:p-8 ">
                      <h3 class="text-xl leading-none font-bold text-gray-900 mb-10">Acquisition Overview</h3>
                      <div class="block w-full overflow-x-auto">
                         <table class="items-center w-full bg-transparent border-collapse">
@@ -393,7 +463,8 @@ export default function DashboardContent() {
                            </tbody>
                         </table>
                      </div>
-                  </div>
+                  </div> */}
+
                </div>
 
             </div>

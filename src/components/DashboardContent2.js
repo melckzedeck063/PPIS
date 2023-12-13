@@ -115,24 +115,26 @@ export default function DashboardContent2() {
 
             <div id="last-incomes">
                 <h1 class="font-bold py-4 uppercase">Popular Topics / Categories</h1>
-                <div id="stats" class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-4">
+                <div id="stats" class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-3 gap-4">
                     {
                         categories &&  categories.all_categories?(
                             categories?.all_categories?.dataList?.map((item,index) =>(
                                 <>
                                                  <div class="container mx-auto mt-8">
   <div class="bg-gradient-to-r from-blue-500 to-green-500 p-8 rounded-lg shadow-lg">
-                            <div class="flex flex-row items-center">
-                                <div class="text-3xl p-4">
-                                    <span className="">
-                                        <FaIcons.FaLandmark className='text-blue-600 font-bold' />
-                                    </span>
-                                </div>
-                                <div class="p-2">
-                                    {/* <p class="text-xl font-bold text-blue-600 shadow-lg"></p> */}
-                                    <p class="text-xl text-white font-bold mb-4 ">{item.categoryName}</p>
-                                    <p class="text-white font-bold text-sm"> -- Concerns</p>
-                                </div>
+  <div class="flex flex-row items-center">
+                            {/* <div class="flex items-center"> */}
+                        <div class="flex-shrink-0">
+                           <span class="text-2xl sm:text-3xl leading-none font-bold text-white">0.00 </span>
+                           <h3 class="font-bold text-xl text-white"> {item.categoryName} </h3>
+                        </div>
+                        <div class="ml-5 w-0 flex items-center justify-end flex-1 text-white text-lg font-bold">
+                           0.00%
+                           <svg class="w-5 h-5" fill="white" viewBox="0 0 20 20" xmlns="http://www.w3.org/2000/svg">
+                              <path fill-rule="evenodd" d="M5.293 7.707a1 1 0 010-1.414l4-4a1 1 0 011.414 0l4 4a1 1 0 01-1.414 1.414L11 5.414V17a1 1 0 11-2 0V5.414L6.707 7.707a1 1 0 01-1.414 0z" clip-rule="evenodd"></path>
+                           </svg>
+                        {/* </div> */}
+                     </div>
                             </div>
                             <div class="border-t border-white/5 p-4">
                                 <button className='bg-white py-0.5 font-bold rounded-md px-3 text-blue-600 shadow-lg'>View All</button>
