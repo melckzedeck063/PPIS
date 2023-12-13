@@ -13,9 +13,9 @@ import {
    
   const chartConfig = {
     type: "pie",
-    width: 480,
-    height: 380,
-    series: [44, 55, 13, 43, 22,34],
+    width: 520,
+    height: 480,
+    series: [10.0, 10.0, 10.0, 10.0, 10.0,10.0],
     options: {
       chart: {
         toolbar: {
