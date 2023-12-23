@@ -2,7 +2,7 @@ import React, { useEffect, useState } from 'react';
 import image1 from '../assets/image2.jpg';
 import SideNav from './sidebar/SideNav';
 import NavBar from './sidebar/NavBar';
-import { useSelector } from 'react-redux';
+import { useDispatch, useSelector } from 'react-redux';
 import moment from 'moment';
 import * as FaIcons from 'react-icons/fa';
 import * as MdIcons from 'react-icons/md';
@@ -12,11 +12,15 @@ import { useForm } from 'react-hook-form';
 import * as Yup from 'yup';
 import { yupResolver } from '@hookform/resolvers/yup';
 import Footer from './sidebar/Footer';
+import { concernComment, getConcernComments } from '../store/actions/concern_actions';
 
 const schema = Yup.object({
   comment: Yup
   .string()
   .required()
+  .trim(),
+  concernUid  :  Yup
+  .string()
   .trim()
 });
 
@@ -26,6 +30,8 @@ const Forum = () => {
   const [commentFormVisible, setCommentFormVisible] = useState(false);
   const [comment, setComment] = useState('');
   const [containHaras, setContainHaras] =  useState(false);
+  const dispatch  =   useDispatch();
+
   const [replies, setReplies] = useState([
     // { message: 'hello dear', user: 'Cotton zedeck', date: '13-11-2023' },
   ]);
@@ -71,19 +77,8 @@ const Forum = () => {
         alert('Your content may not be appropriate. Please revise and try again.');
       } else {
         // If content is not abusive, proceed with form submission
-        const newComment = {
-              message: comment,
-              user: 'Current User', // Replace with the actual user data
-              date: moment().format('DD-MM-YYYY'), // Use the current date
-            };
-        
-            // Update the replies state with the new comment
-            setReplies([...replies, newComment]);
-        
-            // Reset comment state and hide the form
-            setComment('');
-            setCommentFormVisible(false);
-          
+           dispatch(concernComment(data))
+          // console.log(data);
         console.log('Content is not abusive');
       }
     }
@@ -134,7 +129,11 @@ const Forum = () => {
 
   const onSubmit = (data) => {
     checkForAbuse(data);
-    console.log(data)
+    // console.log(data)
+
+    setTimeout(() => {
+        dispatch(getConcernComments(data.concernUid))
+    }, 2000);
   }
 
   // ... (existing code)
@@ -158,7 +157,7 @@ const Forum = () => {
     }
   })
 
-  // console.log(userRole);
+  console.log(currentConcern.concern_comments);
 
   return (
     <div className="flex w-full">
@@ -206,14 +205,28 @@ const Forum = () => {
                   {/* Replies */}
                   <div className="mt-6">
         <h3 className="text-lg font-semibold mb-2">Comments:</h3>
-        {replies.map((reply, index) => (
+        {
+          currentConcern && currentConcern.concern_comments && currentConcern.concern_comments.content &&(
+            currentConcern?.concern_comments?.content.map((item,index) => (
+              <div key={index} className="bg-gray-100 p-3 rounded-md mb-2">
+              <p className="text-gray-700 font-bold">{item.description}</p>
+              <p className="text-xs text-gray-500 mt-1">
+                {item.postedBy.fullName} |  <span> {moment(item.createdAt).format('ll')} </span>
+              </p>
+            </div>
+            ))
+          )
+          
+          
+        }
+        {/* {replies.map((reply, index) => (
           <div key={index} className="bg-gray-100 p-3 rounded-md mb-2">
             <p className="text-gray-700">{reply.message}</p>
             <p className="text-sm text-gray-500 mt-1">
               {reply.user} | {reply.date}
             </p>
           </div>
-        ))}
+        ))} */}
       </div>
 
                   {/* Comment Form */}
@@ -230,9 +243,11 @@ const Forum = () => {
                         defaultValue={""}
                         {...register("comment")}
                         placeholder="Type your comment..."
-                        value={comment}
                         onChange={(e) => setComment(e.target.value)}
                       />
+                      <input type="hidden"
+                        {...register("concernUid")}
+                      value={currentConcern.current_concern.data.uuid} />
                       <span className="text-red-500 text-sm">{errors.comment?.message}</span> <br />
                       <button
                         className="mt-2 px-4 py-2 bg-blue-500 text-white rounded-md"

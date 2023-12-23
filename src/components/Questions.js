@@ -6,7 +6,7 @@ import * as CiIcons from "react-icons/ci";
 import * as IoIcons from 'react-icons/io';
 import { FaReadme } from "react-icons/fa6";
 import Modal from 'react-modal';
-import * as MdIcons from 'react-icons/md'
+import * as MdIcons from 'react-icons/md';
 
 
 import {
@@ -20,7 +20,7 @@ import {
   } from "@material-tailwind/react";
 import QuestionDetail from './QuestionDetail';
 import { useDispatch, useSelector } from 'react-redux';
-import { getConcernById, getMyConcerns } from '../store/actions/concern_actions';
+import { getConcernById, getConcernComments, getMyConcerns } from '../store/actions/concern_actions';
 import moment from 'moment';
 import { Link, useNavigate } from 'react-router-dom';
 import AuthUser from '../context/authUser';
@@ -49,7 +49,8 @@ import Footer from './sidebar/Footer';
 export default function Questions() {
 
     const [open, setOpen] = React.useState(false);
-    const dispatch = useDispatch();
+    const dispatch = useDispatch(); 
+
     const navigate =  useNavigate();
  
     const handleOpen = (id) =>{
@@ -57,6 +58,7 @@ export default function Questions() {
       dispatch(getConcernById(id))
       setTimeout(() => {
         dispatch(getAllStaffs());
+        dispatch(getConcernComments(id))
       }, 1000);
       navigate("/forum");
     } 

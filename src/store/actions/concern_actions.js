@@ -74,7 +74,7 @@ export const getMyConcerns = createAsyncThunk("/my_concerns", async () => {
     try {
         const  response =  await CONCERN_API.get(`/concern/get/${values}`);
 
-        console.log(response.data);
+        // console.log(response.data);
         return response.data;
     } catch (error) {
       console.log(error);
@@ -124,4 +124,32 @@ export const getMyConcerns = createAsyncThunk("/my_concerns", async () => {
          console.log(error);
          return error.message;
     }
+  })
+
+  export const concernComment = createAsyncThunk('/new_comment', async(values) => {
+     try {
+          const response = await CONCERN_API.post('/comment/post',{
+            description : values.comment,
+            concernUid :  values.concernUid
+          });
+
+          // console.log(response.data);
+          return response.data;
+
+     } catch (error) {
+          console.log(error)
+          return error.message
+     }
+  })
+
+  export const getConcernComments = createAsyncThunk('/comments', async(values) => {
+       try {
+             const response = await CONCERN_API.get(`/comment/${values}`);
+
+            //  console.log(response.data);
+             return response.data
+       } catch (error) {
+          console.log(error);
+          return error.message;
+       }
   })

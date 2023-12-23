@@ -1,5 +1,5 @@
 import { createSlice } from "@reduxjs/toolkit";
-import { assignConcern, fowardConcern, getAllCAtegories, getConcernById, getMyConcerns, getSubmittedByMe, sendConcern } from "../actions/concern_actions";
+import { assignConcern, fowardConcern, getAllCAtegories, getConcernById, getConcernComments, getMyConcerns, getSubmittedByMe, sendConcern } from "../actions/concern_actions";
 
 const concernSlice = createSlice({
     name: "concerns",
@@ -10,6 +10,7 @@ const concernSlice = createSlice({
         all_categories :  [],
        current_concern : null,
        update_concern : null,
+       concern_comments : [],
         error: null,
         message: "",
         status: "",
@@ -58,6 +59,21 @@ const concernSlice = createSlice({
                 state.error = action.error.message;
                 state.message = "Request failed, try again";
             })
+
+            .addCase(getConcernComments.pending, (state, action) => {
+                state.status = "Pending";
+            })
+            .addCase(getConcernComments.fulfilled, (state, action) => {
+                state.status = "Successful";
+                state.concern_comments = action.payload;
+                state.message = "Comments found successfully";
+            })
+            .addCase(getConcernComments.rejected, (state, action) => {
+                state.status = "Failed";
+                state.error = action.error.message;
+                state.message = "Request failed, try again";
+            })
+            
 
 
             // CATEGORY SECTION 
