@@ -119,7 +119,7 @@ export default function DashboardContent2() {
                     {
                         categories &&  categories.all_categories?(
                             categories?.all_categories?.dataList?.map((item,index) =>(
-                                <>
+                                <div key={index}>
                                                  <div class="container mx-auto mt-8">
   <div class="bg-gradient-to-r from-blue-500 to-green-500 p-8 rounded-lg shadow-lg">
   <div class="flex flex-row items-center">
@@ -141,7 +141,7 @@ export default function DashboardContent2() {
                             </div>
                             </div>
                     </div>
-                                </>
+                                </div>
                             ))
                         )
                         :

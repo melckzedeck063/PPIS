@@ -133,7 +133,7 @@ const Forum = () => {
 
     setTimeout(() => {
         dispatch(getConcernComments(data.concernUid))
-    }, 2000);
+    }, 4000);
   }
 
   // ... (existing code)
@@ -157,7 +157,7 @@ const Forum = () => {
     }
   })
 
-  console.log(currentConcern.concern_comments);
+  // console.log(currentConcern.concern_comments);
 
   return (
     <div className="flex w-full">
