@@ -1,29 +1,20 @@
+import {useContext} from "react";
+import {AuthContext} from "./index";
+import {useNavigate} from "react-router-dom";
+import AuthUser from "./authUser";
 
 
-import React, { useContext } from 'react'
-import { AuthContext, AuthProvider } from '.'
-import { useNavigate } from 'react-router-dom';
-import AuthUser from './authUser';
-
-export default function ProtectedRoute ({children}) {
-
+export default function ProtectedRoute({ children }) {
     const context = useContext(AuthContext);
-    const navigate =  useNavigate();
-    const {token} = AuthUser();
-
-    // console.log(token)
+    const navigate = useNavigate();
+    const { token } = AuthUser();
 
     if (!token) {
         setTimeout(() => {
-            // window.location.reload(false);
+            navigate("/");
             context.handleLogout();
-            navigate('/')
-        }, 100);
+        }, 10);
     }
 
-  return (
-     <AuthProvider>
-        {children}
-     </AuthProvider>
-  )
+    return <>{children}</>; // Render children directly, no need for a new AuthProvider
 }

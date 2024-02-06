@@ -133,8 +133,8 @@ function SideNav() {
         navigate("/");
         
         setTimeout(() => {
-          sessionStorage.removeItem('token')
-        }, 2000);
+          sessionStorage.removeItem('ppis-token')
+        }, 500);
     }, 1000);
     }
 
@@ -146,7 +146,7 @@ function SideNav() {
         transition={{ duration: 1 }}
       >
         <div className='shadow-3xl sticky top-0 z-40'>
-          <div className={`sidebr pt-4 p-3 h-screen  bg-blue-900 backdrop-blur-sm ${open ? "w-54 xl:w-62 lg:w-71 duration-300" : "w-14 duration-300"}  text-gray-800 relative`}>
+          <div className={`sidebr pt-4 p-3 h-screen  bg-gradient-to-r from-teal-700 to-blue-600 px-4 py-2 shadow-lg ${open ? "w-56 xl:w-56 lg:w-72 duration-300" : "w-16 duration-300"}  text-gray-800 relative`}>
             <AiOutlineMenuUnfold onClick={() => setOpen(!open)} className={`bg-white duration-300 text-slate-800 hover:font-bold hover:cursor-pointer rounded-full border border-cool-teal p-1 text-3xl absolute right-0.5 top-1 ${!open && "rotate-180"} `} />
             <div className="inline-flex mb-3 py-2 -ml-1 mt-2 space-x-2">
                <div className="mx-auto">
@@ -155,10 +155,10 @@ function SideNav() {
               {/* <GiIcons.GiFarmTractor className={`bg-white ${!open ? "text-3xl font-medium ml-1 mt-1.5" : "text-4xl -ml-1"} rounded text-slate-700 cursor-pointer block float-left mr-2 ${open && "rotate-[360deg]"} duration-500`} /> */}
               {/* <h1 className={`text-2xl mt-3 text-white font-bold origin-left ${!open && "scale-0"}`}>NHIF</h1> */}
             </div>
-            <div className={`bg-light-white -ml-1 rounded-md flex items-center py-1 ${open ? "px-3" : "px-1"}`}>
-              <BiIcons.BiSearch className={`font-bold text-xl text-white cursor-pointer block float-left ${open && "mr-1 text-lg"} ${!open && "text-2xl"}`} />
-              <input type="search" placeholder='Search' className={`text-gray-100 text-base bg-transparent w-full focus:outline-none ${!open && "hidden"}`} />
-            </div>
+            {/*<div className={`bg-light-white -ml-1 rounded-md flex items-center py-1 ${open ? "px-3" : "px-1"}`}>*/}
+            {/*  <BiIcons.BiSearch className={`font-bold text-xl text-white cursor-pointer block float-left ${open && "mr-1 text-lg"} ${!open && "text-2xl"}`} />*/}
+            {/*  <input type="search" placeholder='Search' className={`text-gray-100 text-base bg-transparent w-full focus:outline-none ${!open && "hidden"}`} />*/}
+            {/*</div>*/}
             <ul className="pt-1">
 
               <li className={`text-gray-800 py-2.5 space-x-1 text-sm hover:px-1  cursor-pointer hover:bg-light-white hover:text-gray-800 rounded-md mt-2`}>

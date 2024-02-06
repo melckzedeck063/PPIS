@@ -12,6 +12,7 @@ import { useDispatch, useSelector } from 'react-redux';
 import { registerUser } from '../store/actions/users_actions';
 import MainLayout from './sidebar/MainLayout';
 import { ShowToast } from './sidebar/notifications';
+import bg_image from '../assets/knjaro.jpg';
 Modal.setAppElement('#root'); // Set the root element for accessibility
 
 
@@ -141,10 +142,36 @@ const loginClicked = () => {
 
   return (
     <MainLayout>
-    <div className='bg-gray-200'>
-<div class="grid min-h-screen place-items-center">
+              <div
+            style={{
+                width: '100vw',
+                height: '100vh',
+                background: `url(${bg_image}) center/cover no-repeat`, // Replace with your image path
+                display: 'flex',
+                justifyContent: 'center',
+                alignItems: 'center',
+                margin: 0,
+                padding: 10,
+                position: 'relative', // Needed for absolute positioning of children
+            }}
+        >
+            <div
+                style={{
+                    position: 'absolute',
+                    top: 0,
+                    left: 0,
+                    width: '100%',
+                    height: '100%',
+                    backgroundColor: 'rgba(0, 0, 0 0.5)', // Adjust the alpha value for transparency
+                    display: 'flex',
+                    justifyContent: 'center',
+                    alignItems: 'center',
+                }}
+            >
+    {/* <div className='bg-gray-200'> */}
+<div class="grid min-h-screen  w-full  place-items-center">
   <div class="w-11/12 p-11 bg-white rounded-lg sm:w-9/12 md:w-1/2 lg:w-5/12">
-    <h1 class="text-xl font-semibold">Hello there ?, <span class="font-normal">please fill in your information to continue</span></h1>
+    <h1 class="text-xl font-bold text-center text-blue-500">Sign Up</h1>
     <form class="mt-6" onSubmit={handleSubmit(onSubmit)}>
       <div class="flex justify-between gap-3">
         <span class="w-1/2">
@@ -273,6 +300,8 @@ const loginClicked = () => {
   </div>
 </div>
     </div>
+    </div>
+    {/* </div> */}
     </MainLayout>
   )
 }

@@ -5,6 +5,7 @@ import React, { useState } from 'react'
 import image1 from '../assets/image2.jpg';
 import Login from './Login';
 import { StickyNavbar } from './StickyNavbar';
+import bg_image from "../assets/knjaro.jpg";
 
 
 
@@ -13,16 +14,41 @@ export default function Index() {
   return (
     <div>
       <StickyNavbar  />
+
+      <div
+          style={{
+            width: '100vw',
+            height: '100vh',
+            background: `url(${bg_image}) center/cover no-repeat`, // Replace with your image path
+            display: 'flex',
+            justifyContent: 'center',
+            alignItems: 'center',
+            margin: 0,
+            padding: 10,
+            position: 'relative', // Needed for absolute positioning of children
+          }}
+      >
+        <div
+            style={{
+              position: 'absolute',
+              top: 0,
+              left: 0,
+              width: '100%',
+              height: '100%',
+              backgroundColor: 'rgba(0, 0, 0 0.7)', // Adjust the alpha value for transparency
+              display: 'flex',
+              justifyContent: 'center',
+              alignItems: 'center',
+            }}
+        >
+
+
         <section class="relative  bg-bluee-500">
+
 <div class="relative pt-16 pb-32 flex content-center items-center justify-center min-h-screen-75">
 
-<div
-  className="absolute top-0 left-0 w-full h-full bg-center bg-cover"
-  style={{
-    backgroundImage: `url(${image1})`,
-    
-  }}
-></div>
+
+
 
 
 
@@ -31,7 +57,7 @@ export default function Index() {
             <div class="w-full lg:w-6/12 px-4 ml-auto mr-auto text-center">
               <div class="pr-12">
                 <h1 class="text-white font-semibold text-4xl">
-                  Get Connected 
+                  Get Connected
                 </h1>
                 <p class="mt-4 text-lg text-gray-200">
                    Hello This is an Information System for enhancing interactivity
@@ -42,7 +68,7 @@ export default function Index() {
             </div>
           </div>
         </div>
-      
+
       </div>
       <section class="pb-10 bg-blueGray-200 -mt-24">
         <div class="container mx-auto px-4">
@@ -70,7 +96,7 @@ export default function Index() {
                   <h6 class="text-xl font-semibold">QA</h6>
                   <p class="mt-2 mb-4 text-blueGray-500">
                     Our system enable users to communnicate directly to their
-                    elected representatives by asking  questions and receive 
+                    elected representatives by asking  questions and receive
                     direct answers.
                   </p>
                 </div>
@@ -84,8 +110,8 @@ export default function Index() {
                   </div>
                   <h6 class="text-xl font-semibold">Progress Tracking</h6>
                   <p class="mt-2 mb-4 text-blueGray-500">
-                    Our system provide allow users to track progress of 
-                    their enqueries until they receive a response from their elected 
+                    Our system provide allow users to track progress of
+                    their enqueries until they receive a response from their elected
                     representatives
                   </p>
                 </div>
@@ -101,7 +127,7 @@ export default function Index() {
                 Get Started
               </button>
             </div> */}
-            
+
 
            <footer class="relative  pt-8 pb-6 mt-1">
   <div class="container mx-auto px-4">
@@ -117,6 +143,8 @@ export default function Index() {
 </div>
       </section>
       </section>
+    </div>
+      </div>
     </div>
   )
 }

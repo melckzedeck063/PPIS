@@ -1,6 +1,7 @@
 import React, { PureComponent } from 'react';
 import ChartContainer from './Chart';
 import Footer from './sidebar/Footer';
+import Concerns from "../utils/Concerns";
 
 
 
@@ -38,108 +39,111 @@ export default function DashboardContent() {
                            <a href="#" class="text-sm font-medium text-cyan-600 hover:bg-gray-100 rounded-lg p-2">View all</a>
                         </div>
                      </div>
-                     <div class="flex flex-col mt-8">
-                        <div class="overflow-x-auto rounded-lg">
-                           <div class="align-middle inline-block min-w-full">
-                              <div class="shadow overflow-hidden sm:rounded-lg">
-                                 <table class="min-w-full divide-y divide-gray-200">
-                                    <thead class="bg-gray-50">
-                                       <tr>
-                                          <th scope="col" class="p-4 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
-                                             Category
-                                          </th>
-                                          <th scope="col" class="p-4 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
-                                             Date & Time
-                                          </th>
-                                          <th scope="col" class="p-4 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
-                                             Province
-                                          </th>
-                                       </tr>
-                                    </thead>
-                                    <tbody class="bg-white">
-                                       <tr>
-                                          <td class="p-4 whitespace-nowrap text-sm font-normal text-gray-900">
-                                             Payment from <span class="font-semibold">Bonnie Green</span>
-                                          </td>
-                                          <td class="p-4 whitespace-nowrap text-sm font-normal text-gray-500">
-                                             Apr 23 ,2021
-                                          </td>
-                                          <td class="p-4 whitespace-nowrap text-sm font-semibold text-gray-900">
-                                             Mpwapwa
-                                          </td>
-                                       </tr>
-                                       <tr class="bg-gray-50">
-                                          <td class="p-4 whitespace-nowrap text-sm font-normal text-gray-900 rounded-lg rounded-left">
-                                             Payment refund to <span class="font-semibold">#00910</span>
-                                          </td>
-                                          <td class="p-4 whitespace-nowrap text-sm font-normal text-gray-500">
-                                             Apr 23 ,2021
-                                          </td>
-                                          <td class="p-4 whitespace-nowrap text-sm font-semibold text-gray-900">
-                                             Bahi
-                                          </td>
-                                       </tr>
-                                       <tr>
-                                          <td class="p-4 whitespace-nowrap text-sm font-normal text-gray-900">
-                                             Payment failed from <span class="font-semibold">#087651</span>
-                                          </td>
-                                          <td class="p-4 whitespace-nowrap text-sm font-normal text-gray-500">
-                                             Apr 18 ,2021
-                                          </td>
-                                          <td class="p-4 whitespace-nowrap text-sm font-semibold text-gray-900">
-                                             Kongwa
-                                          </td>
-                                       </tr>
-                                       <tr class="bg-gray-50">
-                                          <td class="p-4 whitespace-nowrap text-sm font-normal text-gray-900 rounded-lg rounded-left">
-                                             Payment from <span class="font-semibold">Lana Byrd</span>
-                                          </td>
-                                          <td class="p-4 whitespace-nowrap text-sm font-normal text-gray-500">
-                                             Apr 15 ,2021
-                                          </td>
-                                          <td class="p-4 whitespace-nowrap text-sm font-semibold text-gray-900">
-                                             Kondoa
-                                          </td>
-                                       </tr>
-                                       <tr>
-                                          <td class="p-4 whitespace-nowrap text-sm font-normal text-gray-900">
-                                             Payment from <span class="font-semibold">Jese Leos</span>
-                                          </td>
-                                          <td class="p-4 whitespace-nowrap text-sm font-normal text-gray-500">
-                                             Apr 15 ,2021
-                                          </td>
-                                          <td class="p-4 whitespace-nowrap text-sm font-semibold text-gray-900">
-                                             Dodoma
-                                          </td>
-                                       </tr>
-                                       <tr class="bg-gray-50">
-                                          <td class="p-4 whitespace-nowrap text-sm font-normal text-gray-900 rounded-lg rounded-left">
-                                             Payment from <span class="font-semibold">THEMESBERG LLC</span>
-                                          </td>
-                                          <td class="p-4 whitespace-nowrap text-sm font-normal text-gray-500">
-                                             Apr 11 ,2021
-                                          </td>
-                                          <td class="p-4 whitespace-nowrap text-sm font-semibold text-gray-900">
-                                             Dodoma
-                                          </td>
-                                       </tr>
-                                       <tr>
-                                          <td class="p-4 whitespace-nowrap text-sm font-normal text-gray-900">
-                                             Payment from <span class="font-semibold">Lana Lysle</span>
-                                          </td>
-                                          <td class="p-4 whitespace-nowrap text-sm font-normal text-gray-500">
-                                             Apr 6 ,2021
-                                          </td>
-                                          <td class="p-4 whitespace-nowrap text-sm font-semibold text-gray-900">
-                                             Bahi
-                                          </td>
-                                       </tr>
-                                    </tbody>
-                                 </table>
-                              </div>
-                           </div>
-                        </div>
-                     </div>
+
+                      <Concerns />
+
+                     {/*<div class="flex flex-col mt-8">*/}
+                     {/*   <div class="overflow-x-auto rounded-lg">*/}
+                     {/*      <div class="align-middle inline-block min-w-full">*/}
+                     {/*         <div class="shadow overflow-hidden sm:rounded-lg">*/}
+                     {/*            <table class="min-w-full divide-y divide-gray-200">*/}
+                     {/*               <thead class="bg-gray-50">*/}
+                     {/*                  <tr>*/}
+                     {/*                     <th scope="col" class="p-4 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">*/}
+                     {/*                        Category*/}
+                     {/*                     </th>*/}
+                     {/*                     <th scope="col" class="p-4 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">*/}
+                     {/*                        Date & Time*/}
+                     {/*                     </th>*/}
+                     {/*                     <th scope="col" class="p-4 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">*/}
+                     {/*                        Province*/}
+                     {/*                     </th>*/}
+                     {/*                  </tr>*/}
+                     {/*               </thead>*/}
+                     {/*               <tbody class="bg-white">*/}
+                     {/*                  <tr>*/}
+                     {/*                     <td class="p-4 whitespace-nowrap text-sm font-normal text-gray-900">*/}
+                     {/*                        Payment from <span class="font-semibold">Bonnie Green</span>*/}
+                     {/*                     </td>*/}
+                     {/*                     <td class="p-4 whitespace-nowrap text-sm font-normal text-gray-500">*/}
+                     {/*                        Apr 23 ,2021*/}
+                     {/*                     </td>*/}
+                     {/*                     <td class="p-4 whitespace-nowrap text-sm font-semibold text-gray-900">*/}
+                     {/*                        Mpwapwa*/}
+                     {/*                     </td>*/}
+                     {/*                  </tr>*/}
+                     {/*                  <tr class="bg-gray-50">*/}
+                     {/*                     <td class="p-4 whitespace-nowrap text-sm font-normal text-gray-900 rounded-lg rounded-left">*/}
+                     {/*                        Payment refund to <span class="font-semibold">#00910</span>*/}
+                     {/*                     </td>*/}
+                     {/*                     <td class="p-4 whitespace-nowrap text-sm font-normal text-gray-500">*/}
+                     {/*                        Apr 23 ,2021*/}
+                     {/*                     </td>*/}
+                     {/*                     <td class="p-4 whitespace-nowrap text-sm font-semibold text-gray-900">*/}
+                     {/*                        Bahi*/}
+                     {/*                     </td>*/}
+                     {/*                  </tr>*/}
+                     {/*                  <tr>*/}
+                     {/*                     <td class="p-4 whitespace-nowrap text-sm font-normal text-gray-900">*/}
+                     {/*                        Payment failed from <span class="font-semibold">#087651</span>*/}
+                     {/*                     </td>*/}
+                     {/*                     <td class="p-4 whitespace-nowrap text-sm font-normal text-gray-500">*/}
+                     {/*                        Apr 18 ,2021*/}
+                     {/*                     </td>*/}
+                     {/*                     <td class="p-4 whitespace-nowrap text-sm font-semibold text-gray-900">*/}
+                     {/*                        Kongwa*/}
+                     {/*                     </td>*/}
+                     {/*                  </tr>*/}
+                     {/*                  <tr class="bg-gray-50">*/}
+                     {/*                     <td class="p-4 whitespace-nowrap text-sm font-normal text-gray-900 rounded-lg rounded-left">*/}
+                     {/*                        Payment from <span class="font-semibold">Lana Byrd</span>*/}
+                     {/*                     </td>*/}
+                     {/*                     <td class="p-4 whitespace-nowrap text-sm font-normal text-gray-500">*/}
+                     {/*                        Apr 15 ,2021*/}
+                     {/*                     </td>*/}
+                     {/*                     <td class="p-4 whitespace-nowrap text-sm font-semibold text-gray-900">*/}
+                     {/*                        Kondoa*/}
+                     {/*                     </td>*/}
+                     {/*                  </tr>*/}
+                     {/*                  <tr>*/}
+                     {/*                     <td class="p-4 whitespace-nowrap text-sm font-normal text-gray-900">*/}
+                     {/*                        Payment from <span class="font-semibold">Jese Leos</span>*/}
+                     {/*                     </td>*/}
+                     {/*                     <td class="p-4 whitespace-nowrap text-sm font-normal text-gray-500">*/}
+                     {/*                        Apr 15 ,2021*/}
+                     {/*                     </td>*/}
+                     {/*                     <td class="p-4 whitespace-nowrap text-sm font-semibold text-gray-900">*/}
+                     {/*                        Dodoma*/}
+                     {/*                     </td>*/}
+                     {/*                  </tr>*/}
+                     {/*                  <tr class="bg-gray-50">*/}
+                     {/*                     <td class="p-4 whitespace-nowrap text-sm font-normal text-gray-900 rounded-lg rounded-left">*/}
+                     {/*                        Payment from <span class="font-semibold">THEMESBERG LLC</span>*/}
+                     {/*                     </td>*/}
+                     {/*                     <td class="p-4 whitespace-nowrap text-sm font-normal text-gray-500">*/}
+                     {/*                        Apr 11 ,2021*/}
+                     {/*                     </td>*/}
+                     {/*                     <td class="p-4 whitespace-nowrap text-sm font-semibold text-gray-900">*/}
+                     {/*                        Dodoma*/}
+                     {/*                     </td>*/}
+                     {/*                  </tr>*/}
+                     {/*                  <tr>*/}
+                     {/*                     <td class="p-4 whitespace-nowrap text-sm font-normal text-gray-900">*/}
+                     {/*                        Payment from <span class="font-semibold">Lana Lysle</span>*/}
+                     {/*                     </td>*/}
+                     {/*                     <td class="p-4 whitespace-nowrap text-sm font-normal text-gray-500">*/}
+                     {/*                        Apr 6 ,2021*/}
+                     {/*                     </td>*/}
+                     {/*                     <td class="p-4 whitespace-nowrap text-sm font-semibold text-gray-900">*/}
+                     {/*                        Bahi*/}
+                     {/*                     </td>*/}
+                     {/*                  </tr>*/}
+                     {/*               </tbody>*/}
+                     {/*            </table>*/}
+                     {/*         </div>*/}
+                     {/*      </div>*/}
+                     {/*   </div>*/}
+                     {/*</div>*/}
                   </div>
                </div>
                {/* <div class="m_cards mt-4 w-full grid grid-cols-1 md:grid-cols-2 xl:grid-cols-3 gap-4">
@@ -190,7 +194,7 @@ export default function DashboardContent() {
 
                <div id="stats" class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-3 gap-4">
                   <div class="container mx-auto mt-8">
-                   <div class="bg-gradient-to-r from-blue-500 to-green-500 px-4 py-2 rounded-lg shadow-lg">
+                   <div class="bg-gradient-to-r from-blue-600 to-teal-600 px-4 py-2 rounded-lg shadow-lg">
                             <div class="flex flex-row items-center">
                             {/* <div class="flex items-center"> */}
                         <div class="flex-shrink-0">
@@ -212,7 +216,7 @@ export default function DashboardContent() {
                     </div>
 
                     <div class="container mx-auto mt-8">
-                   <div class="bg-gradient-to-r from-blue-500 to-green-500 px-4 py-2 rounded-lg shadow-lg">
+                   <div class="bg-gradient-to-r from-blue-600 to-teal-600 px-4 py-2 rounded-lg shadow-lg">
                             <div class="flex flex-row items-center">
                             {/* <div class="flex items-center"> */}
                         <div class="flex-shrink-0">
@@ -234,7 +238,7 @@ export default function DashboardContent() {
                     </div>
 
                     <div class="container mx-auto mt-8">
-                   <div class="bg-gradient-to-r from-blue-500 to-green-500 px-4 py-2 rounded-lg shadow-lg">
+                   <div class="bg-gradient-to-r from-blue-600 to-teal-600 px-4 py-2 rounded-lg shadow-lg">
                             <div class="flex flex-row items-center">
                             {/* <div class="flex items-center"> */}
                         <div class="flex-shrink-0">

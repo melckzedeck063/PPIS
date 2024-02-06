@@ -1,50 +1,50 @@
+import {createContext, useCallback, useMemo, useState} from "react";
+import {useLocation, useNavigate} from "react-router-dom";
 
-import React, { useCallback, useMemo, useState } from 'react'
-import { useLocation, useNavigate } from 'react-router-dom';
 
-const AuthContext =  React.createContext(null);
+const AuthContext = createContext();
 
-const AuthProvider = (props) => {
+const AuthProvider =  (props) => {
+    const [authenticatedUser, setAuthenticatedUser] = useState(null);
 
-    const [authenticatedUser, setAuthinticatedUser] = useState(null);
-    const  navigate =  useNavigate();
-    const location =  useLocation();
+    const navigate = useNavigate();
+    const location = useLocation();
 
-    const handleLogin =  useCallback(() => {
-        const  storage =  sessionStorage.getItem('token');
-        // console.log(storage)
 
-        if(storage){
-        const {data} =  JSON.parse(storage);
+    const handleLogin = useCallback(() => {
+        const storage = sessionStorage.getItem("ppis-token");
 
-        console.log(data);
-        setAuthinticatedUser(data);
-        const origin =  location.state?.from?.pathname || "/dashboard";
-        navigate(origin);
+        if (storage) {
+            const {data} = JSON.parse(storage);
+
+            setAuthenticatedUser(data);
+            const origin = location.state?.from?.pathname || "/dashboard";
+            navigate(origin)
         }
-    },[navigate,location]) ;
+    }, [navigate, location])
 
     const handleLogout = () => {
         navigate("/");
-        
+
         setTimeout(() => {
-            setAuthinticatedUser(null);
-            sessionStorage.removeItem('token')
-        }, 3000);
+            setAuthenticatedUser(null);
+            sessionStorage.removeItem("ppis-token");
+        }, 2000)
     }
 
-    const values =  useMemo(() =>({
+    const values = useMemo(() => ({
         authenticatedUser,
-        handleLogin,
         handleLogout,
-    }),[authenticatedUser,handleLogin,handleLogout])
-    
-  return (
-   <AuthContext.Provider value={values}>
-         {props.children}
-   </AuthContext.Provider>
-  )
+        handleLogin
+    }),[authenticatedUser,handleLogout,handleLogin]);
+
+
+    return (
+        <AuthContext.Provider value={values} >
+            {props.children}
+        </AuthContext.Provider>
+    )
+
 }
 
-export  {AuthContext,AuthProvider};
-
+export {AuthContext, AuthProvider}

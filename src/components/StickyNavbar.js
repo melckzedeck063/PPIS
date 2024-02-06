@@ -16,12 +16,14 @@ import Modal from 'react-modal';
 import { useTranslation } from "react-i18next";
 import { useDispatch } from "react-redux";
 import { getAllConstituency } from "../store/actions/users_actions";
+import { useNavigate } from "react-router-dom";
 Modal.setAppElement('#root');
  
 export function StickyNavbar() {
   const [openNav, setOpenNav] = useState(false);
 
   const  dispatch =  useDispatch();
+  const navigate = useNavigate();
 
   
   const { i18n } = useTranslation();
@@ -127,7 +129,7 @@ const closeSignupModal =()=>{
             {/* <div className="mr-4 hidden lg:block">{navList}</div> */}
             <div className="flex items-center gap-x-1">
               <Button
-                  onClick={openModal}
+                  onClick={() => navigate('/login')}
                 variant="text"
                 size="sm"
                 className="hidden lg:inline-block"
@@ -135,7 +137,7 @@ const closeSignupModal =()=>{
                 <span>Log In</span>
               </Button>
               <Button
-                  onClick={openSignupModal}
+                  onClick={() => navigate('/signup')}
                 variant="gradient"
                 size="sm"
                 className="hidden lg:inline-block bg-blue-500"
@@ -187,12 +189,12 @@ const closeSignupModal =()=>{
           <div className="flex items-center gap-x-1">
 
             <Switch color="green" defaultChecked />
-            <Button   onClick={openModal}
+            <Button   onClick={() => navigate('/login')}
                fullWidth variant="text" size="sm" className="text-blue-800">
               <span>Log In</span>
             </Button>
             <Button 
-                onClick={openSignupModal}
+                onClick={() => navigate('/signup')}
                fullWidth variant="gradient" size="sm" className="text-blue-500">
               <span>Sign Up</span>
             </Button>
@@ -200,33 +202,7 @@ const closeSignupModal =()=>{
         </MobileNav>
       </Navbar>
       
-         <Modal
-              isOpen={modalIsOpen}
-              onRequestClose={closeModal}
-              contentLabel="Example Modal"
-            >
-              <Login />
-              {/* <SignUp /> */}
-              <div className="absolute top-6 right-6 bg-red-500 rounded-full">
-                <span   onClick={closeModal} className=" text-white text-3xl font-bold cursor-pointer">
-                  <MdIcons.MdOutlineCancel  />
-                </span>
-              </div>
-            </Modal>
-
-            <Modal
-              isOpen={signUpModal}
-              onRequestClose={closeModal}
-              contentLabel="Example Modal"
-            >
-              {/* <Login /> */}
-              <SignUp />
-              <div className="absolute top-6 right-6 bg-red-500 rounded-full">
-                <span   onClick={closeSignupModal} className=" text-white text-3xl font-bold cursor-pointer">
-                  <MdIcons.MdOutlineCancel  />
-                </span>
-              </div>
-            </Modal>
+      
     </div>
   );
 }

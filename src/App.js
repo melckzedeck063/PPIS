@@ -10,6 +10,7 @@ import Dashboard from "./components/dashboard";
 import Forum from "./components/forum";
 import UserProfile from "./components/Profile";
 import ChangePassword from "./components/ChangePassword";
+import SignUp from "./components/SignUp";
 
 
 
@@ -20,6 +21,7 @@ function App() {
     <Routes>
       <Route path="/" element={<Index  />} />
       <Route path="/login" element={<Login />} />
+      <Route path="/signup" element={<SignUp />}  />
       <Route path="/dashboard" element={ <ProtectedRoute> <Dashboard /> </ProtectedRoute> } />
       <Route path="/all_mps" element={ <ProtectedRoute> <AllMp /> </ProtectedRoute>} />
       <Route path="/questions" element={<ProtectedRoute> <Questions /> </ProtectedRoute>}  />

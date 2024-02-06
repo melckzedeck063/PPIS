@@ -43,7 +43,7 @@ export const signInUser = createAsyncThunk('/user', async (values) => {
         });
 
         console.log(response.data)
-        sessionStorage.setItem('token', JSON.stringify(response.data))
+        sessionStorage.setItem('ppis-token', JSON.stringify(response.data))
         return response.data
     }
     catch (error) {
