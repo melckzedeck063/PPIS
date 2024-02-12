@@ -8,7 +8,7 @@ axios.defaults.headers.post["Content-Type"]="application/json";
 const CONCERN_API =  axios.create({baseURL : `${BASE_URL}`});
 
 CONCERN_API.interceptors.request.use((req) => {
-    const storage = sessionStorage.getItem("token");
+    const storage = sessionStorage.getItem("ppis-token");
     const {data} = JSON.parse(storage);
     const {token}  = data;
 

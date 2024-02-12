@@ -11,6 +11,7 @@
     "@material-tailwind/react": "^2.1.4",
     "@mui/material": "^5.15.6",
     "@mui/x-data-grid": "^6.19.3",
+    "@mui/x-data-grid-generator": "^6.19.3",
     "@reduxjs/toolkit": "^1.9.7",
     "@testing-library/jest-dom": "^5.17.0",
     "@testing-library/react": "^13.4.0",

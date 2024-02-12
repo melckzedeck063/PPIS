@@ -22,7 +22,7 @@ AUTH_API.interceptors.request.use((req) => {
 
 const CONST_API = axios.create({ baseURL:BASE_URL });
 CONST_API.interceptors.request.use((req) => {
-    const storage = sessionStorage.getItem('token');
+    const storage = sessionStorage.getItem('ppis-token');
     const {data} = JSON.parse(storage);
     const {token}  = data;
 
@@ -117,7 +117,7 @@ export const getAllStaffs = createAsyncThunk('/staffs', async () => {
     try {
         const response = await CONST_API.get('/user/get-officials');
 
-           console.log(response.data)
+           // console.log(response.data)
         return response.data;
     }
     catch (error) {
@@ -196,7 +196,7 @@ export const myProfile = createAsyncThunk('/profile', async () => {
     try {
         const response = await AUTH_API.get('/me');
 
-        console.log(response.data);
+        // console.log(response.data);
         return response.data;
 
     }
@@ -213,7 +213,7 @@ export const getAllConstituency = createAsyncThunk ("/constituency",  async() =>
     try {
            const response =  await axios.get(`${AUTH_URL}/constituency-list`);
 
-           console.log(response.data);
+           // console.log(response.data);
            return response.data;
            
     } catch (error) {
