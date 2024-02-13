@@ -93,3 +93,18 @@ export  const deleteMinistry = createAsyncThunk( 'delete_ministry',  async (valu
         return error.message
     }
 })
+
+
+
+export const dashboardSummary = createAsyncThunk('dashboard', async()  =>{
+    try {
+        const response = await CONST_API.get('/dashboard/');
+
+        console.log(response.data);
+        return  response.data;
+    }
+    catch (error){
+        console.log(error);
+        return error.message
+    }
+})

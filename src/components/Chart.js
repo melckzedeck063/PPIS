@@ -1,70 +1,56 @@
 import {
     Card,
     CardBody,
-    CardHeader,
-    Typography,
-  } from "@material-tailwind/react";
-  import Chart from "react-apexcharts";
-  import { Square3Stack3DIcon } from "@heroicons/react/24/outline";
-   
-  // If you're using Next.js please use the dynamic import for react-apexcharts and remove the import from the top for the react-apexcharts
-  // import dynamic from "next/dynamic";
-  // const Chart = dynamic(() => import("react-apexcharts"), { ssr: false });
-   
-  const chartConfig = {
+} from "@material-tailwind/react";
+import Chart from "react-apexcharts";
+import { useSelector } from "react-redux";
+
+const chartConfig = {
     type: "pie",
-    width: 520,
-    height: 480,
-    series: [10.0, 10.0, 10.0, 10.0, 10.0,10.0],
+    width: 460,
+    height: 440,
+    series: [],
     options: {
-      chart: {
-        toolbar: {
-          show: false,
+        chart: {
+            toolbar: {
+                show: false,
+            },
         },
-      },
-      
-      title: {
-        show: "",
-      },
-      labels: ['Water', 'Electricity', 'Health', 'Education', 'Transport','Land Conflicts'],
-              responsive: [{
-                breakpoint: 480,
-                options: {
-                  chart: {
-                    width: 200
-                  },
-                  legend: {
+        title: {
+            show: "",
+        },
+        responsive: [{
+            breakpoint: 480,
+            options: {
+                chart: {
+                    width: 240
+                },
+                legend: {
                     position: 'bottom'
-                  }
                 }
-              }]
-            ,
-      colors: ["#020617", "#ff8f00", "#00897b", "#1e88e5", "#d81b60", "#363062"],
+            }
+        }],
+        colors: [ "#ff8f00", "#00897b", "#1e88e5", "#d81b60", "#363062"],
     },
-  };
-   
-  export default function ChartContainer() {
+};
+
+export default function ChartContainer() {
+    const all_ministries = useSelector(state => state.ministries);
+    const concernByStatus = all_ministries?.dashboard_data?.data?.concernByStatus || [];
+
+    // Extracting data for series and labels
+    const series = concernByStatus.map(item => item.concernCount);
+    const labels = concernByStatus.map(item => item.status);
+
+    // Update series and labels in chartConfig
+    chartConfig.series = series;
+    chartConfig.options.labels = labels;
+
     return (
-      <Card>
-        {/* <CardHeader
-          floated={false}
-          shadow={false}
-          color="transparent"
-          className="flex flex-col gap-4 rounded-none md:flex-row md:items-center"
-        >
-          <div className="w-max rounded-lg bg-gray-900 p-5 text-white">
-            <Square3Stack3DIcon className="h-6 w-6" />
-          </div>
-          <div>
-            <Typography variant="h6" color="blue-gray">
-              Pie Chart
-            </Typography>
-            
-          </div>
-        </CardHeader> */}
-        <CardBody className="mt-4 grid place-items-center px-2">
-          <Chart {...chartConfig} />
-        </CardBody>
-      </Card>
+        <Card>
+            <CardBody className="mt-4 grid place-items-center px-2">
+                <Chart {...chartConfig} />
+            </CardBody>
+        </Card>
     );
-  }
+}

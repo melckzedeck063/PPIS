@@ -1,7 +1,7 @@
 import {createSlice} from "@reduxjs/toolkit";
 import {
     assignMinister,
-    createMinistry,
+    createMinistry, dashboardSummary,
     deleteMinistry,
     getAllMinstries,
     getMinistryById
@@ -13,6 +13,7 @@ export const ministrySlice =  createSlice({
     initialState : {
         current_ministry : null,
         ministries : [],
+        dashboard_data : [],
         new_ministry : null,
         status : null,
         message : "",
@@ -102,6 +103,21 @@ export const ministrySlice =  createSlice({
                 state.message = "Ministry deleted";
             })
             .addCase(deleteMinistry.rejected, (state, action) => {
+                state.status = "Failed";
+                state.error = true;
+                state.message = "Request failed";
+            })
+
+            .addCase(dashboardSummary.pending, (state, action) => {
+                state.status = "Processing";
+            })
+            .addCase(dashboardSummary.fulfilled, (state, action) => {
+                state.status = "Successful";
+                state.dashboard_data = action.payload;
+                state.error = false;
+                state.message = "Ministry deleted";
+            })
+            .addCase(dashboardSummary.rejected, (state, action) => {
                 state.status = "Failed";
                 state.error = true;
                 state.message = "Request failed";

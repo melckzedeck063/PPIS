@@ -239,68 +239,75 @@ function ForwardModal({ open, onClose, uuid }) {
                 </Typography>
 
                 <Box component="form" noValidate onSubmit={handleSubmit(onSubmit)} sx={{ mt: 2 }}>
-                <Typography className="font-medium" variant="h6" component="div" sx={{ fontWeight: 'medium', mb: 2 }}>
-                    Choose Ministry
-                </Typography>
-                <Grid container spacing={2}>
+                    {/*<Grid container spacing={2}>*/}
+                                    <>
+                                        <Controller
+                                            name="concernUuid"
+                                            control={control}
+                                            defaultValue={uuid}
+                                            render={({field,fieldState})=>(
+                                                <TextField
+                                                    {...field}
+                                                    autoComplete="given-name"
+                                                    name="name"
+                                                    required
+                                                    fullWidth
+                                                    id="name"
+                                                    label="Ministry name"
+                                                    autoFocus
+                                                    error={Boolean(fieldState.error)}
+                                                    helperText={fieldState.error?.message}
+                                                    sx={{mt : 1}}
+                                                />
+                                            )}
+                                        />
+
+
+                                        <Controller
+                                            name="ministryUuid"
+                                            control={control}
+                                            // defaultValue={""}
+                                            render={({ field,fieldState }) =>(
+                                                <TextField
+                                                    {...field}
+                                                    required
+                                                    fullWidth
+                                                    id="minister"
+                                                    label="Select Minister"
+                                                    select  // Add select prop to indicate it's a select input
+                                                    autoFocus
+                                                    autoComplete="family-name"
+                                                    error={Boolean(fieldState.error)}
+                                                    helperText={fieldState.error?.message}
+                                                    sx={{mt:3}}
+                                                >
+                                                    <MenuItem >SELECT MINISTRY</MenuItem>
+                                                    {Array.isArray(rows) && (
+                                                        rows.map((item,index) => (
+                                                            <MenuItem > {item.name} </MenuItem>
+                                                        ))
+                                                    )}
+
+                                                </TextField>
+                                            )}
+                                        />
+                                    </>
+
                     <Grid item xs={12}>
 
-                        <Controller
-                            name="concernUuid"
-                            control={control}
-                            defaultValue={uuid}
-                            render={({field,fieldState}) =>(
-                                <TextField
-                                    {...field}
-                                    required
-                                    fullWidth
-                                    id="shortCode"
-                                    hidden={true}
-                                    autoComplete="family-name"
-                                    autoFocus
-                                    error={Boolean(fieldState.error)}
-                                    helperText={fieldState.error?.message}
-                                    sx={{mt:3}}
-                                />
-                            )}
-                        />
-
-
-                        <Controller
-                            name="ministryUuid"
-                            control={control}
-                            defaultValue=""
-                            render={({ field,fieldState }) =>(
-                                <TextField
-                                    {...field}
-                                    required
-                                    fullWidth
-                                    id="minister"
-                                    label="Select Minister"
-                                    select  // Add select prop to indicate it's a select input
-                                    autoFocus
-                                    autoComplete="family-name"
-                                    error={Boolean(fieldState.error)}
-                                    helperText={fieldState.error?.message}
-                                    sx={{mt:3}}
-                                >
-                                    <MenuItem >SELECT MINISTER</MenuItem>
-                                    {Array.isArray(rows) && (
-                                        rows.map((item,index) => (
-                                            <MenuItem value={item.uuid}> {item.name} </MenuItem>
-                                        ))
-                                    )}
-
-                                </TextField>
-                            )}
-                        />
                     </Grid>
-                    <Grid item xs={12}>
-                        <Button fullWidth sx={{my:2}} variant="contained" color="primary">
-                            Forward
-                        </Button>
+                    <Button
+                        type="submit"
+                        fullWidth
+                        variant="contained"
+                        sx={{ mt: 3, mb: 2 }}
+                    >
+                        Register
+                    </Button>
+                    <Grid container justifyContent="flex-end">
+
                     </Grid>
-                </Grid>
+
                 </Box>
             </Box>
         </Modal>
