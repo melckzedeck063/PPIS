@@ -5,18 +5,11 @@ import { yupResolver } from '@hookform/resolvers/yup';
 import * as Yup from 'yup';
 import Modal from 'react-modal';
 
-import {
-    Navbar,
-    MobileNav,
-    Typography,
-    Button,
-    IconButton,
-    Card,
-  } from "@material-tailwind/react";
 import { useDispatch, useSelector } from 'react-redux';
-import { signInUser, signUpUser } from '../store/actions/users_actions';
-import MainLayout from './sidebar/MainLayout';
+import {getAllStaffs, signUpUser} from '../store/actions/users_actions';
 import { ShowToast } from './sidebar/notifications';
+import { getAllMinstries} from "../store/actions/ministry_actions";
+import {Alert, Stack} from "@mui/material";
   
     Modal.setAppElement('#root');
 
@@ -67,13 +60,52 @@ export default function RegisterMP() {
 
     const dispatch = useDispatch();
     const [btnClicked, setBtnClicked]  =  useState(false);
+    const [succeed, setSucceed]  =  useState(false);
+    const [failed, setFailed] = useState(false);
 
 
-    const onSubmit = data => {
-        // console.log(data)
-        dispatch(signUpUser(data));
-        
-    }
+    const onSubmit = async (data) => {
+
+        try {
+
+            // Dispatch the signInUser action
+            const response = await dispatch(signUpUser(data));
+            // console.log(data)
+
+            setTimeout(() =>{
+                reset({
+                    name : "",
+                    shortCode : "",
+
+                })
+            },500)
+
+            const newToken = response.payload;
+            // console.log(newToken);
+            if (newToken?.data?.active) {
+                setSucceed(true)
+                setFailed(false)
+
+                setTimeout(() => {
+                    setSucceed(false);
+                    dispatch(getAllStaffs())
+                },3000)
+
+            } else {
+                setFailed(true)
+                setSucceed(false);
+
+                setTimeout(() => {
+                    setFailed(false)
+                },4000)
+            }
+        } catch (error){
+            console.log(error)
+        }
+
+
+
+    };
 
     useEffect(() => {
       if(isSubmitSuccessful){
@@ -107,14 +139,24 @@ export default function RegisterMP() {
     }, [constituencies]);
 
   return (
-    <MainLayout>
-          <div className='bg-gray-200'>
-<div class="grid min-h-screen place-items-center">
-  <div class="w-11/12 p-11 bg-white rounded-lg sm:w-9/12 md:w-1/2 lg:w-5/12">
-    <h1 class="text-xl font-semibold">Hello there ?, <span class="font-normal">please fill in your information to continue</span></h1>
-    <form class="mt-6" onSubmit={handleSubmit(onSubmit)}>
-      <div class="flex justify-between gap-3">
-        <span class="w-1/2">
+<div className="grid min-h-screens place-items-center">
+  <div className="w-11/12 p-3 bg-white rounded-lg sm:w-9/12 md:w-7/12 lg:w-7/12">
+
+      <Stack>
+          {
+              succeed ? <Alert severity="success">User Created Successful.</Alert> : <></>
+          }
+          {
+              failed ? <Alert severity="error">Request failed please try again.</Alert>  : <></>
+          }
+
+      </Stack>
+
+    <h1 className="text-xl font-semibold text-center text-blue-600 my-2">Register User </h1>
+      <hr/>
+    <form className="mt-6" onSubmit={handleSubmit(onSubmit)}>
+      <div className="flex justify-between gap-3">
+        <span className="w-1/2">
           <label for="firstname" class="block text-xs font-semibold text-gray-600 uppercase">Firstname</label>
           <input id="firstname" type="text" name="firstname" placeholder="John" autocomplete="given-name" class={`text-sm sm:text-base placeholder-gray-500 pl-4 pr-3 rounded-lg border border-gray-400 w-full py-2 focus:outline-none focus:border-blue-400 ${errors.firstname? "border-red-500" : "border-sky-500"}`} 
             defaultValue={""}
@@ -220,21 +262,15 @@ export default function RegisterMP() {
                       </svg>
                     </span>
                   </div>
-
                     )
                    }
                   
                 </button>
           </div>
-         
-           
     </form>
   </div>
 </div>
-    </div>
-  
 
 
-    </MainLayout>
   )
 }

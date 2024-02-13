@@ -41,7 +41,7 @@ function Users(props) {
 
     return (
         <ThemeProvider theme={defaultTheme}>
-            <Box sx={{ display: 'flex', minHeight: '100vh' }}>
+            <Box className="bg-slate-200" sx={{ display: 'flex', minHeight: '100vh' }}>
                 <CssBaseline />
                 <SideNav />
                 <Box sx={{ flexGrow: 1, overflow: 'auto' }}>

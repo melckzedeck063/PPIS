@@ -9,10 +9,11 @@ import { yupResolver } from '@hookform/resolvers/yup';
 import { Spinner } from "@material-tailwind/react";
 import OTPform from './OTPform';
 import { useDispatch, useSelector } from 'react-redux';
-import { registerUser } from '../store/actions/users_actions';
+import {getAllConstituency, getAllStaffs, registerUser} from '../store/actions/users_actions';
 import MainLayout from './sidebar/MainLayout';
 import { ShowToast } from './sidebar/notifications';
 import bg_image from '../assets/knjaro.jpg';
+import {useNavigate} from "react-router-dom";
 Modal.setAppElement('#root'); // Set the root element for accessibility
 
 
@@ -70,15 +71,21 @@ export default function SignUp() {
 
   const [modalIsOpen, setModalIsOpen] = useState(false);
   const [btnClicked, setBtnClicked]  =  useState(false);
-  
   const dispatch = useDispatch();
-
   const new_user =   useSelector(state => state.users);
-  // console.log(new_user);
   const constituencies  = useSelector(state  => state.users);
-    // console.log(constituencies.constituencies.dataList)
   const login_message =  useSelector(state => state.users);
-  // console.log(login_message.new_user);
+
+    const [reload, setReload] = useState(0);
+    const navigate = useNavigate();
+
+    useEffect(() => {
+        if (constituencies && constituencies.constituencies && constituencies.constituencies.length < 1 && reload <= 2) {
+             dispatch(getAllConstituency());
+            setReload(prevReload => prevReload + 1);
+        }
+    }, [dispatch, reload]);
+    const rows = constituencies?.staffs?.content || [];
 
 
 const openModal = () => {

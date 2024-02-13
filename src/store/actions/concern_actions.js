@@ -48,6 +48,7 @@ export const sendConcern = createAsyncThunk('/new_concern', async(values) => {
 export const getMyConcerns = createAsyncThunk("/my_concerns", async () => {
     try {
       const response = await CONCERN_API.get('/concern/get/submitted-to-me');
+
       console.log(response.data);
       return response.data; // Assuming response.data is already in the desired format
     } catch (error) {
@@ -58,7 +59,7 @@ export const getMyConcerns = createAsyncThunk("/my_concerns", async () => {
 
   export const getSubmittedByMe = createAsyncThunk('/my_submitted', async () => {
      try {
-        const response =  await CONCERN_API.get("concern/get/my-concerns");
+        const response =  await CONCERN_API.get("/concern/get/my-concerns");
 
          console.log(response.data);
          return response.data;
@@ -68,6 +69,17 @@ export const getMyConcerns = createAsyncThunk("/my_concerns", async () => {
      }
   })
 
+export const getSubmitteToMp = createAsyncThunk('/submitted_to_mp', async () => {
+    try {
+        const response =  await CONCERN_API.get("/concern/get-for-mp");
+
+        console.log(response.data);
+        return response.data;
+    } catch (error) {
+        console.log(error);
+        return error.message
+    }
+})
 
   export const  getConcernById = createAsyncThunk('/concern_id', async(values) => {
     // console.log(values)

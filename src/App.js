@@ -13,6 +13,7 @@ import ChangePassword from "./components/ChangePassword";
 import SignUp from "./components/SignUp";
 import Users from "./utils/Users";
 import Ministry from "./components/Ministry";
+import MyConcerns from "./components/MyConcerns";
 
 
 
@@ -27,6 +28,7 @@ function App() {
       <Route path="/dashboard" element={ <ProtectedRoute> <Dashboard /> </ProtectedRoute> } />
       <Route path="/all_mps" element={ <ProtectedRoute> <Users /> </ProtectedRoute>} />
         <Route path="/users" element={ <ProtectedRoute> <Users /> </ProtectedRoute>} />
+        <Route path="/my-concerns" element={ <ProtectedRoute> <MyConcerns /> </ProtectedRoute>} />
       <Route path="/ministry" element={<ProtectedRoute> <Ministry /> </ProtectedRoute>}   />
       <Route path="/questions" element={<ProtectedRoute> <Questions /> </ProtectedRoute>}  />
       <Route path="/forum" element={<ProtectedRoute> <Forum /> </ProtectedRoute>} />

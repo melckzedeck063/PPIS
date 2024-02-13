@@ -1,12 +1,23 @@
 import { createSlice } from "@reduxjs/toolkit";
-import { assignConcern, fowardConcern, getAllCAtegories, getConcernById, getConcernComments, getMyConcerns, getSubmittedByMe, sendConcern } from "../actions/concern_actions";
+import {
+    assignConcern,
+    fowardConcern,
+    getAllCAtegories,
+    getConcernById,
+    getConcernComments,
+    getMyConcerns,
+    getSubmittedByMe,
+    getSubmitteToMp,
+    sendConcern
+} from "../actions/concern_actions";
 
 const concernSlice = createSlice({
     name: "concerns",
     initialState: {
         new_concern: null, // Change this to an array
         all_concern: [],
-        my_concerns: null,
+        my_concerns: [],
+        submitted_to_me : [],
         all_categories :  [],
        current_concern : null,
        update_concern : null,
@@ -51,10 +62,24 @@ const concernSlice = createSlice({
             })
             .addCase(getMyConcerns.fulfilled, (state, action) => {
                 state.status = "Successful";
-                state.my_concerns = action.payload;
+                state.submitted_to_me = action.payload;
                 state.message = "Concerns found successfully";
             })
             .addCase(getMyConcerns.rejected, (state, action) => {
+                state.status = "Failed";
+                state.error = action.error.message;
+                state.message = "Request failed, try again";
+            })
+
+            .addCase(getSubmitteToMp.pending, (state, action) => {
+                state.status = "Pending";
+            })
+            .addCase(getSubmitteToMp.fulfilled, (state, action) => {
+                state.status = "Successful";
+                state.submitted_to_me = action.payload;
+                state.message = "Concerns found successfully";
+            })
+            .addCase(getSubmitteToMp.rejected, (state, action) => {
                 state.status = "Failed";
                 state.error = action.error.message;
                 state.message = "Request failed, try again";

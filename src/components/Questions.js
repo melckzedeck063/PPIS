@@ -65,7 +65,7 @@ export default function Questions() {
       
     const concerns =  useSelector(state => state.concerns);
 
-    // console.log(concerns.my_concerns.content);
+    console.log(concerns.my_concerns.content);
 
     const { token } = AuthUser();
   const [userRole, setUserRole] = useState(null);
@@ -160,16 +160,16 @@ const closeModal = () => {
           concerns && concerns.my_concerns &&(
             concerns && concerns.my_concerns && concerns.my_concerns.empty === false ? (
               concerns.my_concerns.content.map((item,index) => (
-               
+
     <tr  key={index} class="hover:bg-gray-50 font-bold">
       <th class="flex gap-3 px-6 py-4 font-normal text-gray-900">
-      
+
         <div class="text-sm">
-          <div class="font-medium text-gray-700">{item.reportedBy?.fullName}</div>
+          <div class="font-medium text-gray-700">{item.reportedBy?.fullName || ""}</div>
           <div class="text-gray-400"> {item.reportedBy?.username} </div>
         </div>
       </th>
-     
+
       <td class="px-6 py-4">
       <span
           class="inline-flex items-center gap-1 rounded-full bg-green-50 px-2 py-1 text-xs font-semibold text-green-600"
@@ -202,16 +202,16 @@ const closeModal = () => {
             )
             :
 
-            userRole === "SECRETARY"? (
-              <>
-                 <a x-data="{ tooltip: 'Edite' }" href="#">
-                <span onClick={()  =>  handleOpen(item.uuid)} className='text-xl block float-left pr-1 text-blue-500'>
-                  <FaReadme className='text-green-700 font-bold' />
-                </span>
-                </a>
-              </>
-            )
-            :
+            // userRole === "SECRETARY"? (
+            //   <>
+            //      <a x-data="{ tooltip: 'Edite' }" href="#">
+            //     <span onClick={()  =>  handleOpen(item.uuid)} className='text-xl block float-left pr-1 text-blue-500'>
+            //       <FaReadme className='text-green-700 font-bold' />
+            //     </span>
+            //     </a>
+            //   </>
+            // )
+            // :
             <>
         <div class="flex justify-end gap-4">
           <a x-data="{ tooltip: 'Delete' }" href="#">
@@ -229,15 +229,15 @@ const closeModal = () => {
           }
       </td>
     </tr>
-                
+
               ))
             )
             :
             <>
-         
+
       <tr class="hover:bg-gray-50">
         <th class="flex gap-3 px-6 py-4 font-normal text-gray-900">
-        
+
           <div class="text-sm">
             {/* <div class="font-medium text-gray-700">Steven Jobs</div>
             <div class="text-gray-400">jobs@sailboatui.com</div> */}
@@ -258,7 +258,7 @@ const closeModal = () => {
             >
               {/* Mpwapwa */}
             </span>
-            
+
           </div>
         </td>
 

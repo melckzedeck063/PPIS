@@ -1,6 +1,16 @@
 import { createSlice } from "@reduxjs/toolkit";
 
-import { getAllConstituency, signInUser,signUpUser ,g, getAllConstituencyetAllStaffs, getAllStaffs, registerUser, activateAccount} from "../actions/users_actions";
+import {
+    getAllConstituency,
+    signInUser,
+    signUpUser,
+    g,
+    getAllConstituencyetAllStaffs,
+    getAllStaffs,
+    registerUser,
+    activateAccount,
+    deleteUser
+} from "../actions/users_actions";
 // import {  getAllConstituency, getAllStaffs, getUserById, myProfile, signInUser, signUpUser, updateMe, updateUser } from "../actions/user_actions";
 
 
@@ -16,7 +26,7 @@ export const userSlice = createSlice({
         staffs : [],
         constituencies : [],
         status :  '',
-        error  :  null,
+        error  :  false,
         message : ""
     },
 
@@ -42,12 +52,13 @@ export const userSlice = createSlice({
         .addCase(signInUser.fulfilled, (state,action) => {
             state.status = "Successfull";
             state.message = action.payload;
-            state.loged_user = action.payload
+            state.loged_user = action.payload;
+            state.error  = false;
         })
         .addCase(signInUser.rejected, (state,action) => {
             state.status = "Failed";
             state.message = "Invalid  login credentials";
-            state.error = action.error.message;
+            state.error = true;
         })
         .addCase(signUpUser.pending,(state,action) => {
             state.status = "Loading"
@@ -55,12 +66,13 @@ export const userSlice = createSlice({
         .addCase(signUpUser.fulfilled, (state,action) => {
             state.status = "Successfull";
             state.message = "New account created  succesfully ";
-            state.new_user = action.payload
+            state.new_user = action.payload;
+            state.error = false;
         })
         .addCase(signUpUser.rejected, (state,action) => {
             state.status = "Failed";
             state.message = "Request  failed please try again";
-            state.error = action.error.message
+            state.error = true
         })
 
         .addCase(registerUser.pending,(state,action) => {
@@ -74,7 +86,7 @@ export const userSlice = createSlice({
         .addCase(registerUser.rejected, (state,action) => {
             state.status = "Failed";
             state.message = "Request  failed please try again";
-            state.error = action.error.message
+            state.error = true
         })
         .addCase(getAllStaffs.pending,(state,action) => {
             state.status = "Loading"
@@ -87,7 +99,7 @@ export const userSlice = createSlice({
         .addCase(getAllStaffs.rejected, (state,action) => {
             state.status = "Failed";
             state.message = "Request  failed please try again";
-            state.error = action.error.message
+            state.error = true
         })
         .addCase(getAllConstituency.pending,(state,action) => {
             state.status = "Loading"
@@ -100,7 +112,7 @@ export const userSlice = createSlice({
         .addCase(getAllConstituency.rejected, (state,action) => {
             state.status = "Failed";
             state.message = "Request  failed please try again";
-            state.error = action.error.message;
+            state.error = true;
         })
         .addCase(activateAccount.pending,(state,action) => {
             state.status = "Loading"
@@ -113,8 +125,23 @@ export const userSlice = createSlice({
         .addCase(activateAccount.rejected, (state,action) => {
             state.status = "Failed";
             state.message = "Request  failed please try again";
-            state.error = action.error.message
+            state.error = true
         })
+
+            .addCase(deleteUser.pending, (state,action) => {
+                state.status = "Processing";
+            })
+            .addCase(deleteUser.fulfilled, (state,action) => {
+                state.status = "Successful";
+                state.current_user =  action.payload;
+                state.error  = false;
+                state.message = "User deleted successful";
+            })
+            .addCase(deleteUser.rejected, (state,action) => {
+                state.status = "Failed";
+                state.error =  true;
+                state.message = "Request failed";
+            })
 
         .addMatcher(
             (action) => action.type.endsWith("/fulfilled"),

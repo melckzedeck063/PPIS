@@ -206,6 +206,18 @@ export const myProfile = createAsyncThunk('/profile', async () => {
     }
 });
 
+export const deleteUser =  createAsyncThunk('delete_user', async (values) =>  {
+    try {
+         const response =  await CONST_API.delete(`/user/delete/${values}`);
+
+         console.log(response.data);
+         return  response.data;
+    }
+    catch (error){
+        console.log(error);
+        return error.message;
+    }
+})
 
 //  CONSTITUENCY SECTION
 

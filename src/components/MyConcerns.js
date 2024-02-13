@@ -10,13 +10,10 @@ import Grid from "@mui/material/Grid";
 import Paper from "@mui/material/Paper";
 import SideNav from "../components/sidebar/SideNav";
 import NavBar from "../components/sidebar/NavBar";
-import Button from "@mui/material/Button";
-import AddIcon from '@mui/icons-material/Add';
-import IconButton from '@mui/material/IconButton';
+
 import Modal from "react-modal";
 import RegisterMP from "../components/RegisterMp";
-import UsersData from "../utils/UsersData";
-import MinistryData from "../utils/MinistryData";
+import ConcernsData from "../utils/ConcernsData";
 
 const defaultTheme = createTheme();
 
@@ -32,7 +29,7 @@ const style = {
     p: 4,
 };
 
-function Ministry({openForm}) {
+function MyConcerns(props) {
 
     const [openModal, setOpenModal] = React.useState(false);
     const handleOpen = () => setOpenModal(true);
@@ -42,7 +39,7 @@ function Ministry({openForm}) {
 
     return (
         <ThemeProvider theme={defaultTheme}>
-            <Box className="bg-slate-200" sx={{ display: 'flex', minHeight: '100vh' }}>
+            <Box className="bg-gray-200" sx={{ display: 'flex', minHeight: '100vh' }}>
                 <CssBaseline />
                 <SideNav />
                 <Box sx={{ flexGrow: 1, overflow: 'auto' }}>
@@ -68,7 +65,7 @@ function Ministry({openForm}) {
 
 
                                     <Box sx={{mt: 2}}>
-                                        <MinistryData  openForm={handleOpen}/>
+                                        <ConcernsData  openForm={handleOpen}/>
                                     </Box>
                                 </Paper>
                             </Grid>
@@ -90,4 +87,4 @@ function Ministry({openForm}) {
     );
 }
 
-export default Ministry;
+export default MyConcerns;
