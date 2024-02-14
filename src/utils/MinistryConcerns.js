@@ -14,7 +14,13 @@ import Modal from "@mui/material/Modal";
 import {Alert, IconButton, Stack} from "@mui/material";
 import DeleteIcon from '@mui/icons-material/Delete';
 import EditIcon from '@mui/icons-material/Edit';
-import {getConcernById, getConcernComments, getMyConcerns, getSubmitteToMp} from "../store/actions/concern_actions";
+import {
+    getConcernById,
+    getConcernComments,
+    getMyConcerns,
+    getSubmittedByMe,
+    getSubmitteToMp
+} from "../store/actions/concern_actions";
 import {assignMinister, getAllMinstries, getMinistryById} from "../store/actions/ministry_actions";
 import {getAllStaffs} from "../store/actions/users_actions";
 import QuestionDetail from "../components/QuestionDetail";
@@ -164,7 +170,7 @@ const style = {
     boxShadow: 24,
     p: 4,
 };
-export default function ConcernsData({ openForm }) {
+export default function MinistryConcerns({ openForm }) {
     const dispatch = useDispatch();
     const [reload, setReload] = useState(0);
     const concerns = useSelector(state => state.concerns);
@@ -190,7 +196,7 @@ export default function ConcernsData({ openForm }) {
 
     useEffect(() => {
         if (concerns && concerns.submitted_to_me && concerns.submitted_to_me.length < 1 && reload <= 2) {
-            dispatch(getSubmitteToMp());
+            dispatch(getSubmittedByMe());
             setReload(prevReload => prevReload + 1);
         }
     }, [dispatch, reload]);
@@ -212,7 +218,7 @@ export default function ConcernsData({ openForm }) {
             <Grid my={2} container justifyContent="space-between">
                 <Grid item>
                     <Typography variant="h5" component="div" sx={{color: 'blue', fontWeight: 'bold'}}>
-                        Concerns Received
+                        Concerns Receivedd
                     </Typography>
                 </Grid>
                 <Grid item>
@@ -227,7 +233,7 @@ export default function ConcernsData({ openForm }) {
             )}
 
 
-</Container>
-)
-    ;
+        </Container>
+    )
+        ;
 }

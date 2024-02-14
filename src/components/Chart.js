@@ -7,7 +7,7 @@ import { useSelector } from "react-redux";
 
 const chartConfig = {
     type: "pie",
-    width: 460,
+    width: 440,
     height: 440,
     series: [],
     options: {
@@ -42,7 +42,7 @@ export default function ChartContainer() {
     const series = concernByStatus.map(item => item.concernCount);
     const labels = concernByStatus.map(item => item.status);
 
-    // Update series and labels in chartConfig
+
     chartConfig.series = series;
     chartConfig.options.labels = labels;
 

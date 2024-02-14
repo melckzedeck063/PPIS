@@ -113,7 +113,7 @@ export const getSubmitteToMp = createAsyncThunk('/submitted_to_mp', async () => 
   export const fowardConcern = createAsyncThunk ('/foward', async(values) => {
     console.log(values)
     try {
-          const response =  await CONCERN_API.put(`/concern/forward/minister?user_uid=${values.user_id}&concern_uid=${values.concern}`);
+          const response =  await CONCERN_API.put(`/concern/forward/minister?user_uid=${values.ministerUuid}&concern_uid=${values.concernUuid}`);
 
           console.log(response.data);
           return response.data;

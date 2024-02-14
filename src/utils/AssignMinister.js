@@ -76,9 +76,7 @@ export default function AssignMinister() {
 
         try {
 
-            // Dispatch the signInUser action
             const response = await dispatch(assignMinister(data));
-            // console.log(data)
 
             setTimeout(() =>{
                 reset({
@@ -130,7 +128,7 @@ export default function AssignMinister() {
 
                     <Stack>
                         {
-                            succeed ? <Alert severity="success">Ministry Created Successful.</Alert> : <></>
+                            succeed ? <Alert severity="success">Minister Assigned Successful.</Alert> : <></>
                         }
                         {
                             failed ? <Alert severity="error">Request failed please try again.</Alert>  : <></>

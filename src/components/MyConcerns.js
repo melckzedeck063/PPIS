@@ -1,4 +1,4 @@
-import React from 'react';
+import React, {useEffect, useState} from 'react';
 import Typography from "@mui/material/Typography";
 import Link from "@mui/material/Link";
 import { createTheme, ThemeProvider } from "@mui/material/styles";
@@ -14,6 +14,8 @@ import NavBar from "../components/sidebar/NavBar";
 import Modal from "react-modal";
 import RegisterMP from "../components/RegisterMp";
 import ConcernsData from "../utils/ConcernsData";
+import AuthUser from "../context/authUser";
+import MinistryConcerns from "../utils/MinistryConcerns";
 
 const defaultTheme = createTheme();
 
@@ -34,6 +36,21 @@ function MyConcerns(props) {
     const [openModal, setOpenModal] = React.useState(false);
     const handleOpen = () => setOpenModal(true);
     const handleClose = () => setOpenModal(false);
+
+    const { token } = AuthUser();
+    const [userRole, setUserRole] = useState(null);
+    useEffect(() => {
+        const fetchData = async () => {
+            // Use the token from useAuthUser
+            const { userType } = token;
+            setUserRole(userType);
+        };
+
+        fetchData();
+    }, [token]);
+
+    // console.log(userRole);
+
 
 
 
@@ -65,7 +82,18 @@ function MyConcerns(props) {
 
 
                                     <Box sx={{mt: 2}}>
-                                        <ConcernsData  openForm={handleOpen}/>
+
+                                        {
+                                            userRole === "MINISTER"? (
+                                                <MinistryConcerns />
+                                            )
+
+                                            :
+                                            <>
+                                                <ConcernsData  openForm={handleOpen}/>
+                                            </>
+                                        }
+
                                     </Box>
                                 </Paper>
                             </Grid>
