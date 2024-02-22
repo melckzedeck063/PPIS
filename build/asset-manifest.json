@@ -1,0 +1,16 @@
+{
+  "files": {
+    "main.css": "/static/css/main.ac9bbece.css",
+    "main.js": "/static/js/main.55c14260.js",
+    "static/media/knjaro.jpg": "/static/media/knjaro.7d9ca567931ee716b7ac.jpg",
+    "static/media/image2.jpg": "/static/media/image2.66afdbb17aac483e4696.jpg",
+    "static/media/bar-chart.gif": "/static/media/bar-chart.5b0f969792036d8f11a6.gif",
+    "index.html": "/index.html",
+    "main.ac9bbece.css.map": "/static/css/main.ac9bbece.css.map",
+    "main.55c14260.js.map": "/static/js/main.55c14260.js.map"
+  },
+  "entrypoints": [
+    "static/css/main.ac9bbece.css",
+    "static/js/main.55c14260.js"
+  ]
+}
