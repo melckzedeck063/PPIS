@@ -1,5 +1,6 @@
 import { createSlice } from "@reduxjs/toolkit";
 import {
+    allConcerns,
     assignConcern,
     fowardConcern,
     getAllCAtegories,
@@ -94,6 +95,19 @@ const concernSlice = createSlice({
                 state.message = "Comments found successfully";
             })
             .addCase(getConcernComments.rejected, (state, action) => {
+                state.status = "Failed";
+                state.error = action.error.message;
+                state.message = "Request failed, try again";
+            })
+            .addCase(allConcerns.pending, (state, action) => {
+                state.status = "Pending";
+            })
+            .addCase(allConcerns.fulfilled, (state, action) => {
+                state.status = "Successful";
+                state.all_concern = action.payload;
+                state.message = "Comments found successfully";
+            })
+            .addCase(allConcerns.rejected, (state, action) => {
                 state.status = "Failed";
                 state.error = action.error.message;
                 state.message = "Request failed, try again";

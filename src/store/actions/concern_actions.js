@@ -12,7 +12,19 @@ CONCERN_API.interceptors.request.use((req) => {
     const {data} = JSON.parse(storage);
     const {token}  = data;
 
+    if(token){
+        // console.log(token);
+        req.headers.Authorization = `Bearer ${token}`;
+    }
 
+    return  req;
+})
+
+const CONCERN_API2 =  axios.create({baseURL : `${BASE_URL}`});
+CONCERN_API2.interceptors.request.use((req) => {
+    const storage = sessionStorage.getItem("ppis-token");
+    const {data} = JSON.parse(storage);
+    const {token}  = data;
 
     if(token){
         // console.log(token);
@@ -124,6 +136,18 @@ export const getSubmitteToMp = createAsyncThunk('/submitted_to_mp', async () => 
     }
   })
 
+   export  const allConcerns =  createAsyncThunk("/all_concerns", async() => {
+       try {
+           const response =  await CONCERN_API.get("/concern/get-all");
+
+           // console.log(response.data);
+           return response.data;
+       }
+       catch (error){
+           console.log(error)
+           return error.message();
+       }
+   })
 
   export  const  getAllCAtegories = createAsyncThunk("/categories", async() =>{
     try {

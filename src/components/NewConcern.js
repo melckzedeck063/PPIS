@@ -9,8 +9,9 @@ import { useForm } from 'react-hook-form';
 import { Alert, Spinner } from "@material-tailwind/react";
 import OTPform from './OTPform';
 import { useDispatch, useSelector } from 'react-redux';
-import { sendConcern } from '../store/actions/concern_actions';
+import {allConcerns, sendConcern} from '../store/actions/concern_actions';
 import axios from 'axios';
+import {getAllMinstries} from "../store/actions/ministry_actions";
 Modal.setAppElement('#root'); // Set the root element for accessibility
 
 
@@ -56,9 +57,36 @@ export default function NewConcern() {
     const [failureMessage, setFailureMessage] = useState({message :"", error : false});
     const [open, setOpen] = React.useState(false);
     const [opened, setOpened] = React.useState(false);
+    const [reload, setReload] = useState(0);
+
+    const all_concerns = useSelector(state => state.concerns);
+
+    useEffect(() => {
+        if (all_concerns && all_concerns.all_concern && all_concerns.all_concern.length < 1 && reload <= 2) {
+            dispatch(allConcerns());
+            setReload(prevReload => prevReload + 1);
+        }
+    }, [dispatch, reload]);
+    const rows = all_concerns?.all_concern?.content || [];
+
+    console.log(rows);
+
+    const [filteredSuggestions, setFilteredSuggestions] = useState([]);
+    const [title, setTitle] = useState('');
+
+    // Handle title input change
+    const handleTitleChange = (event) => {
+        const userInput = event.target.value;
+        setTitle(userInput);
+
+        // Filter rows based on the user input
+        const filtered = rows.filter(row => row.title.toLowerCase().includes(userInput.toLowerCase()));
+
+        setFilteredSuggestions(filtered);
+    };
+
 
     const concern_message =  useSelector(state => state.concerns);
-    console.log(concern_message.new_concern)
 
   const { register, handleSubmit, reset, formState: { errors, isValid, isDirty, isSubmitSuccessful } } = useForm({
     mode: 'all',
@@ -184,11 +212,29 @@ export default function NewConcern() {
     <form class="mt-6" onSubmit={handleSubmit(onSubmit)}>
       {/* <div class="flex justify-between gap-3">
         <span class="w-1/2"> */}
-          <label for="title" class="block text-xs font-semibold text-gray-600 uppercase">Title</label>
-          <input id="title" type="text" name="title" placeholder="Concern title" autocomplete="given-name" class={`text-sm sm:text-base placeholder-gray-500 pl-4 pr-3 rounded-lg border border-gray-400 w-full py-2 focus:outline-none focus:border-blue-400 ${errors.title? "border-red-500" : "border-sky-500"}`} 
-            defaultValue={""}
-            {...register("title")}
+        {/* Title input field */}
+        <label for="title" class="block text-xs font-semibold text-gray-600 uppercase">Title</label>
+        <input
+            id="title"
+            type="text"
+            name="title"
+            placeholder="Concern title"
+            autocomplete="given-name"
+            class="text-sm sm:text-base placeholder-gray-500 pl-4 pr-3 rounded-lg border border-gray-400 w-full py-2 focus:outline-none focus:border-blue-400"
+            value={title}
+            onChange={handleTitleChange} // Set to handleTitleChange to listen for input changes
         />
+        {/* Render filtered suggestions */}
+        {filteredSuggestions.length > 0 && (
+            <ul class="absolute z-10 list-disc bg-white border border-gray-300 rounded-md mt-1 max-h-60 px-6 overflow-auto">
+                <li>Existing Concerns</li>
+                {filteredSuggestions.map((suggestion, index) => (
+                    <li key={index} class="p-2 hover:bg-gray-100 cursor-pointer">
+                        {suggestion.title}
+                    </li>
+                ))}
+            </ul>
+        )}
         <span className="text-red-500 text-sm">{errors.title?.message}</span>
         {/* </span> */}
         <span class="w-1/2">
@@ -203,7 +249,7 @@ export default function NewConcern() {
            
         
       <label for="password" class="block mt-2 text-xs font-semibold text-gray-600 uppercase">
-                User Role
+                Category
               </label>
               <select
                 id="userRole"
