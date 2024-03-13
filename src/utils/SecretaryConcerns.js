@@ -19,7 +19,7 @@ import {
     getConcernComments,
     getMyConcerns,
     getSubmittedByMe,
-    getSubmitteToMp
+    getSubmitteToMp, getSubmitteToSecretary
 } from "../store/actions/concern_actions";
 import {assignMinister, getAllMinstries, getMinistryById} from "../store/actions/ministry_actions";
 import {getAllStaffs} from "../store/actions/users_actions";
@@ -170,7 +170,7 @@ const style = {
     boxShadow: 24,
     p: 4,
 };
-export default function MinistryConcerns({ openForm }) {
+export default function SecretaryConcerns({ openForm }) {
     const dispatch = useDispatch();
     const [reload, setReload] = useState(0);
     const concerns = useSelector(state => state.concerns);
@@ -195,12 +195,12 @@ export default function MinistryConcerns({ openForm }) {
     // console.log(concerns.submitted_to_me);
 
     useEffect(() => {
-        if (concerns && concerns.submitted_to_me && concerns.submitted_to_me.length < 1 && reload <= 2) {
-            dispatch(getMyConcerns());
+        if (concerns && concerns.assigned_to_me && concerns.assigned_to_me.length < 1 && reload <= 2) {
+            dispatch(getSubmitteToSecretary());
             setReload(prevReload => prevReload + 1);
         }
     }, [dispatch, reload]);
-    const rows = concerns?.submitted_to_me?.content || [];
+    const rows = concerns?.assigned_to_me?.content || [];
 
 
     const handleOpen = (id) =>{
@@ -218,7 +218,7 @@ export default function MinistryConcerns({ openForm }) {
             <Grid my={2} container justifyContent="space-between">
                 <Grid item>
                     <Typography variant="h5" component="div" sx={{color: 'blue', fontWeight: 'bold'}}>
-                        Concerns Receivedd
+                        Concerns Assigned
                     </Typography>
                 </Grid>
                 <Grid item>

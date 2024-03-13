@@ -8,7 +8,7 @@ import {
     getConcernComments,
     getMyConcerns,
     getSubmittedByMe,
-    getSubmitteToMp,
+    getSubmitteToMp, getSubmitteToSecretary,
     sendConcern
 } from "../actions/concern_actions";
 
@@ -19,6 +19,7 @@ const concernSlice = createSlice({
         all_concern: [],
         my_concerns: [],
         submitted_to_me : [],
+        assigned_to_me :[],
         all_categories :  [],
        current_concern : null,
        update_concern : null,
@@ -81,6 +82,20 @@ const concernSlice = createSlice({
                 state.message = "Concerns found successfully";
             })
             .addCase(getSubmitteToMp.rejected, (state, action) => {
+                state.status = "Failed";
+                state.error = action.error.message;
+                state.message = "Request failed, try again";
+            })
+
+            .addCase(getSubmitteToSecretary.pending, (state, action) => {
+                state.status = "Pending";
+            })
+            .addCase(getSubmitteToSecretary.fulfilled, (state, action) => {
+                state.status = "Successful";
+                state.assigned_to_me = action.payload;
+                state.message = "Concerns found successfully";
+            })
+            .addCase(getSubmitteToSecretary.rejected, (state, action) => {
                 state.status = "Failed";
                 state.error = action.error.message;
                 state.message = "Request failed, try again";

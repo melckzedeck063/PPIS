@@ -1,5 +1,5 @@
 import axios from "axios";
-import { BASE_URL } from "../URL";
+import {BASE_URL, TEST_URL} from "../URL";
 import { createAsyncThunk } from "@reduxjs/toolkit";
 import { async } from "q";
 
@@ -20,18 +20,17 @@ CONCERN_API.interceptors.request.use((req) => {
     return  req;
 })
 
-const CONCERN_API2 =  axios.create({baseURL : `${BASE_URL}`});
-CONCERN_API2.interceptors.request.use((req) => {
-    const storage = sessionStorage.getItem("ppis-token");
+const TEST_API = axios.create({ baseURL:TEST_URL });
+TEST_API.interceptors.request.use((req) => {
+    const storage = sessionStorage.getItem('ppis-token');
     const {data} = JSON.parse(storage);
     const {token}  = data;
 
-    if(token){
-        // console.log(token);
-        req.headers.Authorization = `Bearer ${token}`;
+    if (token) {
+        req.headers.Authorization = `Bearer ${token}`
     }
 
-    return  req;
+    return req
 })
 
 
@@ -59,7 +58,7 @@ export const sendConcern = createAsyncThunk('/new_concern', async(values) => {
 
 export const getMyConcerns = createAsyncThunk("/my_concerns", async () => {
     try {
-      const response = await CONCERN_API.get('/concern/get/submitted-to-me');
+      const response = await TEST_API.get('/concern/get/submitted-to-me');
 
       console.log(response.data);
       return response.data; // Assuming response.data is already in the desired format
@@ -71,7 +70,7 @@ export const getMyConcerns = createAsyncThunk("/my_concerns", async () => {
 
   export const getSubmittedByMe = createAsyncThunk('/my_submitted', async () => {
      try {
-        const response =  await CONCERN_API.get("/concern/get/my-concerns");
+        const response =  await TEST_API.get("/concern/get/my-concerns");
 
          console.log(response.data);
          return response.data;
@@ -83,7 +82,7 @@ export const getMyConcerns = createAsyncThunk("/my_concerns", async () => {
 
 export const getSubmitteToMp = createAsyncThunk('/submitted_to_mp', async () => {
     try {
-        const response =  await CONCERN_API.get("/concern/get-for-mp");
+        const response =  await TEST_API.get("/concern/get-for-mp");
 
         console.log(response.data);
         return response.data;
@@ -93,10 +92,23 @@ export const getSubmitteToMp = createAsyncThunk('/submitted_to_mp', async () => 
     }
 })
 
+export const getSubmitteToSecretary = createAsyncThunk('/submitted_to_secretary', async () => {
+    try {
+        const response =  await TEST_API.get("/concern/get-for-secretary");
+
+        console.log(response.data);
+        return response.data;
+    } catch (error) {
+        console.log(error);
+        return error.message
+    }
+})
+
+
   export const  getConcernById = createAsyncThunk('/concern_id', async(values) => {
     // console.log(values)
     try {
-        const  response =  await CONCERN_API.get(`/concern/get/${values}`);
+        const  response =  await TEST_API.get(`/concern/get/${values}`);
 
         // console.log(response.data);
         return response.data;
@@ -110,7 +122,7 @@ export const getSubmitteToMp = createAsyncThunk('/submitted_to_mp', async () => 
   export const assignConcern = createAsyncThunk ('/assign', async(values) => {
     // console.log(values)
     try {
-          const response =  await CONCERN_API.put(`/concern/assign/secretary?user_uid=${values.user_id}&concern_uid=${values.concern}`);
+          const response =  await TEST_API.put(`/concern/assign/secretary?user_uid=${values.assistantUuid}&concern_uid=${values.concernUuid}`);
 
           console.log(response.data);
           return response.data;
@@ -164,7 +176,7 @@ export const getSubmitteToMp = createAsyncThunk('/submitted_to_mp', async () => 
 
   export const concernComment = createAsyncThunk('/new_comment', async(values) => {
      try {
-          const response = await CONCERN_API.post('/comment/post',{
+          const response = await TEST_API.post('/comment/post',{
             description : values.comment,
             concernUid :  values.concernUid
           });
@@ -180,7 +192,7 @@ export const getSubmitteToMp = createAsyncThunk('/submitted_to_mp', async () => 
 
   export const getConcernComments = createAsyncThunk('/comments', async(values) => {
        try {
-             const response = await CONCERN_API.get(`/comment/${values}`);
+             const response = await TEST_API.get(`/comment/${values}`);
 
             //  console.log(response.data);
              return response.data

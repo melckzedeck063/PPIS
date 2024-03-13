@@ -1,5 +1,5 @@
 import axios from "axios";
-import {BASE_URL} from "../URL";
+import {BASE_URL, TEST_URL} from "../URL";
 import {createAsyncThunk} from "@reduxjs/toolkit";
 
 
@@ -18,6 +18,19 @@ CONST_API.interceptors.request.use((req) => {
     return req
 })
 
+
+const TEST_API = axios.create({ baseURL:TEST_URL });
+TEST_API.interceptors.request.use((req) => {
+    const storage = sessionStorage.getItem('ppis-token');
+    const {data} = JSON.parse(storage);
+    const {token}  = data;
+
+    if (token) {
+        req.headers.Authorization = `Bearer ${token}`
+    }
+
+    return req
+})
 
 
 export const createMinistry = createAsyncThunk('ministry', async (values) => {
@@ -98,7 +111,7 @@ export  const deleteMinistry = createAsyncThunk( 'delete_ministry',  async (valu
 
 export const dashboardSummary = createAsyncThunk('dashboard', async()  =>{
     try {
-        const response = await CONST_API.get('/dashboard/');
+        const response = await TEST_API.get('/dashboard/');
 
         console.log(response.data);
         return  response.data;

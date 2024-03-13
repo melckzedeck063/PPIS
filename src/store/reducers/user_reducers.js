@@ -9,7 +9,7 @@ import {
     getAllStaffs,
     registerUser,
     activateAccount,
-    deleteUser
+    deleteUser, getAllAssistants
 } from "../actions/users_actions";
 // import {  getAllConstituency, getAllStaffs, getUserById, myProfile, signInUser, signUpUser, updateMe, updateUser } from "../actions/user_actions";
 
@@ -24,6 +24,7 @@ export const userSlice = createSlice({
         activate_account :  null,
         users : [],
         staffs : [],
+        assistants : [],
         constituencies : [],
         status :  '',
         error  :  false,
@@ -101,6 +102,19 @@ export const userSlice = createSlice({
             state.message = "Request  failed please try again";
             state.error = true
         })
+            .addCase(getAllAssistants.pending,(state,action) => {
+                state.status = "Loading"
+            })
+            .addCase(getAllAssistants.fulfilled, (state,action) => {
+                state.status = "Successfull";
+                state.message = "User data found succesfully ";
+                state.assistants = action.payload
+            })
+            .addCase(getAllAssistants.rejected, (state,action) => {
+                state.status = "Failed";
+                state.message = "Request  failed please try again";
+                state.error = true
+            })
         .addCase(getAllConstituency.pending,(state,action) => {
             state.status = "Loading"
         })

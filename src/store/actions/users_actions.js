@@ -1,7 +1,7 @@
 
 import axios from "axios";
 
-import { AUTH_URL,BASE_URL } from "../URL";  
+import {AUTH_URL, BASE_URL, TEST_AUTH, TEST_URL} from "../URL";
 import { createAsyncThunk } from "@reduxjs/toolkit";
 
 axios.defaults.headers.post['Content-Type'] = 'application/json';
@@ -33,11 +33,23 @@ CONST_API.interceptors.request.use((req) => {
     return req
 })
 
+const TEST_API = axios.create({ baseURL:TEST_URL });
+TEST_API.interceptors.request.use((req) => {
+    const storage = sessionStorage.getItem('ppis-token');
+    const {data} = JSON.parse(storage);
+    const {token}  = data;
+
+    if (token) {
+        req.headers.Authorization = `Bearer ${token}`
+    }
+
+    return req
+})
 
 export const signInUser = createAsyncThunk('/user', async (values) => {
     // console.log(values)
     try {
-        const response = await axios.post(`${AUTH_URL}/login`, {
+        const response = await axios.post(`${TEST_AUTH}/login`, {
             username: values.username,
             password: values.password
         });
@@ -57,7 +69,7 @@ export const signUpUser = createAsyncThunk('user/new', async (values) => {
     console.log(values);
 
     try {
-        const response = await CONST_API.post(`/user/create-update`, {
+        const response = await TEST_API.post(`/user/create-update`, {
             username: values.email,
             firstName: values.firstname,
             lastName: values.lastname,
@@ -115,7 +127,7 @@ export const activateAccount = createAsyncThunk('/activate', async(values) => {
 
 export const getAllStaffs = createAsyncThunk('/staffs', async () => {
     try {
-        const response = await CONST_API.get('/user/get-officials');
+        const response = await TEST_API.get('/user/get-officials');
 
            // console.log(response.data)
         return response.data;
@@ -125,6 +137,20 @@ export const getAllStaffs = createAsyncThunk('/staffs', async () => {
         return error.message
     }
 })
+
+export const getAllAssistants = createAsyncThunk('/assistants', async () => {
+    try {
+        const response = await TEST_API.get('/user/get-assistants');
+
+        console.log(response.data)
+        return response.data;
+    }
+    catch (error) {
+        console.log(error);
+        return error.message
+    }
+})
+
 
 export const getAllCustomers = createAsyncThunk('/all_users', async () => {
     try {
@@ -223,7 +249,7 @@ export const deleteUser =  createAsyncThunk('delete_user', async (values) =>  {
 
 export const getAllConstituency = createAsyncThunk ("/constituency",  async() => {
     try {
-           const response =  await axios.get(`${AUTH_URL}/constituency-list`);
+           const response =  await axios.get(`${TEST_AUTH}/constituency-list`);
 
            // console.log(response.data);
            return response.data;

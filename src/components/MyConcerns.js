@@ -16,6 +16,7 @@ import RegisterMP from "../components/RegisterMp";
 import ConcernsData from "../utils/ConcernsData";
 import AuthUser from "../context/authUser";
 import MinistryConcerns from "../utils/MinistryConcerns";
+import SecretaryConcerns from "../utils/SecretaryConcerns";
 
 const defaultTheme = createTheme();
 
@@ -87,6 +88,10 @@ function MyConcerns(props) {
                                             userRole === "MINISTER"? (
                                                 <MinistryConcerns />
                                             )
+                                            :
+                                            userRole === "SECRETARY" ?(
+                                                <SecretaryConcerns  />
+                                                )
 
                                             :
                                             <>

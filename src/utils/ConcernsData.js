@@ -16,7 +16,7 @@ import DeleteIcon from '@mui/icons-material/Delete';
 import EditIcon from '@mui/icons-material/Edit';
 import {getConcernById, getConcernComments, getMyConcerns, getSubmitteToMp} from "../store/actions/concern_actions";
 import {assignMinister, getAllMinstries, getMinistryById} from "../store/actions/ministry_actions";
-import {getAllStaffs} from "../store/actions/users_actions";
+import {getAllAssistants, getAllStaffs} from "../store/actions/users_actions";
 import QuestionDetail from "../components/QuestionDetail";
 import Intermediate from "../components/Intermediate";
 import * as MdIcons from "react-icons/md";
@@ -25,6 +25,8 @@ import TextField from "@mui/material/TextField";
 import {Controller, useForm} from "react-hook-form";
 import {yupResolver} from "@hookform/resolvers/yup";
 import ForwardConcern from "./FowardConcern";
+import {BiSend} from "react-icons/bi";
+import AssignTask from "./AssignTask";
 
 const columns = [
     { field: 'firstName', headerName: 'Name', width: 200,
@@ -68,6 +70,7 @@ const Schema = Yup.object({
 function MoreActionsButton({ uuid,category }) {
     const [modalOpen, setModalOpen] = useState(false);
     const [forwardModalOpen, setForwardModalOpen] = useState(false);
+    const [assignModalOpen, setAssignModalOpen] = useState(false);
     const [modalPosition, setModalPosition] = useState({ top: 0, left: 0 });
     const dispatch = useDispatch();
     const navigate = useNavigate();
@@ -98,9 +101,18 @@ function MoreActionsButton({ uuid,category }) {
         handleCloseModal();
     };
 
+    const handleAssignClick = () => {
+        dispatch(getAllAssistants());
+        // console.log( "CONCERN  :", uuid)
+        setAssignModalOpen(true);
+        handleCloseModal();
+    };
+
     const handleCloseForwardModal = () => {
         setForwardModalOpen(false);
+        setAssignModalOpen(false)
     };
+
 
     return (
         <React.Fragment>
@@ -123,18 +135,18 @@ function MoreActionsButton({ uuid,category }) {
             >
                 <Box sx={{ width: 200, bgcolor: 'background.paper', p: 2 }}>
                     <Button startIcon={<SendSharp />} sx={{ mb: 1 }} onClick={handleForwardClick}>Forward</Button>
+                    <Button startIcon={<BiSend />} sx={{ mb: 1 }} onClick={handleAssignClick}>Assign</Button>
                     <Button startIcon={<ReadMore />} onClick={handleViewClick}>Read More</Button>
                 </Box>
             </Modal>
             <ForwardModal open={forwardModalOpen} onClose={handleCloseForwardModal} uuid={uuid} category={category} />
+            <AssignModal open={assignModalOpen} onClose={handleCloseForwardModal} uuid={uuid} category={category} />
         </React.Fragment>
     );
 }
 
 function ForwardModal({ open, onClose, uuid, category }) {
     // Implement the logic for the Forward modal
-
-
 
     return (
         <Modal
@@ -145,6 +157,23 @@ function ForwardModal({ open, onClose, uuid, category }) {
         >
             <Box sx={style} >
                 <ForwardConcern uuid={uuid} category={category} />
+            </Box>
+
+        </Modal>
+    );
+}
+
+function AssignModal({ open, onClose, uuid, category }) {
+
+    return (
+        <Modal
+            open={open}
+            onClose={onClose}
+            aria-labelledby="forward-modal-title"
+            aria-describedby="forward-modal-description"
+        >
+            <Box sx={style} >
+                <AssignTask uuid={uuid} category={category} />
             </Box>
 
         </Modal>
