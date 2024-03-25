@@ -36,7 +36,7 @@ TEST_API.interceptors.request.use((req) => {
 export const createMinistry = createAsyncThunk('ministry', async (values) => {
     try {
         console.log(values);
-        const  response = await  CONST_API.post("/ministry/create-update",{
+        const  response = await  TEST_API.post("/ministry/create-update",{
             name : values.name,
             shortCode  :  values.shortCode
         })
@@ -53,7 +53,7 @@ export const createMinistry = createAsyncThunk('ministry', async (values) => {
 
 export const getAllMinstries =   createAsyncThunk("ministries", async () => {
     try {
-        const response =  await CONST_API.get("ministry/get-all");
+        const response =  await TEST_API.get("ministry/get-all");
 
         console.log(response.data);
         return response.data
@@ -67,7 +67,7 @@ export const getAllMinstries =   createAsyncThunk("ministries", async () => {
 
 export const  assignMinister = createAsyncThunk("assign_minister", async(values) => {
     try {
-         const response = await  CONST_API.get(`/ministry/${values.ministerUuid}/${values.ministryUuid}`);
+         const response = await  TEST_API.get(`/ministry/${values.ministerUuid}/${values.ministryUuid}`);
 
          console.log(response.data);
          return  response.data;
@@ -80,7 +80,7 @@ export const  assignMinister = createAsyncThunk("assign_minister", async(values)
 
 export const getMinistryById =  createAsyncThunk("ministry_id", async(values) => {
     try {
-        const response = await CONST_API.get(`/ministry/${values}`);
+        const response = await TEST_API.get(`/ministry/${values}`);
 
         console.log(response.data);
         return  response.data;
@@ -95,7 +95,7 @@ export const getMinistryById =  createAsyncThunk("ministry_id", async(values) =>
 
 export  const deleteMinistry = createAsyncThunk( 'delete_ministry',  async (values)  => {
     try {
-        const response =  await  CONST_API.delete(`/ministry/delete/${values}`);
+        const response =  await  TEST_API.delete(`/ministry/delete/${values}`);
 
         console.log(response.data);
         return response.data;

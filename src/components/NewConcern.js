@@ -222,6 +222,7 @@ export default function NewConcern() {
             autocomplete="given-name"
             class="text-sm sm:text-base placeholder-gray-500 pl-4 pr-3 rounded-lg border border-gray-400 w-full py-2 focus:outline-none focus:border-blue-400"
             value={title}
+            {...register("title")}
             onChange={handleTitleChange} // Set to handleTitleChange to listen for input changes
         />
         {/* Render filtered suggestions */}
@@ -333,7 +334,7 @@ export default function NewConcern() {
            
          
            <div class="flex w-full">
-                <button onClick={loginClicked}  disabled={!isValid || !isDirty}
+                <button onClick={loginClicked}
                   class="flex items-center justify-center focus:outline-none text-white text-sm sm:text-base bg-blue-600 hover:bg-blue-700 rounded py-2 w-full transition duration-150 ease-in">
                    
                    {

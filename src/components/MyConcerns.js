@@ -17,6 +17,10 @@ import ConcernsData from "../utils/ConcernsData";
 import AuthUser from "../context/authUser";
 import MinistryConcerns from "../utils/MinistryConcerns";
 import SecretaryConcerns from "../utils/SecretaryConcerns";
+import Button from "@mui/material/Button";
+import {BsUnlock} from "react-icons/bs";
+import {LockClosedIcon} from "@heroicons/react/16/solid";
+import PrivateConcerns from "./PrivateConcerns";
 
 const defaultTheme = createTheme();
 
@@ -37,6 +41,7 @@ function MyConcerns(props) {
     const [openModal, setOpenModal] = React.useState(false);
     const handleOpen = () => setOpenModal(true);
     const handleClose = () => setOpenModal(false);
+    const [currentType, setCurrentType] = useState('public');
 
     const { token } = AuthUser();
     const [userRole, setUserRole] = useState(null);
@@ -50,9 +55,13 @@ function MyConcerns(props) {
         fetchData();
     }, [token]);
 
-    // console.log(userRole);
+    const handlePublicButtonClick = () => {
+        setCurrentType('public');
+    };
 
-
+    const handlePrivateButtonClick = () => {
+        setCurrentType('private');
+    };
 
 
     return (
@@ -66,6 +75,43 @@ function MyConcerns(props) {
                         <Grid container spacing={3}>
                             <Grid item xs={12}>
                                 <Paper sx={{p: 4}}>
+
+                                    <Grid my={2} container justifyContent="space-between">
+                                        <Grid item>
+                                            <Typography variant="h6" component="div" sx={{ fontWeight: 'bold'}}>
+                                                Concerns Received
+                                            </Typography>
+                                        </Grid>
+
+                                        {
+                                            userRole === "MP" && (
+                                                <Grid item>
+                                                    <Button
+                                                        startIcon={<BsUnlock />}
+                                                        variant="contained"
+                                                        color="primary"
+                                                        onClick={handlePublicButtonClick}
+                                                        disabled={currentType === 'public'}
+                                                    >
+                                                        Public
+                                                    </Button>
+
+                                                    {/* Button to filter private concerns */}
+                                                    <Button
+                                                        sx={{ marginX: 2 }}
+                                                        startIcon={<LockClosedIcon />}
+                                                        variant="contained"
+                                                        color="primary"
+                                                        onClick={handlePrivateButtonClick}
+                                                        disabled={currentType === 'private'}
+                                                    >
+                                                        Private
+                                                    </Button>
+                                                </Grid>
+                                            )
+                                        }
+
+                                    </Grid>
 
                                     <div>
 
@@ -95,7 +141,10 @@ function MyConcerns(props) {
 
                                             :
                                             <>
-                                                <ConcernsData  openForm={handleOpen}/>
+                                            {
+                                                currentType === "public"?  <ConcernsData  openForm={handleOpen}/> : <PrivateConcerns openForm={handleOpen} />
+                                            }
+
                                             </>
                                         }
 

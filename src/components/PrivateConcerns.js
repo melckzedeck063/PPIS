@@ -4,7 +4,7 @@ import { DataGrid } from '@mui/x-data-grid';
 import { useDispatch, useSelector } from "react-redux";
 import { useEffect, useState } from "react";
 import {Link, useNavigate} from "react-router-dom";
-import {SendSharp, ReadMore, CallToAction, MoreVert, Add} from "@mui/icons-material";
+import { SendSharp, ReadMore, CallToAction, MoreVert } from "@mui/icons-material";
 import Container from "@mui/material/Container";
 import Grid from "@mui/material/Grid";
 import {Dialog, DialogFooter, Typography,Select, MenuItem} from "@material-tailwind/react";
@@ -18,22 +18,13 @@ import {
     getConcernById,
     getConcernComments,
     getMyConcerns,
-    getSubmittedByMe,
+    getSubmittedToMpPrivate,
     getSubmitteToMp
 } from "../store/actions/concern_actions";
 import {assignMinister, getAllMinstries, getMinistryById} from "../store/actions/ministry_actions";
-import {getAllStaffs} from "../store/actions/users_actions";
-import QuestionDetail from "../components/QuestionDetail";
-import Intermediate from "../components/Intermediate";
-import * as MdIcons from "react-icons/md";
+import {getAllAssistants, getAllStaffs} from "../store/actions/users_actions";
 import * as Yup from "yup";
-import TextField from "@mui/material/TextField";
-import {Controller, useForm} from "react-hook-form";
-import {yupResolver} from "@hookform/resolvers/yup";
-import ForwardConcern from "./FowardConcern";
-import {BsUnlock} from "react-icons/bs";
-import {FaAnchorLock} from "react-icons/fa6";
-import {LockClosedIcon} from "@heroicons/react/16/solid";
+
 
 const columns = [
     { field: 'firstName', headerName: 'Name', width: 200,
@@ -68,15 +59,13 @@ const columns = [
 const Schema = Yup.object({
     concernUuid: Yup.string().required().trim(),
     ministryUuid : Yup.string().required().trim()
-    // Uncomment the following lines if you want to include password and confirm password fields
-    // password: Yup.string().required().min(6),
-    // confirmPassword: Yup.string().oneOf([Yup.ref('password'), null], 'Passwords must match'),
 });
 
 
 function MoreActionsButton({ uuid,category }) {
     const [modalOpen, setModalOpen] = useState(false);
     const [forwardModalOpen, setForwardModalOpen] = useState(false);
+    const [assignModalOpen, setAssignModalOpen] = useState(false);
     const [modalPosition, setModalPosition] = useState({ top: 0, left: 0 });
     const dispatch = useDispatch();
     const navigate = useNavigate();
@@ -107,9 +96,7 @@ function MoreActionsButton({ uuid,category }) {
         handleCloseModal();
     };
 
-    const handleCloseForwardModal = () => {
-        setForwardModalOpen(false);
-    };
+
 
     return (
         <React.Fragment>
@@ -132,33 +119,14 @@ function MoreActionsButton({ uuid,category }) {
             >
                 <Box sx={{ width: 200, bgcolor: 'background.paper', p: 2 }}>
                     {/*<Button startIcon={<SendSharp />} sx={{ mb: 1 }} onClick={handleForwardClick}>Forward</Button>*/}
+                    {/*<Button startIcon={<BiSend />} sx={{ mb: 1 }} onClick={handleAssignClick}>Assign</Button>*/}
                     <Button startIcon={<ReadMore />} onClick={handleViewClick}>Read More</Button>
                 </Box>
             </Modal>
-            <ForwardModal open={forwardModalOpen} onClose={handleCloseForwardModal} uuid={uuid} category={category} />
         </React.Fragment>
     );
 }
 
-function ForwardModal({ open, onClose, uuid, category }) {
-    // Implement the logic for the Forward modal
-
-
-
-    return (
-        <Modal
-            open={open}
-            onClose={onClose}
-            aria-labelledby="forward-modal-title"
-            aria-describedby="forward-modal-description"
-        >
-            <Box sx={style} >
-                <ForwardConcern uuid={uuid} category={category} />
-            </Box>
-
-        </Modal>
-    );
-}
 
 
 
@@ -173,11 +141,11 @@ const style = {
     boxShadow: 24,
     p: 4,
 };
-export default function MinistryConcerns({ openForm }) {
+export default function PrivateConcerns({ openForm }) {
     const dispatch = useDispatch();
     const [reload, setReload] = useState(0);
     const concerns = useSelector(state => state.concerns);
-    const [currentType, setCurrentType] = useState('public');
+    const [open, setOpen] = React.useState(false);
     const navigate = useNavigate();
 
 
@@ -195,24 +163,15 @@ export default function MinistryConcerns({ openForm }) {
         setModalIsOpen(false);
     };
 
+    // console.log(concerns.submitted_to_me);
+
     useEffect(() => {
-        if (concerns && concerns.submitted_to_me && concerns.submitted_to_me.length < 1 && reload <= 2) {
-            dispatch(getMyConcerns());
+        if (concerns && concerns.privates && concerns.privates.length < 1 && reload <= 2) {
+            dispatch(getSubmittedToMpPrivate());
             setReload(prevReload => prevReload + 1);
         }
     }, [dispatch, reload]);
-    const rows = concerns?.submitted_to_me?.content || [];
-
-
-    const handlePublicButtonClick = () => {
-        setCurrentType('public');
-    };
-
-    // Function to handle private button click
-    const handlePrivateButtonClick = () => {
-        setCurrentType('private');
-    };
-
+    const rows = concerns?.privates?.content || [];
 
 
     const handleOpen = (id) =>{
@@ -228,10 +187,9 @@ export default function MinistryConcerns({ openForm }) {
     return (
         <Container maxWidth="lg" sx={{mt: 4, mb: 4}}>
 
-
             {/* Check if rows is an array before rendering DataGrid */}
             {Array.isArray(rows) && (
-                <DataGrid  rows={rows } columns={columns}/>
+                <DataGrid rows={rows} columns={columns}/>
             )}
 
 

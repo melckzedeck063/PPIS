@@ -7,8 +7,8 @@ import {
     getConcernById,
     getConcernComments,
     getMyConcerns,
-    getSubmittedByMe,
-    getSubmitteToMp, getSubmitteToSecretary,
+    getSubmittedByMe, getSubmittedToMpPrivate,
+    getSubmitteToMp, getSubmitteToMpPrivate, getSubmitteToSecretary,
     sendConcern
 } from "../actions/concern_actions";
 
@@ -18,6 +18,7 @@ const concernSlice = createSlice({
         new_concern: null, // Change this to an array
         all_concern: [],
         my_concerns: [],
+        privates :[],
         submitted_to_me : [],
         assigned_to_me :[],
         all_categories :  [],
@@ -73,6 +74,7 @@ const concernSlice = createSlice({
                 state.message = "Request failed, try again";
             })
 
+
             .addCase(getSubmitteToMp.pending, (state, action) => {
                 state.status = "Pending";
             })
@@ -82,6 +84,20 @@ const concernSlice = createSlice({
                 state.message = "Concerns found successfully";
             })
             .addCase(getSubmitteToMp.rejected, (state, action) => {
+                state.status = "Failed";
+                state.error = action.error.message;
+                state.message = "Request failed, try again";
+            })
+
+            .addCase(getSubmittedToMpPrivate.pending, (state, action) => {
+                state.status = "Pending";
+            })
+            .addCase(getSubmittedToMpPrivate.fulfilled, (state, action) => {
+                state.status = "Successful";
+                state.privates = action.payload;
+                state.message = "Concerns found successfully";
+            })
+            .addCase(getSubmittedToMpPrivate.rejected, (state, action) => {
                 state.status = "Failed";
                 state.error = action.error.message;
                 state.message = "Request failed, try again";

@@ -238,18 +238,7 @@ export default function ConcernsData({ openForm }) {
 
     return (
         <Container maxWidth="lg" sx={{mt: 4, mb: 4}}>
-            <Grid my={2} container justifyContent="space-between">
-                <Grid item>
-                    <Typography variant="h5" component="div" sx={{color: 'blue', fontWeight: 'bold'}}>
-                        Concerns Received
-                    </Typography>
-                </Grid>
-                <Grid item>
-                    {/*<Button startIcon={<Add />} variant="contained" color="primary" onClick={() => openForm()}>*/}
-                    {/*    Add User*/}
-                    {/*</Button>*/}
-                </Grid>
-            </Grid>
+
             {/* Check if rows is an array before rendering DataGrid */}
             {Array.isArray(rows) && (
                 <DataGrid rows={rows} columns={columns}/>

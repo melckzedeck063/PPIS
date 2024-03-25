@@ -225,7 +225,7 @@ const loginClicked = () => {
         </span>
               <span className="w-1/2">
           <label htmlFor="region" className="block text-xs mt-2  font-semibold text-gray-600 uppercase">Region</label>
-                  <select id="province"  name="region" autoComplete="tel"
+                  <select id="province" name="region" autoComplete="tel"
                           className={`text-sm sm:text-base placeholder-gray-500 pl-4 pr-3 rounded-lg border border-gray-400 w-full py-2.5 focus:outline-none focus:border-blue-400 ${errors.phone ? "border-red-500" : "border-sky-500"}`}
                           defaultValue={""}
                           {...register("region")}

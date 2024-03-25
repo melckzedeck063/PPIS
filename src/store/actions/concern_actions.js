@@ -38,7 +38,7 @@ export const sendConcern = createAsyncThunk('/new_concern', async(values) => {
 
     try {
         // console.log(values);
-        const response = await CONCERN_API.post(`/concern/create-update`, {
+        const response = await TEST_API.post(`/concern/create-update`, {
             title : values.title,
             description : values.description,
             categoryUid : values.category,
@@ -68,6 +68,7 @@ export const getMyConcerns = createAsyncThunk("/my_concerns", async () => {
     }
   });
 
+
   export const getSubmittedByMe = createAsyncThunk('/my_submitted', async () => {
      try {
         const response =  await TEST_API.get("/concern/get/my-concerns");
@@ -80,9 +81,23 @@ export const getMyConcerns = createAsyncThunk("/my_concerns", async () => {
      }
   })
 
+
+
 export const getSubmitteToMp = createAsyncThunk('/submitted_to_mp', async () => {
     try {
         const response =  await TEST_API.get("/concern/get-for-mp");
+
+        console.log(response.data);
+        return response.data;
+    } catch (error) {
+        console.log(error);
+        return error.message
+    }
+})
+
+export const getSubmittedToMpPrivate = createAsyncThunk('/submitted_to_mp_private', async () => {
+    try {
+        const response =  await TEST_API.get("/concern/get-for-mp-private");
 
         console.log(response.data);
         return response.data;
@@ -137,7 +152,7 @@ export const getSubmitteToSecretary = createAsyncThunk('/submitted_to_secretary'
   export const fowardConcern = createAsyncThunk ('/foward', async(values) => {
     console.log(values)
     try {
-          const response =  await CONCERN_API.put(`/concern/forward/minister?user_uid=${values.ministerUuid}&concern_uid=${values.concernUuid}`);
+          const response =  await TEST_API.put(`/concern/forward/minister?user_uid=${values.ministerUuid}&concern_uid=${values.concernUuid}`);
 
           console.log(response.data);
           return response.data;
@@ -150,7 +165,7 @@ export const getSubmitteToSecretary = createAsyncThunk('/submitted_to_secretary'
 
    export  const allConcerns =  createAsyncThunk("/all_concerns", async() => {
        try {
-           const response =  await CONCERN_API.get("/concern/get-all");
+           const response =  await TEST_API.get("/concern/get-all");
 
            // console.log(response.data);
            return response.data;
@@ -163,7 +178,7 @@ export const getSubmitteToSecretary = createAsyncThunk('/submitted_to_secretary'
 
   export  const  getAllCAtegories = createAsyncThunk("/categories", async() =>{
     try {
-         const response =  await CONCERN_API.get("/category/all");
+         const response =  await TEST_API.get("/category/all");
 
         //  console.log(response.data);
          return response.data;
