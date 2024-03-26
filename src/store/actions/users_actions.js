@@ -220,7 +220,7 @@ export const updateMe = createAsyncThunk('/me/update', async (values) => {
 })
 export const myProfile = createAsyncThunk('/profile', async () => {
     try {
-        const response = await TEST_API.get('/me');
+        const response = await TEST_API.get('/user/me');
 
         // console.log(response.data);
         return response.data;
@@ -260,17 +260,4 @@ export const getAllConstituency = createAsyncThunk ("/constituency",  async() =>
     }
 })
 
-export const  success_global = createAsyncThunk('/success', async(msg)  => {
-    return {
-        type: "SUCCESS_MESSAGE",
-        message : msg
-    }
-});
 
-
-export const error_global  =    createAsyncThunk('/error', async(msg) => {
-    return {
-        type : "ERROR_MESSAGE",
-        message  : msg
-    }
-});

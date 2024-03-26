@@ -9,7 +9,7 @@ import {
     getAllStaffs,
     registerUser,
     activateAccount,
-    deleteUser, getAllAssistants
+    deleteUser, getAllAssistants, myProfile
 } from "../actions/users_actions";
 // import {  getAllConstituency, getAllStaffs, getUserById, myProfile, signInUser, signUpUser, updateMe, updateUser } from "../actions/user_actions";
 
@@ -19,7 +19,7 @@ export const userSlice = createSlice({
     initialState : {
         loged_user : null,
         current_user :  null,
-        user_profile : null,
+        user_profile : [],
         new_user : null,
         activate_account :  null,
         users : [],
@@ -142,6 +142,20 @@ export const userSlice = createSlice({
             state.error = true
         })
 
+            .addCase(myProfile.pending,(state,action) => {
+                state.status = "Loading"
+            })
+            .addCase(myProfile.fulfilled, (state,action) => {
+                state.status = "Successfull";
+                state.message = "Account found  succesfully ";
+                state.user_profile = action.payload
+            })
+            .addCase(myProfile.rejected, (state,action) => {
+                state.status = "Failed";
+                state.message = "Request  failed please try again";
+                state.error = true
+            })
+
             .addCase(deleteUser.pending, (state,action) => {
                 state.status = "Processing";
             })
@@ -177,19 +191,8 @@ export const userSlice = createSlice({
         //     state.message = "Request  failed please try again";
         //     state.error = action.error.message
         // })
-        // .addCase(myProfile.pending,(state,action) => {
-        //     state.status = "Loading"
-        // })
-        // .addCase(myProfile.fulfilled, (state,action) => {
-        //     state.status = "Successfull";
-        //     state.message = "New account created  succesfully ";
-        //     state.user_profile = action.payload
-        // })
-        // .addCase(myProfile.rejected, (state,action) => {
-        //     state.status = "Failed";
-        //     state.message = "Request  failed please try again";
-        //     state.error = action.error.message
-        // })
+
+
         // .addCase(updateMe.pending,(state,action) => {
         //     state.status = "Loading"
         // })
