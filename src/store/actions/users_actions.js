@@ -49,7 +49,7 @@ TEST_API.interceptors.request.use((req) => {
 export const signInUser = createAsyncThunk('/user', async (values) => {
     // console.log(values)
     try {
-        const response = await axios.post(`${TEST_AUTH}/login`, {
+        const response = await axios.post(`${AUTH_URL}/login`, {
             username: values.username,
             password: values.password
         });
@@ -69,7 +69,7 @@ export const signUpUser = createAsyncThunk('user/new', async (values) => {
     console.log(values);
 
     try {
-        const response = await TEST_API.post(`/user/create-update`, {
+        const response = await CONST_API.post(`/user/create-update`, {
             username: values.email,
             firstName: values.firstname,
             lastName: values.lastname,
@@ -92,7 +92,7 @@ export  const registerUser = createAsyncThunk('/new_user', async (values) => {
     console.log(values);
 
     try {
-        const response = await axios.post(`${TEST_AUTH}/register`, {
+        const response = await axios.post(`${AUTH_URL}/register`, {
             firstName: values.firstname,
             lastName: values.lastname,
             username: values.email,
@@ -114,7 +114,7 @@ export  const registerUser = createAsyncThunk('/new_user', async (values) => {
 
 export const activateAccount = createAsyncThunk('/activate', async(values) => {
     try {
-           const response  =  await axios.get(`${TEST_AUTH}/activate-account?code=${values.code}`);
+           const response  =  await axios.get(`${AUTH_URL}/activate-account?code=${values.code}`);
 
            console.log(response.data);
            return response.data;
@@ -127,7 +127,7 @@ export const activateAccount = createAsyncThunk('/activate', async(values) => {
 
 export const getAllStaffs = createAsyncThunk('/staffs', async () => {
     try {
-        const response = await TEST_API.get('/user/get-officials');
+        const response = await CONST_API.get('/user/get-officials');
 
            // console.log(response.data)
         return response.data;
@@ -140,7 +140,7 @@ export const getAllStaffs = createAsyncThunk('/staffs', async () => {
 
 export const getAllAssistants = createAsyncThunk('/assistants', async () => {
     try {
-        const response = await TEST_API.get('/user/get-assistants');
+        const response = await CONST_API.get('/user/get-assistants');
 
         console.log(response.data)
         return response.data;
@@ -154,7 +154,7 @@ export const getAllAssistants = createAsyncThunk('/assistants', async () => {
 
 export const getAllCustomers = createAsyncThunk('/all_users', async () => {
     try {
-        const response = await TEST_API.get('/all_users');
+        const response = await CONST_API.get('/all_users');
 
         //    console.log(response.data)
         return response.data;
@@ -167,7 +167,7 @@ export const getAllCustomers = createAsyncThunk('/all_users', async () => {
 
 export const getUserById = createAsyncThunk('/current/user', async (id) => {
     try {
-        const response = await TEST_API.get(`/user/${id}`);
+        const response = await CONST_API.get(`/user/${id}`);
 
         // console.log(response.data);
         return response.data;
@@ -180,7 +180,7 @@ export const getUserById = createAsyncThunk('/current/user', async (id) => {
 
 export const updateUser = createAsyncThunk('/update', async (values, id) => {
     try {
-        const response = await TEST_API.patch(`/update_user/${id}`, {
+        const response = await CONST_API.patch(`/update_user/${id}`, {
             firstName: values.firstName,
             lastName: values.lastName,
             email: values.email,
@@ -201,7 +201,7 @@ export const updateUser = createAsyncThunk('/update', async (values, id) => {
 
 export const updateMe = createAsyncThunk('/me/update', async (values) => {
     try {
-        const response = await TEST_API.patch(`/update/me/`, {
+        const response = await CONST_API.patch(`/update/me/`, {
             firstName: values.firstName,
             lastName: values.lastName,
             email: values.email,
@@ -220,7 +220,7 @@ export const updateMe = createAsyncThunk('/me/update', async (values) => {
 })
 export const myProfile = createAsyncThunk('/profile', async () => {
     try {
-        const response = await TEST_API.get('/user/me');
+        const response = await CONST_API.get('/user/me');
 
         // console.log(response.data);
         return response.data;
@@ -234,7 +234,7 @@ export const myProfile = createAsyncThunk('/profile', async () => {
 
 export const deleteUser =  createAsyncThunk('delete_user', async (values) =>  {
     try {
-         const response =  await TEST_API.delete(`/user/delete/${values}`);
+         const response =  await CONST_API.delete(`/user/delete/${values}`);
 
          console.log(response.data);
          return  response.data;
@@ -249,7 +249,7 @@ export const deleteUser =  createAsyncThunk('delete_user', async (values) =>  {
 
 export const getAllConstituency = createAsyncThunk ("/constituency",  async() => {
     try {
-           const response =  await axios.get(`${TEST_AUTH}/constituency-list`);
+           const response =  await axios.get(`${AUTH_URL}/constituency-list`);
 
            // console.log(response.data);
            return response.data;
