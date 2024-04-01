@@ -28,9 +28,12 @@ const Forum = () => {
   // ... (existing code)
   const currentConcern = useSelector((state) => state.concerns);
   const [commentFormVisible, setCommentFormVisible] = useState(false);
+  const [reportFormVisible, setReportFormVisible] = useState(false);
   const [comment, setComment] = useState('');
   const [containHaras, setContainHaras] =  useState(false);
   const dispatch  =   useDispatch();
+
+
 
   const [replies, setReplies] = useState([
     // { message: 'hello dear', user: 'Cotton zedeck', date: '13-11-2023' },
@@ -157,7 +160,6 @@ const Forum = () => {
     }
   })
 
-  // console.log(currentConcern.concern_comments);
 
   return (
     <div className="flex w-full">
@@ -167,7 +169,7 @@ const Forum = () => {
         <div className="pl-4">
           <div className="bg-white p-4 my-4 rounded-md shadow-md mx-2 relative">
             {/* Post Header */}
-            {currentConcern && currentConcern.current_concern && (
+            { currentConcern && currentConcern.current_concern && (
               currentConcern && currentConcern.current_concern && currentConcern.current_concern?.data && (
                 <>
                   <div className="flex items-center">
@@ -206,7 +208,7 @@ const Forum = () => {
                   <div className="mt-6">
         <h3 className="text-lg font-semibold mb-2">Comments:</h3>
         {
-          currentConcern && currentConcern.concern_comments && currentConcern.concern_comments.content &&(
+          currentConcern && currentConcern.concern_comments && currentConcern.concern_comments.content.length > 0 ?
             currentConcern?.concern_comments?.content.map((item,index) => (
               <div key={index} className="bg-gray-100 p-3 rounded-md mb-2">
               <p className="text-gray-700 font-bold">{item.description}</p>
@@ -215,7 +217,10 @@ const Forum = () => {
               </p>
             </div>
             ))
-          )
+              :
+              <div className="text-center text-sm my-1">
+                No comments ....
+              </div>
           
           
         }
@@ -259,40 +264,73 @@ const Forum = () => {
                     </div>
                   )}
 
+                  {reportFormVisible && (
+                      <div className="mt-4">
+                        {
+                            containHaras === true &&(
+                                <div className="my-2 text-red-500 font-bold">Your comment contain harasment content</div>
+                            )
+                        }
+                        <form onSubmit={handleSubmit(onSubmit)}>
+
+                          <label htmlFor="region" className="block mt-2 text-xs font-semibold text-gray-600 uppercase">
+                            Upload Report
+                          </label>
+                          <input type="file"
+                                 id="region"
+                                 name="region"
+                                 className={`text-sm sm:text-base placeholder-gray-500 pl-4 pr-3 rounded-lg border border-gray-400 w-4/12 py-2 focus:outline-none focus:border-blue-400 ${
+                                     errors.representative ? 'border-red-500' : 'border-sky-500'
+                                 }`}
+
+                          />
+
+                          <input type="hidden"
+                                 {...register("concernUid")}
+                                 value={currentConcern.current_concern.data.uuid}/>
+                          <span className="text-red-500 text-sm">{errors.comment?.message}</span> <br/>
+                          <button
+                              className="mt-2 px-4 py-2 bg-green-500 text-white rounded-md"
+
+                          >
+                            Upload File
+                          </button>
+                        </form>
+                      </div>
+                  )}
+
+
                   {/* Like, Comment, Share */}
                   <div className="flex items-center mt-4">
-                  {
-                      userRole === "MP"? (
-                        <>
-                        </>
-                      )
-                      :  userRole === "MINISTER" ? (
-                        <></>
-                      )
-                      :
-                      <>
-                     <button
-                      className="flex items-center space-x-2 text-gray-500 hover:text-blue-500"
-                      onClick={() => setCommentFormVisible(!commentFormVisible)}
-                    >
-                      <span className="bg-red-500">
-                        <FaIcons.FaHeart className="text-red-500 text-lg" />
-                      </span>
-                      <span>Like</span>
-                    </button>
-                      </>
-                    }
-                   
 
-                    <button
-                      className="flex items-center space-x-2 text-gray-500 hover:text-blue-500 ml-4"
-                      onClick={() => setCommentFormVisible(!commentFormVisible)}
-                    >
-                      <span>
-                        <MdIcons.MdModeComment className="text-xl text-blue-600" />
-                      </span>
-                      <span>Comment</span>
-                    </button>
+                    {
+                      userRole === "SECRETARY" ?
+                          <>
+                            <button
+                                className="flex items-center space-x-2 bg-blue-500 px-4 py-1 rounded-lg text-gray-500 hover:text-blue-500 ml-4"
+                                onClick={() => setReportFormVisible(!reportFormVisible)}
+                            >
+                               <span>
+                                 <MdIcons.MdUploadFile className="text-xl text-white"/>
+                               </span>
+                                       <span className="text-white">Upload Report</span>
+                            </button>
+                          </>
+
+                          :
+                          <>
+                            <button
+                                className="flex items-center space-x-2 text-gray-500 hover:text-blue-500 ml-4"
+                                onClick={() => setCommentFormVisible(!commentFormVisible)}
+                            >
+                                <span>
+                                  <MdIcons.MdModeComment className="text-xl text-blue-600"/>
+                                </span>
+                                        <span>Comment</span>
+                            </button>
+                          </>
+                    }
+
 
                   </div>
                 </>
@@ -300,7 +338,7 @@ const Forum = () => {
             )}
           </div>
         </div>
-        <Footer />
+        <Footer/>
       </div>
     </div>
   );
@@ -308,3 +346,5 @@ const Forum = () => {
 };
 
 export default Forum;
+
+
