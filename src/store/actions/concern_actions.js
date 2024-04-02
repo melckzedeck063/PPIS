@@ -35,7 +35,7 @@ TEST_API.interceptors.request.use((req) => {
 
 
 export const sendConcern = createAsyncThunk('/new_concern', async(values) => {
-
+    console.log(values);
     try {
         // console.log(values);
         const response = await CONCERN_API.post(`/concern/create-update`, {
@@ -43,10 +43,11 @@ export const sendConcern = createAsyncThunk('/new_concern', async(values) => {
             description : values.description,
             categoryUid : values.category,
             submittedToUid : values.representative,
-            concernType : values.concernType
+            concernType : values.concernType,
+            coverPhoto : values.coverPhoto
         })
 
-        // console.log(response.data);
+        console.log(response.data);
         return response.data
 
     } catch (error) {

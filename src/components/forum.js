@@ -206,15 +206,16 @@ const Forum = () => {
 
                   {/* Replies */}
                   <div className="mt-6">
-        <h3 className="text-lg font-semibold mb-2">Comments:</h3>
+        <h3 className="text-lg font-semibold mb-4">Comments:</h3>
         {
-          currentConcern && currentConcern.concern_comments && currentConcern.concern_comments.content.length > 0 ?
+          currentConcern && currentConcern.concern_comments && currentConcern.concern_comments.content != null ?
             currentConcern?.concern_comments?.content.map((item,index) => (
               <div key={index} className="bg-gray-100 p-3 rounded-md mb-2">
               <p className="text-gray-700 font-bold">{item.description}</p>
               <p className="text-xs text-gray-500 mt-1">
                 {item.postedBy.fullName} |  <span> {moment(item.createdAt).format('ll')} </span>
               </p>
+                <div className="my-3"> ..... </div>
             </div>
             ))
               :

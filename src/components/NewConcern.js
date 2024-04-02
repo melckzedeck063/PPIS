@@ -28,10 +28,9 @@ const schema = Yup.object({
         .string()
         .required()
         .trim(),
-        // representative : Yup
-        // .string()
-        // .required()
-        // .trim(),
+        coverPhoto : Yup
+        .string()
+        .trim(),
         concernType : Yup
         .string()
         .required()
@@ -58,6 +57,7 @@ export default function NewConcern() {
     const [open, setOpen] = React.useState(false);
     const [opened, setOpened] = React.useState(false);
     const [reload, setReload] = useState(0);
+    const [file, setFile] = useState("");
 
     const all_concerns = useSelector(state => state.concerns);
 
@@ -147,6 +147,7 @@ export default function NewConcern() {
 
   const onSubmit = (data) => {
     // Call the function to check for abuse before submitting
+      data.coverPhoto = file;
     checkForAbuse(data);
   };
 
@@ -192,6 +193,25 @@ export default function NewConcern() {
       }
     }, [concern_message]);
     
+   function handleChange(event){
+       setFile(event.target.files[0].name)
+       console.log(event.target.files[0])
+
+              const url = "http://152.42.168.38:8075/files/upload/file";
+              const  formData = new FormData();
+              formData.append('file', event.target.files[0]);
+              formData.append("fileName", event.target.files[0].name);
+
+              const config = {
+                  headers : {
+                      'content-type' : 'multipart/form-data',
+                  },
+              };
+              axios.post(url, formData, config).then((response) =>{
+                  console.log(response.data);
+              });
+
+   }
 
 
   return (
@@ -255,7 +275,7 @@ export default function NewConcern() {
           </label>
           <input type="file"
                  id="region"
-                 name="region"
+                 onChange={handleChange}
                  className={`text-sm sm:text-base placeholder-gray-500 pl-4 pr-3 rounded-lg border border-gray-400 w-full py-2 focus:outline-none focus:border-blue-400 ${
                      errors.representative ? 'border-red-500' : 'border-sky-500'
                  }`}
